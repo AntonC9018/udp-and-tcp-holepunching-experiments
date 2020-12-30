@@ -56,14 +56,14 @@ namespace UDP_StackOverflow.WithProtobuf
         {
             try
             {
-                Udp_InfoMessage infoMessage = Udp_InfoMessage.Parser.ParseFrom(buffer);
+                InfoMessage infoMessage = InfoMessage.Parser.ParseFrom(buffer);
                 Console.WriteLine($">>> Got bad UDP {remoteEndPoint.Address}:{remoteEndPoint.Port}");
                 _udpClient.Send(new byte[] { 1 }, 1, remoteEndPoint);
                 return;
             }
             catch { }
 
-            Udp_PeerAddressMessage peerAddressMessage = Udp_PeerAddressMessage.Parser.ParseFrom(buffer);
+            PeerAddressMessage peerAddressMessage = PeerAddressMessage.Parser.ParseFrom(buffer);
             Console.WriteLine($">>> Got UDP from {peerAddressMessage.Id}. {remoteEndPoint.Address}:{remoteEndPoint.Port}");
 
             if (!_contexts.TryGetValue(peerAddressMessage.Id, out PeerContext context))
@@ -85,7 +85,7 @@ namespace UDP_StackOverflow.WithProtobuf
                 return;
             }
 
-            var response = new Udp_PeerAddressMessage
+            var response = new PeerAddressMessage
             {
                 Id = partnerId,
                 PublicEndpoint = context.publicUdpEndPoint.Convert(),

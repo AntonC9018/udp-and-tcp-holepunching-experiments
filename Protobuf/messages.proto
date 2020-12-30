@@ -1,0 +1,76 @@
+syntax = "proto3";
+package net_protobuf;
+
+message IPv4_Endpoint {
+  fixed32 address = 1;
+  int32 port = 2;
+}
+
+message InfoMessage {
+  int32 id = 1;
+  IPv4_Endpoint local_endpoint = 2;
+}
+
+message PeerAddressMessage {
+  int32 id = 1;
+  IPv4_Endpoint local_endpoint = 2;
+  IPv4_Endpoint public_endpoint = 3;
+}
+
+message Udp_KeepaliveMessage {}
+
+message Tcp_WithoutRoomRequest {
+  message Ping { int32 data = 1; }
+
+  message JoinRoomRequest {
+    int32 room_id = 1;
+    int32 peer_id = 2;
+    string password = 3;
+  }
+
+  message CreateRoomRequest {
+    int32 host_id = 1;
+    string password = 2;
+  }
+
+  oneof message {
+    Ping ping = 1;
+    JoinRoomRequest join_room_request = 2;
+    CreateRoomRequest create_room_request = 3;
+  }
+}
+
+message Tcp_WithoutRoomResponse {
+  //   message RoomActionResponse { bool was_created = 1; }
+  //   RoomActionResponse action_response = 1;
+  bool success = 1;
+}
+
+message Tcp_WithinRoomRequest {
+  // removes the peer identified by the session from the room
+  // deletes the room if the peer was alone
+  message LeaveRoomRequest {}
+  // initiates sending ip data of all peers to the host.
+  // sends data of host to all other peers.
+  // deletes the corresponding room on the server.
+  message StartRoomRequest { string password = 1; }
+
+  oneof message {
+    LeaveRoomRequest leave_request = 1;
+    StartRoomRequest start_request = 2;
+  }
+}
+
+message Tcp_WithinRoomResponse {
+  message LeaveRoomAck {}
+  message LeaveRoomResponse { int32 peer_id = 1; }
+  message StartRoomResponseHost { repeated PeerAddressMessage peers = 1; }
+  message StartRoomResponsePeer { PeerAddressMessage host = 1; }
+
+  oneof message {
+    LeaveRoomAck leave_ack = 1;
+    LeaveRoomResponse leave_response = 2;
+    StartRoomResponseHost start_room_response_host = 3;
+    StartRoomResponsePeer start_room_response_peer = 4;
+  }
+}

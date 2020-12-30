@@ -77,7 +77,7 @@ namespace UDP_StackOverflow.WithProtobuf
         {
             _isRunning = true;
 
-            var messageToServer = new Udp_InfoMessage
+            var messageToServer = new InfoMessage
             {
                 Id = _id,
                 LocalEndpoint = _localEndPoint.Convert()
@@ -167,7 +167,7 @@ namespace UDP_StackOverflow.WithProtobuf
         {
             try
             {
-                Udp_PeerAddressMessage addressMessage = Udp_PeerAddressMessage.Parser.ParseFrom(buffer);
+                PeerAddressMessage addressMessage = PeerAddressMessage.Parser.ParseFrom(buffer);
                 // if server sends the partner's endpoints, we will store it and (IMPORTANT) close "puncher"
                 Console.WriteLine(" <<< Got response from server");
 
