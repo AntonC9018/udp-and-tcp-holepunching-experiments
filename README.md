@@ -1,4 +1,4 @@
-# TCP and UDP hole punching tests
+# TCP and UDP hole punching experiments
 
 This is the code I wrote (or copied and modified) during the research I did for implementing multiplayer in my game. 
 
