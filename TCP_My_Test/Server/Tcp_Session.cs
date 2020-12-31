@@ -166,6 +166,7 @@ namespace Tcp_Test.Server
                 {
                     Log("Timeout reached while parsing data...");
                     tasks[2].Dispose();
+                    client.Close();
                     if (!IsClientConnected)
                     {
                         Log("Client disconnected while trying to parse data.");
