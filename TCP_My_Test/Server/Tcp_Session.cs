@@ -160,6 +160,7 @@ namespace Tcp_Test.Server
                     }
                     continue;
                 }
+                Log($"Index is {index}");
 
                 // the listen task has terminated
                 {
