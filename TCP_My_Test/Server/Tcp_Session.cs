@@ -25,7 +25,6 @@ namespace Tcp_Test.Server
         }
 
         public bool IsInitalized => private_endpoint != null;
-        public bool IsClientConnected => client.Connected;
 
 
         public Tcp_Session(int id, TcpClient client)
@@ -47,7 +46,7 @@ namespace Tcp_Test.Server
                 Initialize();
                 server.sessions.Add(id, this);
                 state = State.WithoutRoom;
-                while (state != State.Exiting || IsClientConnected == false)
+                while (state != State.Exiting || client.Connected == false)
                 {
                     switch (state)
                     {
@@ -72,7 +71,7 @@ namespace Tcp_Test.Server
             }
 
             server.sessions.Remove(id);
-            if (IsClientConnected)
+            if (client.Connected)
             {
                 client.Close();
             }
@@ -153,6 +152,7 @@ namespace Tcp_Test.Server
                     // This is only used for canceling one thing -- 
                     // the listen task we have initialized right above.
                     listening_cancellation_token_source.Cancel();
+                    listenTask.Dispose();
                     // This might potentially be dangerous, if the state were to change too fast
                     // that is, if it were to be changed right after having been disposed of here 
                     change_state_task_completion_source.Task.Dispose();
@@ -167,10 +167,11 @@ namespace Tcp_Test.Server
                     Log("Timeout reached while parsing data...");
                     tasks[2].Dispose();
                     client.Client.Close();
-                    if (!IsClientConnected)
+                    if (!client.Connected)
                     {
                         Log("Client disconnected while trying to parse data.");
                         result = default(T);
+                        listening_cancellation_token_source.Cancel();
                         listenTask.Dispose();
                         return false;
                     }
@@ -201,7 +202,7 @@ namespace Tcp_Test.Server
             NetworkStream stream = client.GetStream();
             Tcp_WithoutRoomResponse response = new Tcp_WithoutRoomResponse();
 
-            while (state == State.WithoutRoom && IsClientConnected)
+            while (state == State.WithoutRoom && client.Connected)
             {
                 // so, this happens in 2 cases:
                 // 1. either a state has been changed, which would rerun the loop condition and
@@ -253,7 +254,7 @@ namespace Tcp_Test.Server
             Log($"Entered {state} state");
             NetworkStream stream = client.GetStream();
 
-            while (state == State.WithinRoom && IsClientConnected)
+            while (state == State.WithinRoom && client.Connected)
             {
                 // same spiel as above goes for here as well
                 if (!TryGetMessageOrStateChange(out Tcp_WithinRoomRequest request))
