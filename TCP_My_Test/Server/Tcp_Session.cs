@@ -1,99 +1,27 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
-using System.Threading;
-using System.Threading.Tasks;
 using NetProtobuf;
 using Google.Protobuf;
 using static NetProtobuf.Tcp_WithoutRoomRequest.MessageOneofCase;
 using static NetProtobuf.Tcp_WithinRoomRequest.MessageOneofCase;
 using static NetProtobuf.Tcp_WithinRoomResponse.Types;
+using System.Threading;
+using System.Threading.Tasks;
 
-namespace Tcp_Test
+namespace Tcp_Test.Server
 {
-    public class Server
-    {
-        // First, the clients would establish a tcp connection. This connection stays.
-        // As they do that, they would send the server their private ip address.
-        // The server would find out their public address based on where the request came from. 
-        public Dictionary<int, Tcp_Session> sessions;
-        public int currentId;
-        public Dictionary<int, Room> rooms;
-
-        public TcpListener listener;
-
-        public Server(int port)
-        {
-            rooms = new Dictionary<int, Room>();
-            sessions = new Dictionary<int, Tcp_Session>();
-            listener = new TcpListener(IPAddress.Any, port);
-        }
-
-        public void Start()
-        {
-            Thread removeDisconnected = new Thread(RemoveDisconnected);
-
-            try
-            {
-                removeDisconnected.Start();
-                listener.Start();
-
-                while (true)
-                {
-                    var client = listener.AcceptTcpClient();
-                    int clientId = ++currentId;
-                    var session = new Tcp_Session(++currentId, client);
-                    new Thread(() => session.Start(this)).Start();
-                }
-            }
-            catch (System.Exception e)
-            {
-                System.Console.WriteLine($"Server error: {e}");
-            }
-            finally
-            {
-                removeDisconnected.Abort();
-            }
-        }
-
-        private List<int> indexBuffer = new List<int>();
-        private const int removeDisconnectedInterval = 1000;
-        public void RemoveDisconnected()
-        {
-            while (true)
-            {
-                lock (sessions)
-                {
-                    foreach (var id in sessions.Keys)
-                    {
-                        if (!sessions[id].client.Connected)
-                        {
-                            indexBuffer.Add(id);
-                        }
-                    }
-                    foreach (int id in indexBuffer)
-                    {
-                        sessions[id].Log($"Tcp session has been discontinued.");
-                        sessions.Remove(id);
-                    }
-                }
-                indexBuffer.Clear();
-                Thread.Sleep(removeDisconnectedInterval);
-            }
-        }
-    }
-
     public class Tcp_Session
     {
         public int id;
         public TcpClient client;
-        public IPEndPoint private_endpoint;
-        public IPEndPoint public_endpoint;
+        public IPv4_Endpoint private_endpoint;
+        public IPv4_Endpoint public_endpoint;
         public State state;
 
         public enum State
         {
-            Initializing, WithoutRoom, WithinRoom, Exiting
+            Initializing, WithoutRoom, WithinRoom, Exiting, WithinLockedRoom
         }
 
         public bool IsInitalized => private_endpoint != null;
@@ -117,6 +45,7 @@ namespace Tcp_Test
             try
             {
                 Initialize();
+                server.sessions.Add(id, this);
                 state = State.WithoutRoom;
                 while (state != State.Exiting)
                 {
@@ -128,6 +57,12 @@ namespace Tcp_Test
                         case State.WithinRoom:
                             ListenForWithinRoomRequests(server);
                             break;
+                        case State.WithinLockedRoom:
+                            // for now, just end the session 
+                            Log("Ending session in 10 seconds, since room has been locked.");
+                            Thread.Sleep(10 * 1000);
+                            state = State.Exiting;
+                            break;
                     }
                 }
             }
@@ -135,6 +70,8 @@ namespace Tcp_Test
             {
                 Log($"Session prematurely ended due to the exception: {e}");
             }
+
+            server.sessions.Remove(id);
 
             if (client.Connected)
             {
@@ -145,14 +82,78 @@ namespace Tcp_Test
         public void Initialize()
         {
             NetworkStream stream = client.GetStream();
-            public_endpoint = (IPEndPoint)client.Client.RemoteEndPoint;
+            public_endpoint = ((IPEndPoint)client.Client.RemoteEndPoint).Convert();
 
             Log($"Session initialization started.");
 
             var infoMessage = InfoMessage.Parser.ParseFrom(stream);
-            private_endpoint = infoMessage.LocalEndpoint.Convert();
+            private_endpoint = infoMessage.LocalEndpoint;
 
             Log($"Session established. Peer's private endpoint: {private_endpoint}");
+        }
+
+        public CancellationTokenSource listening_cancellation_token_source;
+
+        public Task<T> ListenForMessage<T>() where T : IMessage<T>, new()
+        {
+            if (listening_cancellation_token_source != null)
+            {
+                listening_cancellation_token_source.Dispose();
+            }
+            listening_cancellation_token_source = new CancellationTokenSource();
+
+            return Task.Run(() =>
+                new Task<T>(() =>
+                {
+                    NetworkStream stream = client.GetStream();
+                    T message = new T();
+                    message.MergeFrom(stream);
+                    return message;
+                }),
+                listening_cancellation_token_source.Token
+            );
+        }
+
+        private TaskCompletionSource<State> change_state_task_completion_source = new TaskCompletionSource<State>();
+
+        public void ChangeState(State state)
+        {
+            this.state = state;
+            this.change_state_task_completion_source.SetResult(state);
+        }
+
+        public bool TryGetMessageOrStateChange<T>(out T result) where T : IMessage<T>, new()
+        {
+            Task<T> listenTask = ListenForMessage<T>();
+
+            Task[] tasks = new Task[] { listenTask, change_state_task_completion_source.Task };
+            int index = Task.WaitAny(tasks);
+
+            if (index == 1)
+            {
+                // This is only used for canceling one thing -- 
+                // the listen task we have initialized right above.
+                listening_cancellation_token_source.Cancel();
+                // This might potentially be dangerous, if the state were to change too fast
+                // that is, if it were to be changed right after having been disposed of here 
+                change_state_task_completion_source.Task.Dispose();
+                change_state_task_completion_source = new TaskCompletionSource<State>();
+                result = default(T);
+                return false;
+            }
+
+            // If this threw then the client has probably disconnected, or the stream data
+            // were invalid, so no result acquired in this case.
+            if (listenTask.IsFaulted)
+            {
+                result = default(T);
+                return false;
+            }
+
+            // Otherwise, we read the next packet successfully.
+            result = listenTask.Result;
+            listenTask.Dispose();
+            return true;
         }
 
         public void ListenForWithoutRoomRequests(Server server)
@@ -160,22 +161,35 @@ namespace Tcp_Test
             NetworkStream stream = client.GetStream();
             Tcp_WithoutRoomResponse response = new Tcp_WithoutRoomResponse();
 
-            while (state == State.WithinRoom)
+            while (state == State.WithinRoom && client.Connected)
             {
-                Tcp_WithoutRoomRequest request = Tcp_WithoutRoomRequest.Parser.ParseFrom(stream);
+                // so, this happens in 2 cases:
+                // 1. either a state has been changed, which would rerun the loop condition and
+                //    it would exit into the main loop;
+                // 2. or it were not, in which case the reading of stream failed.
+                //    Either invalid data has been received or the client has diconnected.
+                //    This is also checked in the while conditon.
+                if (!TryGetMessageOrStateChange(out Tcp_WithoutRoomRequest request))
+                {
+                    continue;
+                }
+
                 switch (request.MessageCase)
                 {
                     case Ping:
                         Log($"Pinging with 0x{request.Ping.Data:X}");
                         continue;
                     // this is more concise and readable, but also more susceptible to change
-                    // if I add a switch on 
+                    // TODO: do stuff with the password
                     case CreateRoomRequest:
                         var room = new Room(id);
                         response.Success = server.rooms.TryAdd(id, room) && room.TryJoin(this);
                         break;
                     case JoinRoomRequest:
                         response.Success = server.rooms.TryGetValue(id, out room) && room.TryJoin(this);
+                        break;
+                    default:
+                        Log($"Unexpected without room request message.");
                         break;
                 }
                 response.WriteTo(stream);
@@ -186,13 +200,19 @@ namespace Tcp_Test
             }
         }
 
+
         public void ListenForWithinRoomRequests(Server server)
         {
             NetworkStream stream = client.GetStream();
 
-            while (state == State.WithinRoom)
+            while (state == State.WithinRoom && client.Connected)
             {
-                Tcp_WithinRoomRequest request = Tcp_WithinRoomRequest.Parser.ParseFrom(stream);
+                // same spiel as above goes for here as well
+                if (!TryGetMessageOrStateChange(out Tcp_WithinRoomRequest request))
+                {
+                    continue;
+                }
+
                 switch (request.MessageCase)
                 {
                     case LeaveRequest:
@@ -227,6 +247,7 @@ namespace Tcp_Test
                                 StartRoomResponePeer = peer_notification // whatever
                             };
 
+                            // TODO: run concurrently (although sending is pretty fast, I suppose)
                             foreach (var peer_id in room.peers.Keys)
                             {
                                 if (peer_id != id)
@@ -234,6 +255,7 @@ namespace Tcp_Test
                                     var peer = room.peers[peer_id];
                                     try
                                     {
+                                        peer.ChangeState(State.WithinLockedRoom);
                                         peer_notification.WriteTo(peer.client.GetStream());
                                         host_response.Peers.Add(peer.CreateAddressMessage());
                                     }
@@ -243,10 +265,13 @@ namespace Tcp_Test
                                     }
                                 }
                             }
+                            ChangeState(State.WithinLockedRoom);
                             host_response.WriteTo(stream);
-                            // also change state probably to room running or something
-                            // delete or lock the room
+                            // TODO: delete or lock the room
                         }
+                        break;
+                    default:
+                        Log($"Unexpected within room request message.");
                         break;
                 }
             }
@@ -257,33 +282,9 @@ namespace Tcp_Test
             return new PeerAddressMessage
             {
                 Id = id,
-                LocalEndpoint = private_endpoint.Convert(),
-                PublicEndpoint = public_endpoint.Convert()
+                LocalEndpoint = private_endpoint,
+                PublicEndpoint = public_endpoint
             };
         }
-    }
-
-    public class Room
-    {
-        public int host_id;
-        public int capacity;
-        public Dictionary<int, Tcp_Session> peers;
-
-        public Room(int host_id)
-        {
-            this.host_id = host_id;
-            this.capacity = 2;
-            peers = new Dictionary<int, Tcp_Session>();
-        }
-
-        public bool TryJoin(Tcp_Session session)
-        {
-            if (peers.Count >= capacity)
-            {
-                return false;
-            }
-            return peers.TryAdd(session.id, session);
-        }
-
     }
 }
