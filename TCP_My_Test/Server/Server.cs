@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
@@ -41,6 +42,16 @@ namespace Tcp_Test.Server
                     var client = listener.AcceptTcpClient();
                     var session = new Tcp_Session(++currentId, client);
                     new Thread(() => session.Start(this)).Start();
+
+                    int size = sizeof(UInt32);
+                    UInt32 on = 1;
+                    UInt32 keepAliveInterval = (UInt32)5000;
+                    UInt32 retry = (UInt32)1000;
+                    byte[] inArray = new byte[size * 3];
+                    Array.Copy(BitConverter.GetBytes(on), 0, inArray, 0, size);
+                    Array.Copy(BitConverter.GetBytes(keepAliveInterval), 0, inArray, size, size);
+                    Array.Copy(BitConverter.GetBytes(retry), 0, inArray, size * 2, size);
+                    client.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.KeepAlive, inArray);
                 }
             }
             catch (System.Exception e)
