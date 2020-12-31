@@ -119,7 +119,7 @@ namespace Tcp_Test.Server
                             // discard bytes one by one
                             while (stream.DataAvailable)
                             {
-                                stream.ReadByte();
+                                System.Console.WriteLine(stream.ReadByte());
                             }
                         }
                     }
@@ -139,8 +139,7 @@ namespace Tcp_Test.Server
         {
             Task<T> listenTask = ListenForMessage<T>();
             Task[] tasks = new Task[] { listenTask, change_state_task_completion_source.Task, null };
-            int timeout_count = 0;
-            const int timeout_limit = 10;
+
             const int timeout_span = 2000;
 
             while (true)
@@ -167,10 +166,6 @@ namespace Tcp_Test.Server
                 {
                     Log("Timeout reached while parsing data...");
                     tasks[2].Dispose();
-                    if (++timeout_count > timeout_limit)
-                    {
-                        throw new System.Exception("Timeout exception.");
-                    }
                     if (!client.Client.Connected)
                     {
                         Log("Client disconnected while trying to parse data.");
