@@ -25,7 +25,7 @@ namespace Tcp_Test.Server
         }
 
         public bool IsInitalized => private_endpoint != null;
-        public bool IsClientConnected => client.Connected && client.Client.Connected;
+        public bool IsClientConnected => client.Connected;
 
 
         public Tcp_Session(int id, TcpClient client)
@@ -166,7 +166,7 @@ namespace Tcp_Test.Server
                 {
                     Log("Timeout reached while parsing data...");
                     tasks[2].Dispose();
-                    client.Close();
+                    client.Client.Close();
                     if (!IsClientConnected)
                     {
                         Log("Client disconnected while trying to parse data.");
