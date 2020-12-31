@@ -47,7 +47,7 @@ namespace Tcp_Test.Server
                 Initialize();
                 server.sessions.Add(id, this);
                 state = State.WithoutRoom;
-                while (state != State.Exiting)
+                while (state != State.Exiting || client.Connected == false)
                 {
                     switch (state)
                     {
@@ -131,7 +131,12 @@ namespace Tcp_Test.Server
             Task<T> listenTask = ListenForMessage<T>();
 
             Task[] tasks = new Task[] { listenTask, change_state_task_completion_source.Task };
+
+            Log($"Starting to wait for tasks");
+
             int index = Task.WaitAny(tasks);
+
+            Log($"Starting waited for tasks");
 
             if (index == 1)
             {
@@ -165,7 +170,11 @@ namespace Tcp_Test.Server
             Log($"Entered {state} state");
 
             NetworkStream stream = client.GetStream();
+            Log($"Got the stream");
+
             Tcp_WithoutRoomResponse response = new Tcp_WithoutRoomResponse();
+            Log($"Created response");
+
 
             while (state == State.WithoutRoom && client.Connected)
             {
