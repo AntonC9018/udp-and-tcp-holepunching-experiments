@@ -166,7 +166,7 @@ namespace Tcp_Test.Server
                     // were invalid, so no result acquired in this case.
                     if (listenTask.IsFaulted)
                     {
-                        Log($"Exception: {listenTask.Exception}");
+                        throw listenTask.Exception;
                         result = default(T);
                         return false;
                     }
