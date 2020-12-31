@@ -106,9 +106,23 @@ namespace Tcp_Test.Server
             return Task.Run<T>(() =>
                 {
                     NetworkStream stream = client.GetStream();
-                    T message = new T();
-                    message.MergeDelimitedFrom(stream);
-                    return message;
+                    while (true)
+                    {
+                        try
+                        {
+                            T message = new T();
+                            message.MergeDelimitedFrom(stream);
+                            return message;
+                        }
+                        catch
+                        {
+                            // discard bytes one by one
+                            while (stream.DataAvailable)
+                            {
+                                stream.ReadByte();
+                            }
+                        }
+                    }
                 }, listening_cancellation_token_source.Token
             );
         }
@@ -124,12 +138,14 @@ namespace Tcp_Test.Server
         public bool TryGetMessageOrStateChange<T>(out T result) where T : IMessage<T>, new()
         {
             Task<T> listenTask = ListenForMessage<T>();
-
             Task[] tasks = new Task[] { listenTask, change_state_task_completion_source.Task, null };
+            int timeout_count = 0;
+            const int timeout_limit = 10;
+            const int timeout_span = 2000;
 
             while (true)
             {
-                tasks[2] = Task.Delay(5000);
+                tasks[2] = Task.Delay(timeout_span);
 
                 int index = Task.WaitAny(tasks);
 
@@ -151,6 +167,10 @@ namespace Tcp_Test.Server
                 {
                     Log("Timeout reached while parsing data...");
                     tasks[2].Dispose();
+                    if (++timeout_count > timeout_limit)
+                    {
+                        throw new System.Exception("Timeout exception.");
+                    }
                     if (!client.Client.Connected)
                     {
                         Log("Client disconnected while trying to parse data.");
@@ -166,7 +186,6 @@ namespace Tcp_Test.Server
                     // were invalid, so no result acquired in this case.
                     if (listenTask.IsFaulted)
                     {
-                        throw listenTask.Exception;
                         result = default(T);
                         return false;
                     }
