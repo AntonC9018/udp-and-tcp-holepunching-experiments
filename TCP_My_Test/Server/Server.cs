@@ -34,7 +34,7 @@ namespace Tcp_Test.Server
             try
             {
                 listener.Start();
-                Log($"Listening on port {((IPEndPoint)listener.LocalEndpoint).Port}");
+                Log($"Listening on {listener.LocalEndpoint}");
 
                 while (true)
                 {

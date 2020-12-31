@@ -46,7 +46,7 @@ namespace Tcp_Test.Client
             info.LocalEndpoint = (local_endpoint.LocalEndPoint as IPEndPoint).Convert();
 
             NetworkStream stream = server_connection.GetStream();
-            info.WriteTo(stream);
+            info.WriteDelimitedTo(stream);
 
             byte[] id_buff = new byte[4];
             stream.Read(id_buff, 0, 4);
@@ -68,7 +68,7 @@ namespace Tcp_Test.Client
 
             System.Console.WriteLine($"Joining lobby {id}");
 
-            request.WriteTo(stream);
+            request.WriteDelimitedTo(stream);
 
             var response = Tcp_WithoutRoomResponse.Parser.ParseFrom(stream);
 
@@ -95,7 +95,7 @@ namespace Tcp_Test.Client
 
             System.Console.WriteLine($"Creating lobby {id}");
 
-            request.WriteTo(stream);
+            request.WriteDelimitedTo(stream);
 
             var response = Tcp_WithoutRoomResponse.Parser.ParseFrom(stream);
 

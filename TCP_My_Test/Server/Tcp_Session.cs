@@ -86,7 +86,7 @@ namespace Tcp_Test.Server
 
             Log($"Session initialization started.");
 
-            var infoMessage = InfoMessage.Parser.ParseFrom(stream);
+            var infoMessage = InfoMessage.Parser.ParseDelimitedFrom(stream);
             private_endpoint = infoMessage.LocalEndpoint;
 
             stream.Write(System.BitConverter.GetBytes(id), 0, 4);
@@ -109,7 +109,7 @@ namespace Tcp_Test.Server
                 {
                     NetworkStream stream = client.GetStream();
                     T message = new T();
-                    message.MergeFrom(stream);
+                    message.MergeDelimitedFrom(stream);
                     return message;
                 }),
                 listening_cancellation_token_source.Token
@@ -194,7 +194,7 @@ namespace Tcp_Test.Server
                         Log($"Unexpected without room request message.");
                         break;
                 }
-                response.WriteTo(stream);
+                response.WriteDelimitedTo(stream);
                 if (response.Success)
                 {
                     state = State.WithinRoom;
@@ -226,7 +226,7 @@ namespace Tcp_Test.Server
                                 server.lobbies.Remove(id);
                             }
                             var ack = new LeaveRoomAck();
-                            ack.WriteTo(stream);
+                            ack.WriteDelimitedTo(stream);
                             state = State.WithoutRoom;
                         }
                         break;
@@ -258,7 +258,7 @@ namespace Tcp_Test.Server
                                     try
                                     {
                                         peer.ChangeState(State.WithinLockedRoom);
-                                        peer_notification.WriteTo(peer.client.GetStream());
+                                        peer_notification.WriteDelimitedTo(peer.client.GetStream());
                                         host_response.Peers.Add(peer.CreateAddressMessage());
                                     }
                                     catch
@@ -268,7 +268,7 @@ namespace Tcp_Test.Server
                                 }
                             }
                             ChangeState(State.WithinLockedRoom);
-                            host_response.WriteTo(stream);
+                            host_response.WriteDelimitedTo(stream);
                             // TODO: delete or lock the room
                         }
                         break;
