@@ -175,8 +175,11 @@ namespace Tcp_Test.Server
                 //    This is also checked in the while conditon.
                 if (!TryGetMessageOrStateChange(out Tcp_WithoutRoomRequest request))
                 {
+                    Log("Unsuccessfully parsed request.");
                     continue;
                 }
+
+                Log("Successfully parsed request.");
 
                 switch (request.MessageCase)
                 {
