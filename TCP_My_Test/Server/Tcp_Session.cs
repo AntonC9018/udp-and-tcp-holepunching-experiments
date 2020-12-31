@@ -160,8 +160,6 @@ namespace Tcp_Test.Server
                     }
                     continue;
                 }
-                Log($"Index is {index}");
-
                 // the listen task has terminated
                 {
                     // If this threw then the client has probably disconnected, or the stream data
@@ -242,8 +240,11 @@ namespace Tcp_Test.Server
                 // same spiel as above goes for here as well
                 if (!TryGetMessageOrStateChange(out Tcp_WithinRoomRequest request))
                 {
+                    Log("Unsuccessfully parsed request.");
                     continue;
                 }
+
+                Log("Successfully parsed request.");
 
                 switch (request.MessageCase)
                 {
