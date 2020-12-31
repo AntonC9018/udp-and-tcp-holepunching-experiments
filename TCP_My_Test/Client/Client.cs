@@ -101,7 +101,7 @@ namespace Tcp_Test.Client
 
             request.WriteDelimitedTo(stream);
 
-            var response = Tcp_WithoutRoomResponse.Parser.ParseFrom(stream);
+            var response = Tcp_WithoutRoomResponse.Parser.ParseDelimitedFrom(stream);
 
             if (response.Success)
             {

@@ -72,7 +72,6 @@ namespace Tcp_Test.Server
             }
 
             server.sessions.Remove(id);
-
             if (client.Connected)
             {
                 client.Close();
@@ -126,20 +125,42 @@ namespace Tcp_Test.Server
         {
             Task<T> listenTask = ListenForMessage<T>();
 
-            Task[] tasks = new Task[] { listenTask, change_state_task_completion_source.Task };
-            int index = Task.WaitAny(tasks);
+            Task[] tasks = new Task[] { listenTask, change_state_task_completion_source.Task, null };
 
-            if (index == 1)
+            while (true)
             {
-                // This is only used for canceling one thing -- 
-                // the listen task we have initialized right above.
-                listening_cancellation_token_source.Cancel();
-                // This might potentially be dangerous, if the state were to change too fast
-                // that is, if it were to be changed right after having been disposed of here 
-                change_state_task_completion_source.Task.Dispose();
-                change_state_task_completion_source = new TaskCompletionSource<State>();
-                result = default(T);
-                return false;
+                tasks[2] = Task.Delay(5000);
+
+                int index = Task.WaitAny(tasks);
+
+                if (index == 1)
+                {
+                    // This is only used for canceling one thing -- 
+                    // the listen task we have initialized right above.
+                    listening_cancellation_token_source.Cancel();
+                    // This might potentially be dangerous, if the state were to change too fast
+                    // that is, if it were to be changed right after having been disposed of here 
+                    change_state_task_completion_source.Task.Dispose();
+                    change_state_task_completion_source = new TaskCompletionSource<State>();
+                    result = default(T);
+                    return false;
+                }
+                // Check if the connection closes here. If it does, stop parsing.
+                // We need this since the stream does not close once the connection is closed. 
+                else if (index == 2)
+                {
+                    tasks[2].Dispose();
+                    if (!client.Connected)
+                    {
+                        result = default(T);
+                        listenTask.Dispose();
+                        return false;
+                    }
+                }
+                else
+                {
+                    break;
+                }
             }
 
             // If this threw then the client has probably disconnected, or the stream data
