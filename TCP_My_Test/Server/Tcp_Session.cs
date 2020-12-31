@@ -107,9 +107,11 @@ namespace Tcp_Test.Server
             return Task.Run(() =>
                 new Task<T>(() =>
                 {
+                    Log("Run the task.");
                     NetworkStream stream = client.GetStream();
                     T message = new T();
                     message.MergeDelimitedFrom(stream);
+                    Log($"Message parsed: {message}");
                     return message;
                 }),
                 listening_cancellation_token_source.Token
