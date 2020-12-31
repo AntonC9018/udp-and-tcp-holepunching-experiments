@@ -1,4 +1,5 @@
 using System.Net;
+using System.Threading;
 
 namespace Tcp_Test.Client
 {
@@ -13,25 +14,26 @@ namespace Tcp_Test.Client
             {
                 client.ConnectToServer();
 
-                if (client.TryJoinRoom(2, "1111", out Peer peer))
-                {
-                    System.Console.WriteLine("Managed to join the group 2. Shutting down...");
-                    client.server_connection.Close();
-                    return;
-                }
-                else
-                {
-                    System.Console.WriteLine("Couldn't join the group 2");
-                }
+                // if (client.TryJoinRoom(2, "1111", out Peer peer))
+                // {
+                //     System.Console.WriteLine("Managed to join the group 2. Shutting down...");
+                //     client.server_connection.Close();
+                //     return;
+                // }
+                // else
+                // {
+                //     System.Console.WriteLine("Couldn't join the group 2");
+                // }
 
-                if (client.TryCreateRoom("1111", out Host host))
-                {
-                    System.Console.WriteLine("Created room");
-                }
-                else
-                {
-                    System.Console.WriteLine("Could not create room");
-                }
+                // if (client.TryCreateRoom("1111", out Host host))
+                // {
+                //     System.Console.WriteLine("Created room");
+                // }
+                // else
+                // {
+                //     System.Console.WriteLine("Could not create room");
+                // }
+                Thread.Sleep(10000);
             }
             finally
             {

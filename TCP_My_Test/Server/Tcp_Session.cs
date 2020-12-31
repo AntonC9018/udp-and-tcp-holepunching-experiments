@@ -166,6 +166,7 @@ namespace Tcp_Test.Server
                     // were invalid, so no result acquired in this case.
                     if (listenTask.IsFaulted)
                     {
+                        Log($"Exception: {listenTask.Exception}");
                         result = default(T);
                         return false;
                     }
@@ -193,6 +194,8 @@ namespace Tcp_Test.Server
                 // 2. or it were not, in which case the reading of stream failed.
                 //    Either invalid data has been received or the client has diconnected.
                 //    This is also checked in the while conditon.
+                // UDPATE: the client.Connected property does not reflect the fact whether the
+                //         client is connected. However, the stream does get closed when the connection dies down.
                 if (!TryGetMessageOrStateChange(out Tcp_WithoutRoomRequest request))
                 {
                     Log("Unsuccessfully parsed request.");
