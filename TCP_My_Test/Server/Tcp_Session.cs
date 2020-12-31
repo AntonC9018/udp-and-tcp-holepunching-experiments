@@ -25,7 +25,7 @@ namespace Tcp_Test.Server
         }
 
         public bool IsInitalized => private_endpoint != null;
-        public bool IsClientConnected => client.Client.Connected;
+        public bool IsClientConnected => client.Connected && client.Client.Connected;
 
 
         public Tcp_Session(int id, TcpClient client)
