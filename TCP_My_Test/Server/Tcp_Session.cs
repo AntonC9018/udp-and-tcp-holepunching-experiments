@@ -165,7 +165,7 @@ namespace Tcp_Test.Server
             NetworkStream stream = client.GetStream();
             Tcp_WithoutRoomResponse response = new Tcp_WithoutRoomResponse();
 
-            while (state == State.WithinRoom && client.Connected)
+            while (state == State.WithoutRoom && client.Connected)
             {
                 // so, this happens in 2 cases:
                 // 1. either a state has been changed, which would rerun the loop condition and
