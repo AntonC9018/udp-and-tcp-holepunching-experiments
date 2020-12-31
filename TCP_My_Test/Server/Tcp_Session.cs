@@ -25,7 +25,7 @@ namespace Tcp_Test.Server
         }
 
         public bool IsInitalized => private_endpoint != null;
-        public bool CanBeUsed => IsInitalized && client.Client.Connected;
+        public bool IsClientConnected => client.Client.Connected;
 
 
         public Tcp_Session(int id, TcpClient client)
@@ -47,7 +47,7 @@ namespace Tcp_Test.Server
                 Initialize();
                 server.sessions.Add(id, this);
                 state = State.WithoutRoom;
-                while (state != State.Exiting || client.Client.Connected == false)
+                while (state != State.Exiting || IsClientConnected == false)
                 {
                     switch (state)
                     {
@@ -72,7 +72,7 @@ namespace Tcp_Test.Server
             }
 
             server.sessions.Remove(id);
-            if (client.Client.Connected)
+            if (IsClientConnected)
             {
                 client.Close();
             }
@@ -166,7 +166,7 @@ namespace Tcp_Test.Server
                 {
                     Log("Timeout reached while parsing data...");
                     tasks[2].Dispose();
-                    if (!client.Client.Connected)
+                    if (!IsClientConnected)
                     {
                         Log("Client disconnected while trying to parse data.");
                         result = default(T);
@@ -200,7 +200,7 @@ namespace Tcp_Test.Server
             NetworkStream stream = client.GetStream();
             Tcp_WithoutRoomResponse response = new Tcp_WithoutRoomResponse();
 
-            while (state == State.WithoutRoom && client.Client.Connected)
+            while (state == State.WithoutRoom && IsClientConnected)
             {
                 // so, this happens in 2 cases:
                 // 1. either a state has been changed, which would rerun the loop condition and
@@ -252,7 +252,7 @@ namespace Tcp_Test.Server
             Log($"Entered {state} state");
             NetworkStream stream = client.GetStream();
 
-            while (state == State.WithinRoom && client.Client.Connected)
+            while (state == State.WithinRoom && IsClientConnected)
             {
                 // same spiel as above goes for here as well
                 if (!TryGetMessageOrStateChange(out Tcp_WithinRoomRequest request))
