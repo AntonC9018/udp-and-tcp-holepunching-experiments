@@ -152,7 +152,6 @@ namespace Tcp_Test.Server
                     // This is only used for canceling one thing -- 
                     // the listen task we have initialized right above.
                     listening_cancellation_token_source.Cancel();
-                    listenTask.Dispose();
                     // This might potentially be dangerous, if the state were to change too fast
                     // that is, if it were to be changed right after having been disposed of here 
                     change_state_task_completion_source.Task.Dispose();
@@ -172,7 +171,6 @@ namespace Tcp_Test.Server
                         Log("Client disconnected while trying to parse data.");
                         result = default(T);
                         listening_cancellation_token_source.Cancel();
-                        listenTask.Dispose();
                         return false;
                     }
                     continue;
