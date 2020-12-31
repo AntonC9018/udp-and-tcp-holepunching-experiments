@@ -33,7 +33,7 @@ namespace Tcp_Test.Client
                 // {
                 //     System.Console.WriteLine("Could not create room");
                 // }
-                Thread.Sleep(10000);
+                Thread.Sleep(2000);
             }
             finally
             {

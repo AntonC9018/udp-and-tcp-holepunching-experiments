@@ -24,15 +24,9 @@ namespace Tcp_Test.Server
             sessions = new Dictionary<int, Tcp_Session>();
             listener = new TcpListener(IPAddress.Any, port);
 
-            int size = sizeof(UInt32);
-            UInt32 on = 1;
-            UInt32 keepAliveInterval = (UInt32)5000;
-            UInt32 retry = (UInt32)1000;
-            byte[] inArray = new byte[size * 3];
-            Array.Copy(BitConverter.GetBytes(on), 0, inArray, 0, size);
-            Array.Copy(BitConverter.GetBytes(keepAliveInterval), 0, inArray, size, size);
-            Array.Copy(BitConverter.GetBytes(retry), 0, inArray, size * 2, size);
-            listener.Server.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.KeepAlive, inArray);
+            listener.Server.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.KeepAlive, true);
+            listener.Server.SetSocketOption(SocketOptionLevel.Tcp, SocketOptionName.TcpKeepAliveInterval, 5);
+            listener.Server.SetSocketOption(SocketOptionLevel.Tcp, SocketOptionName.TcpKeepAliveRetryCount, 3);
         }
 
         public void Log(string str)
