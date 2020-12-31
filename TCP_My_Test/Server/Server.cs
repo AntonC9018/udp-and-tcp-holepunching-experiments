@@ -13,13 +13,13 @@ namespace Tcp_Test.Server
         // The server would find out their public address based on where the request came from. 
         public Dictionary<int, Tcp_Session> sessions;
         public int currentId;
-        public Dictionary<int, Room> rooms;
+        public Dictionary<int, Lobby> lobbies;
 
         public TcpListener listener;
 
         public Server(int port)
         {
-            rooms = new Dictionary<int, Room>();
+            lobbies = new Dictionary<int, Lobby>();
             sessions = new Dictionary<int, Tcp_Session>();
             listener = new TcpListener(IPAddress.Any, port);
         }

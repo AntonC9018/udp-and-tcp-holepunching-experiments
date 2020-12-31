@@ -2,13 +2,13 @@ using System.Collections.Generic;
 
 namespace Tcp_Test.Server
 {
-    public class Room
+    public class Lobby
     {
         public int host_id;
         public int capacity;
         public Dictionary<int, Tcp_Session> peers;
 
-        public Room(int host_id)
+        public Lobby(int host_id)
         {
             this.host_id = host_id;
             this.capacity = 2;

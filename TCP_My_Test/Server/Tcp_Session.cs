@@ -37,7 +37,7 @@ namespace Tcp_Test.Server
 
         public void Log(string str)
         {
-            System.Console.WriteLine($"{public_endpoint} | {str}");
+            System.Console.WriteLine($"[{id}] {public_endpoint.Address}:{public_endpoint.Port} | {str}");
         }
 
         public void Start(Server server)
@@ -88,6 +88,8 @@ namespace Tcp_Test.Server
 
             var infoMessage = InfoMessage.Parser.ParseFrom(stream);
             private_endpoint = infoMessage.LocalEndpoint;
+
+            stream.Write(System.BitConverter.GetBytes(id));
 
             Log($"Session established. Peer's private endpoint: {private_endpoint}");
         }
@@ -182,11 +184,11 @@ namespace Tcp_Test.Server
                     // this is more concise and readable, but also more susceptible to change
                     // TODO: do stuff with the password
                     case CreateRoomRequest:
-                        var room = new Room(id);
-                        response.Success = server.rooms.TryAdd(id, room) && room.TryJoin(this);
+                        var room = new Lobby(id);
+                        response.Success = server.lobbies.TryAdd(id, room) && room.TryJoin(this);
                         break;
                     case JoinRoomRequest:
-                        response.Success = server.rooms.TryGetValue(id, out room) && room.TryJoin(this);
+                        response.Success = server.lobbies.TryGetValue(id, out room) && room.TryJoin(this);
                         break;
                     default:
                         Log($"Unexpected without room request message.");
@@ -216,12 +218,12 @@ namespace Tcp_Test.Server
                 switch (request.MessageCase)
                 {
                     case LeaveRequest:
-                        if (server.rooms.TryGetValue(id, out Room room))
+                        if (server.lobbies.TryGetValue(id, out Lobby room))
                         {
                             room.peers.Remove(id);
                             if (room.peers.Count == 0)
                             {
-                                server.rooms.Remove(id);
+                                server.lobbies.Remove(id);
                             }
                             var ack = new LeaveRoomAck();
                             ack.WriteTo(stream);
@@ -229,7 +231,7 @@ namespace Tcp_Test.Server
                         }
                         break;
                     case StartRequest:
-                        if (server.rooms.TryGetValue(id, out room) && id == room.host_id)
+                        if (server.lobbies.TryGetValue(id, out room) && id == room.host_id)
                         {
                             var host_response = new StartRoomResponseHost();
 
