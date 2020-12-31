@@ -156,25 +156,25 @@ namespace Tcp_Test.Server
                         listenTask.Dispose();
                         return false;
                     }
+                    continue;
                 }
-                else
+
+                // the listen task has terminated
                 {
-                    break;
+                    // If this threw then the client has probably disconnected, or the stream data
+                    // were invalid, so no result acquired in this case.
+                    if (listenTask.IsFaulted)
+                    {
+                        result = default(T);
+                        return false;
+                    }
+
+                    // Otherwise, we read the next packet successfully.
+                    result = listenTask.Result;
+                    listenTask.Dispose();
+                    return true;
                 }
             }
-
-            // If this threw then the client has probably disconnected, or the stream data
-            // were invalid, so no result acquired in this case.
-            if (listenTask.IsFaulted)
-            {
-                result = default(T);
-                return false;
-            }
-
-            // Otherwise, we read the next packet successfully.
-            result = listenTask.Result;
-            listenTask.Dispose();
-            return true;
         }
 
         public void ListenForWithoutRoomRequests(Server server)
