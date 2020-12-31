@@ -37,7 +37,7 @@ namespace Tcp_Test.Server
 
         public void Log(string str)
         {
-            System.Console.WriteLine($"[{id}] {public_endpoint.Address}:{public_endpoint.Port} | {str}");
+            System.Console.WriteLine($"[{id}] {new IPAddress(public_endpoint.Address)}:{public_endpoint.Port} | {str}");
         }
 
         public void Start(Server server)
@@ -89,7 +89,7 @@ namespace Tcp_Test.Server
             var infoMessage = InfoMessage.Parser.ParseFrom(stream);
             private_endpoint = infoMessage.LocalEndpoint;
 
-            stream.Write(System.BitConverter.GetBytes(id));
+            stream.Write(System.BitConverter.GetBytes(id), 0, 4);
 
             Log($"Session established. Peer's private endpoint: {private_endpoint}");
         }

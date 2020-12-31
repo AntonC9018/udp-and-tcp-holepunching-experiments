@@ -24,11 +24,12 @@ namespace NetProtobuf
                 byte[] bytes = address.GetAddressBytes();
                 return (uint)bytes.GetInt();
             }
-            else
+            else if (address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6)
             {
-                // idk
-                throw new System.Exception("Expected an IPv4 address");
+                byte[] bytes = address.MapToIPv4().GetAddressBytes();
+                return (uint)bytes.GetInt();
             }
+            throw new System.Exception("Expected an IP address");
         }
 
         public static IPv4_Endpoint Convert(this IPEndPoint ep)
