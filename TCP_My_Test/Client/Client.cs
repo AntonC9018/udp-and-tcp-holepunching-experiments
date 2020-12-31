@@ -43,7 +43,11 @@ namespace Tcp_Test.Client
 
             InfoMessage info = new InfoMessage();
             info.Id = -1;
-            info.LocalEndpoint = (local_endpoint.LocalEndPoint as IPEndPoint).Convert();
+            info.LocalEndpoint = new IPv4_Endpoint
+            {
+                Address = this.local_address.GetIPv4(),
+                Port = ((IPEndPoint)local_endpoint.LocalEndPoint).Port
+            };
 
             NetworkStream stream = server_connection.GetStream();
             info.WriteDelimitedTo(stream);
@@ -70,7 +74,7 @@ namespace Tcp_Test.Client
 
             request.WriteDelimitedTo(stream);
 
-            var response = Tcp_WithoutRoomResponse.Parser.ParseFrom(stream);
+            var response = Tcp_WithoutRoomResponse.Parser.ParseDelimitedFrom(stream);
 
             if (response.Success)
             {

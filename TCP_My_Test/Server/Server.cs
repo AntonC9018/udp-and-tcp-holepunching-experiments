@@ -53,6 +53,7 @@ namespace Tcp_Test.Server
                 {
                     if (peer.client.Connected)
                     {
+                        peer.Log("Closing connection to server");
                         peer.client.Close();
                     }
                 }

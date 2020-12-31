@@ -59,7 +59,7 @@ namespace Tcp_Test.Server
                             break;
                         case State.WithinLockedRoom:
                             // for now, just end the session 
-                            Log("Ending session in 10 seconds, since room has been locked.");
+                            Log("Ending session in 10 seconds, since lobby has been locked.");
                             Thread.Sleep(10 * 1000);
                             state = State.Exiting;
                             break;
@@ -160,6 +160,8 @@ namespace Tcp_Test.Server
 
         public void ListenForWithoutRoomRequests(Server server)
         {
+            Log($"Entered {state} state");
+
             NetworkStream stream = client.GetStream();
             Tcp_WithoutRoomResponse response = new Tcp_WithoutRoomResponse();
 
@@ -184,14 +186,16 @@ namespace Tcp_Test.Server
                     // this is more concise and readable, but also more susceptible to change
                     // TODO: do stuff with the password
                     case CreateRoomRequest:
-                        var room = new Lobby(id);
-                        response.Success = server.lobbies.TryAdd(id, room) && room.TryJoin(this);
+                        var lobby = new Lobby(id);
+                        response.Success = server.lobbies.TryAdd(id, lobby) && lobby.TryJoin(this);
+                        Log("Creating a new lobby...");
                         break;
                     case JoinRoomRequest:
-                        response.Success = server.lobbies.TryGetValue(id, out room) && room.TryJoin(this);
+                        response.Success = server.lobbies.TryGetValue(id, out lobby) && lobby.TryJoin(this);
+                        Log($"Joining lobby {id}...");
                         break;
                     default:
-                        Log($"Unexpected without room request message.");
+                        Log($"Unexpected WithoutRoom request message.");
                         break;
                 }
                 response.WriteDelimitedTo(stream);
@@ -205,6 +209,7 @@ namespace Tcp_Test.Server
 
         public void ListenForWithinRoomRequests(Server server)
         {
+            Log($"Entered {state} state");
             NetworkStream stream = client.GetStream();
 
             while (state == State.WithinRoom && client.Connected)
@@ -218,10 +223,10 @@ namespace Tcp_Test.Server
                 switch (request.MessageCase)
                 {
                     case LeaveRequest:
-                        if (server.lobbies.TryGetValue(id, out Lobby room))
+                        if (server.lobbies.TryGetValue(id, out Lobby lobby))
                         {
-                            room.peers.Remove(id);
-                            if (room.peers.Count == 0)
+                            lobby.peers.Remove(id);
+                            if (lobby.peers.Count == 0)
                             {
                                 server.lobbies.Remove(id);
                             }
@@ -231,7 +236,7 @@ namespace Tcp_Test.Server
                         }
                         break;
                     case StartRequest:
-                        if (server.lobbies.TryGetValue(id, out room) && id == room.host_id)
+                        if (server.lobbies.TryGetValue(id, out lobby) && id == lobby.host_id)
                         {
                             var host_response = new StartRoomResponseHost();
 
@@ -250,11 +255,11 @@ namespace Tcp_Test.Server
                             };
 
                             // TODO: run concurrently (although sending is pretty fast, I suppose)
-                            foreach (var peer_id in room.peers.Keys)
+                            foreach (var peer_id in lobby.peers.Keys)
                             {
                                 if (peer_id != id)
                                 {
-                                    var peer = room.peers[peer_id];
+                                    var peer = lobby.peers[peer_id];
                                     try
                                     {
                                         peer.ChangeState(State.WithinLockedRoom);
@@ -269,11 +274,11 @@ namespace Tcp_Test.Server
                             }
                             ChangeState(State.WithinLockedRoom);
                             host_response.WriteDelimitedTo(stream);
-                            // TODO: delete or lock the room
+                            // TODO: delete or lock the lobby
                         }
                         break;
                     default:
-                        Log($"Unexpected within room request message.");
+                        Log($"Unexpected within lobby request message.");
                         break;
                 }
             }
