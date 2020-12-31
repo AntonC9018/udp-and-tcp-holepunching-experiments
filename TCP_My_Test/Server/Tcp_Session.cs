@@ -112,6 +112,7 @@ namespace Tcp_Test.Server
                         try
                         {
                             T message = new T();
+                            Log($"...Message...");
                             message.MergeDelimitedFrom(stream);
                             return message;
                         }
@@ -120,6 +121,7 @@ namespace Tcp_Test.Server
                             // discard bytes one by one
                             while (stream.DataAvailable)
                             {
+                                Log($"...Byte...");
                                 System.Console.WriteLine(stream.ReadByte());
                             }
                         }
@@ -167,7 +169,6 @@ namespace Tcp_Test.Server
                 {
                     Log("Timeout reached while parsing data...");
                     tasks[2].Dispose();
-                    client.Client.Close();
                     if (!client.Connected)
                     {
                         Log("Client disconnected while trying to parse data.");
