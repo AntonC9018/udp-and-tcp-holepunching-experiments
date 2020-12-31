@@ -104,15 +104,13 @@ namespace Tcp_Test.Server
             }
             listening_cancellation_token_source = new CancellationTokenSource();
 
-            return Task.Run(() =>
-                new Task<T>(() =>
+            return Task.Run<T>(() =>
                 {
                     NetworkStream stream = client.GetStream();
                     T message = new T();
                     message.MergeDelimitedFrom(stream);
                     return message;
-                }),
-                listening_cancellation_token_source.Token
+                }, listening_cancellation_token_source.Token
             );
         }
 
@@ -127,7 +125,6 @@ namespace Tcp_Test.Server
         public bool TryGetMessageOrStateChange<T>(out T result) where T : IMessage<T>, new()
         {
             Task<T> listenTask = ListenForMessage<T>();
-            listenTask.Start();
 
             Task[] tasks = new Task[] { listenTask, change_state_task_completion_source.Task };
             int index = Task.WaitAny(tasks);
@@ -164,11 +161,7 @@ namespace Tcp_Test.Server
             Log($"Entered {state} state");
 
             NetworkStream stream = client.GetStream();
-            Log($"Got the stream");
-
             Tcp_WithoutRoomResponse response = new Tcp_WithoutRoomResponse();
-            Log($"Created response");
-
 
             while (state == State.WithoutRoom && client.Connected)
             {
