@@ -118,11 +118,13 @@ namespace Tcp_Test.Server
                         }
                         catch
                         {
-                            // discard bytes one by one
-                            while (stream.DataAvailable)
+                            if (stream.ReadByte() == -1)
                             {
-                                Log($"...Byte...");
-                                System.Console.WriteLine(stream.ReadByte());
+                                throw new System.Exception("End of stream");
+                            }
+                            else
+                            {
+                                while (stream.ReadByte() != -1) { };
                             }
                         }
                     }
