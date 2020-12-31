@@ -149,9 +149,11 @@ namespace Tcp_Test.Server
                 // We need this since the stream does not close once the connection is closed. 
                 else if (index == 2)
                 {
+                    Log("Timeout reached while parsing data...");
                     tasks[2].Dispose();
                     if (!client.Connected)
                     {
+                        Log("Client disconnected while trying to parse data.");
                         result = default(T);
                         listenTask.Dispose();
                         return false;
