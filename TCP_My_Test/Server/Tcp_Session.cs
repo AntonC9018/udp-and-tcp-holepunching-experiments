@@ -64,6 +64,7 @@ namespace Tcp_Test.Server
                             break;
                     }
                 }
+                Log($"Ending session.");
             }
             catch (System.Exception e)
             {
@@ -75,6 +76,7 @@ namespace Tcp_Test.Server
             {
                 client.Close();
             }
+
         }
 
         public void Initialize()
