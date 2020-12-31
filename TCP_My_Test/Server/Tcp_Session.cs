@@ -107,11 +107,9 @@ namespace Tcp_Test.Server
             return Task.Run(() =>
                 new Task<T>(() =>
                 {
-                    Log("Run the task.");
                     NetworkStream stream = client.GetStream();
                     T message = new T();
                     message.MergeDelimitedFrom(stream);
-                    Log($"Message parsed: {message}");
                     return message;
                 }),
                 listening_cancellation_token_source.Token
@@ -129,14 +127,10 @@ namespace Tcp_Test.Server
         public bool TryGetMessageOrStateChange<T>(out T result) where T : IMessage<T>, new()
         {
             Task<T> listenTask = ListenForMessage<T>();
+            listenTask.Start();
 
             Task[] tasks = new Task[] { listenTask, change_state_task_completion_source.Task };
-
-            Log($"Starting to wait for tasks");
-
             int index = Task.WaitAny(tasks);
-
-            Log($"Starting waited for tasks");
 
             if (index == 1)
             {
