@@ -120,7 +120,7 @@ namespace Tcp_Test.Server
                         {
                             if (stream.ReadByte() == -1)
                             {
-                                throw new System.Exception("End of stream");
+                                client.Close();
                             }
                             else
                             {
