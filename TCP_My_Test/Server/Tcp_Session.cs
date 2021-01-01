@@ -396,6 +396,7 @@ namespace Tcp_Test.Server
 
         private void LeaveLobby(Server server)
         {
+            Log($"Leaving lobby {joined_lobby.id}");
             joined_lobby.peers.Remove(id);
             if (joined_lobby.peers.Count == 0)
             {
