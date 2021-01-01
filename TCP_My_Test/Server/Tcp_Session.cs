@@ -401,7 +401,7 @@ namespace Tcp_Test.Server
             joined_lobby.peers.Remove(id);
             if (joined_lobby.peers.Count == 0)
             {
-                server.lobbies.Remove(id);
+                server.lobbies.Remove(joined_lobby.id);
             }
             else if (joined_lobby.host_id == id)
             {
