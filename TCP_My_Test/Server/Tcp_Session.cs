@@ -398,8 +398,8 @@ namespace Tcp_Test.Server
                                 peer.Log($"An error has been catched while trying to send PeerAddressInfo");
                             }
                         }
-                        joined_lobby = null;
                         server.lobbies.Remove(joined_lobby.id);
+                        joined_lobby = null;
                         state = Tcp_State.Closing;
                         return new HostWithinLobbyResponse
                         {
