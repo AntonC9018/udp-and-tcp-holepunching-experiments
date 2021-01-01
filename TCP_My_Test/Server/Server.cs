@@ -23,10 +23,6 @@ namespace Tcp_Test.Server
             lobbies = new Dictionary<int, Lobby>();
             sessions = new Dictionary<int, Tcp_Session>();
             listener = new TcpListener(IPAddress.Any, port);
-
-            listener.Server.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.KeepAlive, true);
-            listener.Server.SetSocketOption(SocketOptionLevel.Tcp, SocketOptionName.TcpKeepAliveInterval, 1);
-            listener.Server.SetSocketOption(SocketOptionLevel.Tcp, SocketOptionName.TcpKeepAliveRetryCount, 3);
         }
 
         public void Log(string str)
@@ -67,6 +63,15 @@ namespace Tcp_Test.Server
                     }
                 }
             }
+        }
+
+        public int lobbyId = 0;
+        public bool TryCreateLobby(int host_id, out Lobby lobby)
+        {
+            int id = ++lobbyId;
+            lobby = new Lobby(id, host_id);
+            lobbies.Add(id, lobby);
+            return true;
         }
     }
 }

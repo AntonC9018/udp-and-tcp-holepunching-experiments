@@ -1,0 +1,118 @@
+syntax = "proto3";
+package protobuf.tcp;
+
+message IPAddress {
+  oneof ip_family {
+    fixed32 ip_v4 = 1;
+    bytes ip_v6 = 2;
+  }
+}
+
+message IPEndpoint {
+  IPAddress address = 1;
+  int32 port = 2;
+}
+
+// We regard our thing as a statemachine
+// The states that user can be in:
+enum Tcp_State {
+  Connecting = 0;      // not yet connected to server
+  Initialization = 1;  // sending one's private ip address to the server
+  WithoutLobby = 2;    // has not joined a room yet
+  PeerWithinLobby = 3; // joined a room, not as a host
+  HostWithinLobby = 4; // joined a room, having created it,
+                       // or was promoted to host
+  Ending = 5;          //
+}
+
+message InitializationRequest {
+  int32 client_id = 1; // this should in future be replaced with authorization
+  IPEndpoint private_endpoint = 2; // private ip + port of socket
+}
+
+message InitializationResponse { repeated int32 some_lobby_ids = 1; }
+
+message WithoutLobbyRequest {
+  message JoinLobbyRequest {
+    int32 lobby_id = 1;
+    string password = 2;
+  }
+
+  message CreateLobbyRequest {
+    string password = 1;
+    int32 capacity = 2;
+  }
+
+  oneof message {
+    JoinLobbyRequest join_lobby_request = 1;
+    CreateLobbyRequest create_lobby_request = 2;
+  }
+}
+
+message LobbyInfo {
+  int32 lobby_id = 1;
+  int32 capacity = 2;
+  int32 host_id = 3;
+  repeated int32 peer_ids = 4;
+}
+
+// so we either operate like this, waiting for a specific response
+// if no notificcations exist for this state, or we sort of consider
+// responses to be notifications too.
+message JoinLobbyResponse {
+  LobbyInfo lobby_info = 1; // if successfully joined, lobby info will be set
+}
+message CreateLobbyResponse {
+  int32 lobby_id = 1; // if created, id will be non-zero
+}
+
+message LeaveLobbyRequest {}
+
+message PeerWithinLobbyRequest {
+  oneof message { LeaveLobbyRequest leave_lobby_request = 1; }
+}
+
+message AddressInfoMessage {
+  int32 id = 1;
+  IPEndpoint private_endpoint = 2;
+  IPEndpoint public_endpoint = 3;
+}
+
+message LeaveLobbyResponse { bool success = 1; }
+
+// we assume the client is always up to notifications
+message PeerWithinLobbyResponse {
+  message PeerJoinedNotification { int32 peer_id = 1; }
+  message LeaveLobbyNotification {}
+  message BecomeHostNotification {}
+
+  oneof message {
+    PeerJoinedNotification peer_joined_notification = 1;
+    LeaveLobbyNotification leave_lobby_notification = 2;
+    BecomeHostNotification become_host_notification = 3;
+    LeaveLobbyResponse leave_lobby_response = 4;
+    AddressInfoMessage host_address_info = 5;
+  }
+}
+
+message HostWithinLobbyRequest {
+  message MakeHostRequest { int32 peer_id = 1; }
+  message GoRequest {}
+
+  oneof message {
+    LeaveLobbyRequest leave_lobby_request = 1;
+    MakeHostRequest make_host_request = 2;
+    GoRequest go_request = 3;
+  }
+}
+
+message HostWithinLobbyResponse {
+  message MakeHostResponse { int32 new_host_id = 1; }
+  message GoResponse { repeated AddressInfoMessage peer_address_info = 1; }
+
+  oneof message {
+    LeaveLobbyResponse leave_lobby_response = 1;
+    MakeHostResponse make_host_response = 2;
+    GoResponse go_response = 3;
+  }
+}

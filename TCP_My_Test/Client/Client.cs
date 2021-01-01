@@ -1,21 +1,21 @@
-using System.Net;
 using System.Net.Sockets;
-using NetProtobuf;
+using Protobuf.Tcp;
 using Google.Protobuf;
-using static NetProtobuf.Tcp_WithoutRoomRequest.Types;
+using System;
+using System.Net;
 
 namespace Tcp_Test.Client
 {
     public class Client
     {
         public int id;
-        public IPEndPoint server_endpoint;
+        public System.Net.IPEndPoint server_endpoint;
         public TcpClient server_connection;
 
-        public IPAddress local_address;
-        public IPEndPoint local_endpoint;
+        public System.Net.IPAddress private_address;
+        public Protobuf.Tcp.IPEndpoint private_endpoint;
 
-        private static IPAddress GetLocalIp()
+        private static System.Net.IPAddress GetLocalIp()
         {
             var host = Dns.GetHostEntry(Dns.GetHostName());
             foreach (var ip in host.AddressList)
@@ -31,88 +31,90 @@ namespace Tcp_Test.Client
         public Client(IPEndPoint server_endpoint)
         {
             this.server_endpoint = server_endpoint;
-            this.local_address = GetLocalIp();
+            this.private_address = GetLocalIp();
             this.server_connection = new TcpClient();
+            this.id = new Random().Next();
         }
 
         public void ConnectToServer()
         {
             server_connection.Connect(server_endpoint);
-            var local_endpoint = server_connection.Client;
-            System.Console.WriteLine($"Local endpoint: {local_endpoint.LocalEndPoint}");
-
-            InfoMessage info = new InfoMessage();
-            info.Id = -1;
-            info.LocalEndpoint = new IPv4_Endpoint
+            this.private_endpoint = new IPEndpoint
             {
-                Address = this.local_address.GetIPv4(),
-                Port = ((IPEndPoint)local_endpoint.LocalEndPoint).Port
+                Address = private_address.Convert(),
+                Port = ((IPEndPoint)server_connection.Client.LocalEndPoint).Port
+            };
+            System.Console.WriteLine($"Local endpoint: {private_endpoint}");
+
+            InitializationRequest info = new InitializationRequest
+            {
+                ClientId = id,
+                PrivateEndpoint = private_endpoint
             };
 
             NetworkStream stream = server_connection.GetStream();
             info.WriteDelimitedTo(stream);
 
-            byte[] id_buff = new byte[4];
-            stream.Read(id_buff, 0, 4);
-            id = System.BitConverter.ToInt32(id_buff);
+            var response = InitializationResponse.Parser.ParseDelimitedFrom(stream);
+            System.Console.WriteLine(response);
         }
 
-        public bool TryJoinRoom(int id, string password, out Peer peer)
-        {
-            var stream = server_connection.GetStream();
-            var request = new Tcp_WithoutRoomRequest();
-            var message = new JoinRoomRequest();
+        //     public bool TryJoinRoom(int id, string password, out Peer peer)
+        //     {
+        //         var stream = server_connection.GetStream();
+        //         var request = new Tcp_WithoutRoomRequest();
+        //         var message = new JoinRoomRequest();
 
-            message.PeerId = this.id; // this is not required, actually, since the session is kept
-            // actually, the id should be provided by the user so that the server is able to
-            // identify them.
-            message.Password = password;
-            message.RoomId = id;
-            request.JoinRoomRequest = message;
+        //         message.PeerId = this.id; // this is not required, actually, since the session is kept
+        //         // actually, the id should be provided by the user so that the server is able to
+        //         // identify them.
+        //         message.Password = password;
+        //         message.RoomId = id;
+        //         request.JoinRoomRequest = message;
 
-            System.Console.WriteLine($"Joining lobby {id}");
+        //         System.Console.WriteLine($"Joining lobby {id}");
 
-            request.WriteDelimitedTo(stream);
+        //         request.WriteDelimitedTo(stream);
 
-            var response = Tcp_WithoutRoomResponse.Parser.ParseDelimitedFrom(stream);
+        //         var response = Tcp_WithoutRoomResponse.Parser.ParseDelimitedFrom(stream);
 
-            if (response.Success)
-            {
-                System.Console.WriteLine($"Successfully joined lobby {id}");
-                peer = new Peer(this);
-                return true;
-            }
+        //         if (response.Success)
+        //         {
+        //             System.Console.WriteLine($"Successfully joined lobby {id}");
+        //             peer = new Peer(this);
+        //             return true;
+        //         }
 
-            peer = null;
-            return false;
-        }
+        //         peer = null;
+        //         return false;
+        //     }
 
-        public bool TryCreateRoom(string password, out Host host)
-        {
-            var stream = server_connection.GetStream();
-            var request = new Tcp_WithoutRoomRequest();
-            var message = new CreateRoomRequest();
+        //     public bool TryCreateRoom(string password, out Host host)
+        //     {
+        //         var stream = server_connection.GetStream();
+        //         var request = new Tcp_WithoutRoomRequest();
+        //         var message = new CreateRoomRequest();
 
-            message.HostId = this.id;
-            message.Password = password;
-            request.CreateRoomRequest = message;
+        //         message.HostId = this.id;
+        //         message.Password = password;
+        //         request.CreateRoomRequest = message;
 
-            System.Console.WriteLine($"Creating lobby {id}");
+        //         System.Console.WriteLine($"Creating lobby {id}");
 
-            request.WriteDelimitedTo(stream);
+        //         request.WriteDelimitedTo(stream);
 
-            var response = Tcp_WithoutRoomResponse.Parser.ParseDelimitedFrom(stream);
+        //         var response = Tcp_WithoutRoomResponse.Parser.ParseDelimitedFrom(stream);
 
-            if (response.Success)
-            {
-                System.Console.WriteLine($"Successfully created lobby {id}");
-                host = new Host(this);
-                return true;
-            }
+        //         if (response.Success)
+        //         {
+        //             System.Console.WriteLine($"Successfully created lobby {id}");
+        //             host = new Host(this);
+        //             return true;
+        //         }
 
-            host = null;
-            return false;
-        }
+        //         host = null;
+        //         return false;
+        //     }
     }
 
     public class Peer
