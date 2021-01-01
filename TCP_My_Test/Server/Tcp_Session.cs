@@ -107,6 +107,21 @@ namespace Tcp_Test.Server
 
         public CancellationTokenSource listening_cancellation_token_source;
 
+        /* 
+            Start trying to read the network stream, trying to convert the bytes
+            to the specified in the generic message type. 
+
+            If for some reason the message could not be parsed because we received unexpected data, 
+            the stream would be flushed (all buffered bytes would be discarded) and then we would
+            go on trying to parse the data after that into the specified message type.
+
+            If the task gets cancelled using the cancellation token, 
+            I'm pretty sure that the catch() inside the while loop will not get executed.
+            I'm also pretty sure that it is not possible for there to be data in the stream
+            when we terminate the task this way.
+
+            If all goes well, the task terminates normally with the parsed message.
+        */
         public Task<T> ListenForMessage<T>() where T : IMessage<T>, new()
         {
             if (listening_cancellation_token_source != null)
@@ -129,19 +144,16 @@ namespace Tcp_Test.Server
                         }
                         catch
                         {
-                            // I think this ultimately means `if reached end of stream`
-                            // so the connection will also close if received an unexpected message.
-                            // | This will close the connection if tried to parse data while 
-                            // | changing states under the condition that the message has been fully
-                            // | parsed when the task of listening has been canceled.
-                            // Actually NOT because the 
+                            // This condition will execute if the client close the connection.
+                            // Note that the client.Connected property does not reflect this fact.
                             if (stream.ReadByte() == -1)
                             {
                                 client.Close();
                             }
                             else
                             {
-                                // otherwise, skip all buffered data and keep listening
+                                // otherwise, skip all buffered data and keep trying to parse
+                                // thus we basically ignore unexpected messages.
                                 while (stream.ReadByte() != -1) { };
                             }
                         }
@@ -152,23 +164,42 @@ namespace Tcp_Test.Server
 
         private TaskCompletionSource<Tcp_State> change_state_task_completion_source = new TaskCompletionSource<Tcp_State>();
 
+        /*
+            This method is useful when changing the state of some other session from without
+            its thread, so e.g. if thread of session with id = 1 transitions thread with id = 2
+            into another state.
+
+            This potentially might be dangerous to do while the other thread is in the process
+            of receiving messages, which is why:
+                a. the listen task gets cancelled to not misinterpret the message.
+                b. if in the middle of parsing, the message and the buffered data is all discarded.
+            
+            An ideal solution would be to finish parsing, if in the middle of parsing, but then discard 
+            the message, however, I have no way of knowing that information, since I'm using protobuf for packets.  
+        */
         public void TransitionState(Tcp_State state)
         {
             this.state = state;
             this.change_state_task_completion_source.SetResult(state);
         }
 
+        /*
+            This listens for one of three tasks at the same time:
+                1. the listen task, which parses data received from the client.
+                2. the change state task, which is responsible for quitting listening for message
+                   if the message type we're trying to parse to is not correct.
+                3. a timeout task, which deletes the session if the client gets disconnected. 
+                  (Although I suppose this is not necessary, since the end of stream condition should detect that.
+                   I'm just not sure if that does that tbh.)
+
+        */
         public bool TryGetMessageOrStateChange<T>(out T result) where T : IMessage<T>, new()
         {
             Task<T> listenTask = ListenForMessage<T>();
-            Task[] tasks = new Task[] { listenTask, change_state_task_completion_source.Task, null };
-
-            const int timeout_span = 2000;
+            Task[] tasks = new Task[] { listenTask, change_state_task_completion_source.Task };
 
             while (true)
             {
-                tasks[2] = Task.Delay(timeout_span);
-
                 int index = Task.WaitAny(tasks);
 
                 if (index == 1)
@@ -185,18 +216,12 @@ namespace Tcp_Test.Server
                 }
                 // Check if the connection closes here. If it does, stop parsing.
                 // We need this since the stream does not close once the connection is closed. 
-                else if (index == 2)
+                if (!client.Connected)
                 {
-                    Log("Timeout reached while parsing data...");
-                    tasks[2].Dispose();
-                    if (!client.Connected)
-                    {
-                        Log("Client disconnected while trying to parse data.");
-                        result = default(T);
-                        listening_cancellation_token_source.Cancel();
-                        return false;
-                    }
-                    continue;
+                    Log("Client disconnected while trying to parse data.");
+                    result = default(T);
+                    listening_cancellation_token_source.Cancel();
+                    return false;
                 }
                 // the listen task has terminated
                 {

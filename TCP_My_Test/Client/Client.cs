@@ -39,7 +39,13 @@ namespace Tcp_Test.Client
 
         public void ConnectToServer()
         {
+            var socket = server_connection.Client;
+            socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
+#if (LINUX)
+            socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseUnicastPort, 1);
+#endif
             server_connection.Connect(server_endpoint);
+
             this.private_endpoint = new IPEndpoint
             {
                 Address = private_address.Convert(),
@@ -123,13 +129,10 @@ namespace Tcp_Test.Client
 
         public void StartListening()
         {
-            
+
         }
 
-        public Client LeaveLobby()
-        {
-            return null;
-        }
+        // public void 
     }
 
     public class Host

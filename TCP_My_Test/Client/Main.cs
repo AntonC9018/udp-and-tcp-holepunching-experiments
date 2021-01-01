@@ -14,26 +14,26 @@ namespace Tcp_Test.Client
             {
                 client.ConnectToServer();
 
-                if (client.TryJoinLobby(2, "1111", out Peer peer))
-                {
-                    System.Console.WriteLine("Managed to join the group 2. Shutting down...");
-                    client.server_connection.Close();
-                    return;
-                }
-                else
-                {
-                    System.Console.WriteLine("Couldn't join the group 2");
-                }
+                // if (client.TryJoinLobby(2, "1111", out Peer peer))
+                // {
+                //     System.Console.WriteLine("Managed to join the group 2. Shutting down...");
+                //     client.server_connection.Close();
+                //     return;
+                // }
+                // else
+                // {
+                //     System.Console.WriteLine("Couldn't join the group 2");
+                // }
 
-                if (client.TryCreateLobby("1111", out Host host))
-                {
-                    System.Console.WriteLine("Created room");
-                }
-                else
-                {
-                    System.Console.WriteLine("Could not create room");
-                }
-                Thread.Sleep(2000);
+                // if (client.TryCreateLobby("1111", out Host host))
+                // {
+                //     System.Console.WriteLine("Created room");
+                // }
+                // else
+                // {
+                //     System.Console.WriteLine("Could not create room");
+                // }
+                Thread.Sleep(10000);
             }
             finally
             {
