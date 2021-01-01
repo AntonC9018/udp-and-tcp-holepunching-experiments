@@ -24,14 +24,16 @@ namespace Tcp_Test.Server
         public IPEndpoint private_endpoint;
         public IPEndpoint public_endpoint;
         public Tcp_State state;
+        public Server server;
 
         public bool IsInitalized => private_endpoint != null;
 
 
-        public Tcp_Session(TcpClient client)
+        public Tcp_Session(TcpClient client, Server server)
         {
             this.client = client;
             this.state = Tcp_State.Connecting;
+            this.server = server;
         }
 
         public void Log(string str)
@@ -39,32 +41,32 @@ namespace Tcp_Test.Server
             System.Console.WriteLine($"[{id}] {public_endpoint.GetAddress()}:{public_endpoint.Port} | {str}");
         }
 
-        public void Start(Server server)
+        public void Start()
         {
             try
             {
-                Initialize(server);
+                Initialize();
                 server.sessions.Add(id, this);
                 state = Tcp_State.WithoutLobby;
-                while (state != Tcp_State.Ending && client.Connected)
+                while (state != Tcp_State.Closing && client.Connected)
                 {
                     switch (state)
                     {
                         case Tcp_State.WithoutLobby:
-                            ListenForWithoutLobbyRequests(server);
+                            ReceiveMessageAndRespond(ReceiveWithoutLobbyRequest);
                             break;
                         case Tcp_State.PeerWithinLobby:
-                            ListenForWithinLobbyPeerRequests(server);
+                            ReceiveMessageAndRespond(ReceiveWithinLobbyPeerRequest);
                             break;
                         case Tcp_State.HostWithinLobby:
-                            ListenForWithinLobbyHostRequests(server);
+                            ReceiveMessageAndRespond(ReceiveWithinLobbyHostRequest);
                             break;
-                            // case Tcp_State.Ending:
-                            //     // for now, just end the session 
-                            //     Log("Ending session in 10 seconds, since lobby has been locked.");
-                            //     Thread.Sleep(10 * 1000);
-                            //     state = Tcp_State.Exiting;
-                            //     break;
+                        case Tcp_State.Closing:
+                            // for now, just end the session 
+                            Log("Closing session in 10 seconds, since lobby has been locked.");
+                            Thread.Sleep(10 * 1000);
+                            state = Tcp_State.Closed;
+                            break;
                     }
                 }
                 Log($"Ending session.");
@@ -77,7 +79,7 @@ namespace Tcp_Test.Server
             server.sessions.Remove(id);
             if (joined_lobby != null)
             {
-                LeaveLobby(server);
+                LeaveLobby();
                 foreach (var lobby in server.lobbies.Values)
                     server.Log(lobby.GetInfo().ToString());
             }
@@ -87,7 +89,7 @@ namespace Tcp_Test.Server
             }
         }
 
-        public void Initialize(Server server)
+        public void Initialize()
         {
             NetworkStream stream = client.GetStream();
             public_endpoint = ((IPEndPoint)client.Client.RemoteEndPoint).Convert();
@@ -122,7 +124,7 @@ namespace Tcp_Test.Server
 
             If all goes well, the task terminates normally with the parsed message.
         */
-        public Task<T> ListenForMessage<T>() where T : IMessage<T>, new()
+        public Task<T> ReceiveMessage<T>() where T : IMessage<T>, new()
         {
             if (listening_cancellation_token_source != null)
             {
@@ -195,7 +197,7 @@ namespace Tcp_Test.Server
         */
         public bool TryGetMessageOrStateChange<T>(out T result) where T : IMessage<T>, new()
         {
-            Task<T> listenTask = ListenForMessage<T>();
+            Task<T> listenTask = ReceiveMessage<T>();
             Task[] tasks = new Task[] { listenTask, change_state_task_completion_source.Task };
 
             while (true)
@@ -204,8 +206,7 @@ namespace Tcp_Test.Server
 
                 if (index == 1)
                 {
-                    // This is only used for canceling one thing -- 
-                    // the listen task we have initialized right above.
+                    // This is only used for canceling one thing -- the listen task we have initialized right above.
                     listening_cancellation_token_source.Cancel();
                     // This might potentially be dangerous, if the state were to change too fast
                     // that is, if it were to be changed right after having been disposed of here 
@@ -223,28 +224,36 @@ namespace Tcp_Test.Server
                     listening_cancellation_token_source.Cancel();
                     return false;
                 }
-                // the listen task has terminated
+                // The listen task has terminated.
+                // If this threw then the client has probably disconnected but this is already being detected above,
+                // or the stream data were invalid, so no result acquired in this case. If you think about this,
+                // this option is never reached, since if any of the above happers, then the client has been disconnected.
+                if (listenTask.IsFaulted)
                 {
-                    // If this threw then the client has probably disconnected, or the stream data
-                    // were invalid, so no result acquired in this case.
-                    if (listenTask.IsFaulted)
-                    {
-                        result = default(T);
-                        return false;
-                    }
-
-                    // Otherwise, we read the next packet successfully.
-                    result = listenTask.Result;
-                    listenTask.Dispose();
-                    return true;
+                    result = default(T);
+                    return false;
                 }
+
+                // Otherwise, we read the next packet successfully.
+                result = listenTask.Result;
+                listenTask.Dispose();
+                return true;
             }
         }
 
-        public void ListenForWithoutLobbyRequests(Server server)
-        {
-            Log($"Entered {state} state");
 
+        public void ReceiveMessageAndRespond(Func<IMessage> receiveFunc)
+        {
+            var response = receiveFunc();
+            if (response != null)
+            {
+                NetworkStream stream = client.GetStream();
+                response.WriteDelimitedTo(stream);
+            }
+        }
+
+        public IMessage ReceiveWithoutLobbyRequest()
+        {
             // so, this happens in 2 cases:
             // 1. either a state has been changed, which would rerun the loop condition and
             //    it would exit into the main loop;
@@ -255,16 +264,11 @@ namespace Tcp_Test.Server
             //         client is connected. However, the stream does get closed when the connection dies down.
             if (!TryGetMessageOrStateChange(out WithoutLobbyRequest request))
             {
-                Log("Unsuccessfully parsed request.");
-                return;
+                return null;
             }
-
-            Log("Successfully parsed request.");
-            NetworkStream stream = client.GetStream();
 
             switch (request.MessageCase)
             {
-                // this is more concise and readable, but also more susceptible to change
                 // TODO: do stuff with the password
                 case CreateLobbyRequest:
                     {
@@ -276,9 +280,9 @@ namespace Tcp_Test.Server
                             response.LobbyId = lobby.id;
                             state = Tcp_State.HostWithinLobby;
                         }
-                        response.WriteDelimitedTo(stream);
-                        break;
+                        return response;
                     }
+
                 case JoinLobbyRequest:
                     {
                         Log($"Joining lobby {request.JoinLobbyRequest.LobbyId}...");
@@ -290,81 +294,68 @@ namespace Tcp_Test.Server
                             response.LobbyInfo = lobby.GetInfo();
                             state = Tcp_State.PeerWithinLobby;
                         }
-                        response.WriteDelimitedTo(stream);
-                        break;
+                        return response;
                     }
+
                 default:
                     Log($"Unexpected WithoutLobby request message. {request}");
-                    break;
+                    return null;
             }
         }
 
 
-        public void ListenForWithinLobbyPeerRequests(Server server)
+        public PeerWithinLobbyResponse ReceiveWithinLobbyPeerRequest()
         {
-            Log($"Entered {state} state");
-
             // same spiel as above goes for here as well
             if (!TryGetMessageOrStateChange(out PeerWithinLobbyRequest request))
             {
-                Log("Unsuccessfully parsed request.");
-                return;
+                return null;
             }
-
-            Log("Successfully parsed request.");
-
-            var outerResponse = new PeerWithinLobbyResponse();
-            NetworkStream stream = client.GetStream();
 
             switch (request.MessageCase)
             {
                 case PeerWithinLobbyRequest.MessageOneofCase.LeaveLobbyRequest:
                     {
-                        LeaveLobby(server);
-
+                        LeaveLobby();
+                        state = Tcp_State.WithoutLobby;
                         var response = new LeaveLobbyResponse();
                         response.Success = true;
-                        state = Tcp_State.WithoutLobby;
 
-                        outerResponse.LeaveLobbyResponse = response;
-                        outerResponse.WriteDelimitedTo(stream);
-                        break;
+                        return new PeerWithinLobbyResponse
+                        {
+                            LeaveLobbyResponse = response
+                        };
                     }
                 default:
                     Log($"Unexpected within lobby request message.");
-                    break;
+                    return null;
             }
         }
 
-        public void ListenForWithinLobbyHostRequests(Server server)
+        public HostWithinLobbyResponse ReceiveWithinLobbyHostRequest()
         {
-            Log($"Entered {state} state");
-
             // same spiel as above goes for here as well
             if (!TryGetMessageOrStateChange(out HostWithinLobbyRequest request))
             {
-                Log("Unsuccessfully parsed request.");
-                return;
+                return null;
             }
 
-            Log("Successfully parsed request.");
-
             var outerResponse = new HostWithinLobbyResponse();
-            NetworkStream stream = client.GetStream();
 
             switch (request.MessageCase)
             {
                 case HostWithinLobbyRequest.MessageOneofCase.LeaveLobbyRequest:
                     {
-                        LeaveLobby(server);
+                        LeaveLobby();
 
                         var response = new LeaveLobbyResponse();
                         response.Success = true;
                         state = Tcp_State.WithoutLobby;
 
-                        outerResponse.LeaveLobbyResponse = response;
-                        outerResponse.WriteDelimitedTo(stream);
-                        break;
+                        return new HostWithinLobbyResponse
+                        {
+                            LeaveLobbyResponse = response
+                        };
                     }
 
                 case MakeHostRequest:
@@ -376,12 +367,13 @@ namespace Tcp_Test.Server
                             && joined_lobby.peers.ContainsKey(peer_id))
                         {
                             response.NewHostId = peer_id;
-                            joined_lobby.peers[peer_id].BecomeHost();
+                            MakeHost(joined_lobby.peers[peer_id]);
                         }
 
-                        outerResponse.MakeHostResponse = response;
-                        outerResponse.WriteDelimitedTo(stream);
-                        break;
+                        return new HostWithinLobbyResponse
+                        {
+                            MakeHostResponse = response
+                        };
                     }
 
                 case GoRequest:
@@ -400,7 +392,7 @@ namespace Tcp_Test.Server
                             var peer = joined_lobby.peers[peer_id];
                             try
                             {
-                                peer.TransitionState(Tcp_State.Ending);
+                                peer.TransitionState(Tcp_State.Closing);
                                 peer_notification.WriteDelimitedTo(peer.client.GetStream());
                                 host_response.PeerAddressInfo.Add(peer.CreateAddressMessage());
                             }
@@ -409,18 +401,19 @@ namespace Tcp_Test.Server
                                 peer.Log($"An error has been catched while trying to send PeerAddressInfo");
                             }
                         }
-                        state = Tcp_State.Ending;
-                        outerResponse.GoResponse = host_response;
-                        outerResponse.WriteDelimitedTo(stream);
-                        break;
+                        state = Tcp_State.Closing;
+                        return new HostWithinLobbyResponse
+                        {
+                            GoResponse = host_response
+                        };
                     }
                 default:
                     Log($"Unexpected within lobby request message.");
-                    break;
+                    return null;
             }
         }
 
-        private void LeaveLobby(Server server)
+        private void LeaveLobby()
         {
             Log($"Leaving lobby {joined_lobby.id}");
             joined_lobby.peers.Remove(id);
@@ -436,17 +429,21 @@ namespace Tcp_Test.Server
             joined_lobby = null;
         }
 
-        private void BecomeHost()
+        private void MakeHost(Tcp_Session session)
         {
             TransitionState(Tcp_State.HostWithinLobby);
+            session.BecomeHost();
+        }
+
+        private void BecomeHost()
+        {
             joined_lobby.host_id = id;
-            var stream = client.GetStream();
             var host_notification = new BecomeHostNotification();
             var response = new PeerWithinLobbyResponse
             {
                 BecomeHostNotification = host_notification
             };
-            response.WriteDelimitedTo(stream);
+            response.WriteDelimitedTo(client.GetStream());
 
             // Maybe notify of new host
             // var peer_notification = new Pee

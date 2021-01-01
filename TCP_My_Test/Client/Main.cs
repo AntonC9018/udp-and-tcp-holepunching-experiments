@@ -37,7 +37,7 @@ namespace Tcp_Test.Client
             }
             finally
             {
-                client.server_connection.Close();
+                // client.server_connection.Close();
             }
         }
     }

@@ -76,10 +76,10 @@ namespace Protobuf.Tcp {
             "b25zZS5Hb1Jlc3BvbnNlSAAaJwoQTWFrZUhvc3RSZXNwb25zZRITCgtuZXdf",
             "aG9zdF9pZBgBIAEoBRpJCgpHb1Jlc3BvbnNlEjsKEXBlZXJfYWRkcmVzc19p",
             "bmZvGAEgAygLMiAucHJvdG9idWYudGNwLkFkZHJlc3NJbmZvTWVzc2FnZUIJ",
-            "CgdtZXNzYWdlKncKCVRjcF9TdGF0ZRIOCgpDb25uZWN0aW5nEAASEgoOSW5p",
-            "dGlhbGl6YXRpb24QARIQCgxXaXRob3V0TG9iYnkQAhITCg9QZWVyV2l0aGlu",
-            "TG9iYnkQAxITCg9Ib3N0V2l0aGluTG9iYnkQBBIKCgZFbmRpbmcQBWIGcHJv",
-            "dG8z"));
+            "CgdtZXNzYWdlKoQBCglUY3BfU3RhdGUSDgoKQ29ubmVjdGluZxAAEhIKDklu",
+            "aXRpYWxpemF0aW9uEAESEAoMV2l0aG91dExvYmJ5EAISEwoPUGVlcldpdGhp",
+            "bkxvYmJ5EAMSEwoPSG9zdFdpdGhpbkxvYmJ5EAQSCwoHQ2xvc2luZxAFEgoK",
+            "BkNsb3NlZBAGYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Protobuf.Tcp.Tcp_State), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -131,13 +131,13 @@ namespace Protobuf.Tcp {
     /// </summary>
     [pbr::OriginalName("PeerWithinLobby")] PeerWithinLobby = 3,
     /// <summary>
-    /// joined a room, having created it,
+    /// joined a room, having created it, or was promoted to host
     /// </summary>
     [pbr::OriginalName("HostWithinLobby")] HostWithinLobby = 4,
     /// <summary>
-    /// or was promoted to host
     /// </summary>
-    [pbr::OriginalName("Ending")] Ending = 5,
+    [pbr::OriginalName("Closing")] Closing = 5,
+    [pbr::OriginalName("Closed")] Closed = 6,
   }
 
   #endregion

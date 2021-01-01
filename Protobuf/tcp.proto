@@ -20,9 +20,10 @@ enum Tcp_State {
   Initialization = 1;  // sending one's private ip address to the server
   WithoutLobby = 2;    // has not joined a room yet
   PeerWithinLobby = 3; // joined a room, not as a host
-  HostWithinLobby = 4; // joined a room, having created it,
-                       // or was promoted to host
-  Ending = 5;          //
+  HostWithinLobby =
+      4;       // joined a room, having created it, or was promoted to host
+  Closing = 5; //
+  Closed = 6;
 }
 
 message InitializationRequest {

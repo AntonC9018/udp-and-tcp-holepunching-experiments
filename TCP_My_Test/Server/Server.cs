@@ -39,8 +39,8 @@ namespace Tcp_Test.Server
                 while (true)
                 {
                     var client = listener.AcceptTcpClient();
-                    var session = new Tcp_Session(client);
-                    new Thread(() => session.Start(this)).Start();
+                    var session = new Tcp_Session(client, this);
+                    new Thread(session.Start).Start();
                 }
             }
             catch (System.Exception e)
