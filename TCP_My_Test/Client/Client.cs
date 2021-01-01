@@ -160,7 +160,7 @@ namespace Tcp_Test.Client
                         break;
 
                     case Tcp_State.Closing:
-                        System.Console.WriteLine("Initialize connection!");
+                        System.Console.WriteLine("Closing");
                         state = Tcp_State.Closed;
                         break;
                 }
@@ -213,12 +213,15 @@ namespace Tcp_Test.Client
                     break;
 
                 case HostAddressInfo:
-                    System.Console.WriteLine($"Starting. Host address info: {response.HostAddressInfo}");
-                    var task = Task.Run(() => EstablishOutboundTcp(response.HostAddressInfo));
-                    Task.WaitAll(task);
-                    System.Console.WriteLine($"Connection to host established? {task.Result != null}");
-                    state = Tcp_State.Closing;
-                    break;
+                    {
+                        var info = response.HostAddressInfo;
+                        System.Console.WriteLine($"[{info.Id}] {info.PublicEndpoint.GetAddress()}:{info.PublicEndpoint.Port} | {info.PrivateEndpoint.GetAddress()}:{info.PrivateEndpoint.Port}");
+                        var task = Task.Run(() => EstablishOutboundTcp(response.HostAddressInfo));
+                        Task.WaitAll(task);
+                        System.Console.WriteLine($"Connection to host established? {task.Result != null}");
+                        state = Tcp_State.Closing;
+                        break;
+                    }
 
                 default:
                     System.Console.WriteLine("Unexpected response/notification");
@@ -241,8 +244,6 @@ namespace Tcp_Test.Client
                     break;
 
                 case GoResponse:
-                    System.Console.WriteLine($"Starting. Peer address info: {response.GoResponse.PeerAddressInfo}");
-
                     if (response.GoResponse.PeerAddressInfo.Count > 0)
                     {
                         var tasks = new Task<TcpClient>[response.GoResponse.PeerAddressInfo.Count];
@@ -250,6 +251,7 @@ namespace Tcp_Test.Client
                         {
                             var info = response.GoResponse.PeerAddressInfo[i];
                             tasks[i] = Task.Run(() => EstablishOutboundTcp(info));
+                            System.Console.WriteLine($"[{info.Id}] {info.PublicEndpoint.GetAddress()}:{info.PublicEndpoint.Port} | {info.PrivateEndpoint.GetAddress()}:{info.PrivateEndpoint.Port}");
                         }
                         Task.WaitAll(tasks);
 

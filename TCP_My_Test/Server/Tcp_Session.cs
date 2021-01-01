@@ -374,6 +374,7 @@ namespace Tcp_Test.Server
 
                 case GoRequest:
                     {
+                        joined_lobby.started = true;
                         var host_response = new GoResponse();
                         var host_address_message = CreateAddressMessage();
 
@@ -411,6 +412,11 @@ namespace Tcp_Test.Server
 
         private void LeaveLobby()
         {
+            // cannot leave a started lobby
+            if (joined_lobby.started)
+            {
+                return;
+            }
             Log($"Leaving lobby {joined_lobby.id}");
             joined_lobby.peers.Remove(id);
             if (joined_lobby.peers.Count == 0)

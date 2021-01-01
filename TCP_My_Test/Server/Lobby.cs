@@ -8,6 +8,7 @@ namespace Tcp_Test.Server
         public int id;
         public int host_id;
         public int capacity;
+        public bool started;
         public Dictionary<int, Tcp_Session> peers;
 
         public Lobby(int id, int host_id)
