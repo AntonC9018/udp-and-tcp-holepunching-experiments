@@ -180,6 +180,11 @@ namespace Tcp_Test.Client
             }
             catch (System.Exception e)
             {
+                int b;
+                while ((b = stream.ReadByte()) != -1)
+                {
+                    System.Console.Write($"{b:X} ");
+                }
                 client.Close();
                 throw e;
             }

@@ -24,6 +24,8 @@ namespace Tcp_Test.Client
                     }
                 }
 
+                new Thread(() => client.StartReceiving()).Start();
+
                 if (!joined)
                 {
                     if (!client.TryCreateLobby("1111"))
@@ -33,11 +35,6 @@ namespace Tcp_Test.Client
                     }
                     Thread.Sleep(10000);
                     client.Go();
-                    client.StartReceiving();
-                }
-                else
-                {
-                    client.StartReceiving();
                 }
                 Thread.Sleep(10000);
             }

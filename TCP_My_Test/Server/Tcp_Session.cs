@@ -48,7 +48,7 @@ namespace Tcp_Test.Server
                 Initialize();
                 server.sessions.Add(id, this);
                 state = Tcp_State.WithoutLobby;
-                while (state != Tcp_State.Closing && client.Connected)
+                while (state != Tcp_State.Closed && client.Connected)
                 {
                     switch (state)
                     {
