@@ -217,6 +217,7 @@ namespace Tcp_Test.Client
                     var task = Task.Run(() => EstablishOutboundTcp(response.HostAddressInfo));
                     Task.WaitAll(task);
                     System.Console.WriteLine($"Connection to host established? {task.Result != null}");
+                    state = Tcp_State.Closing;
                     break;
 
                 default:
@@ -242,18 +243,22 @@ namespace Tcp_Test.Client
                 case GoResponse:
                     System.Console.WriteLine($"Starting. Peer address info: {response.GoResponse.PeerAddressInfo}");
 
-                    var tasks = new Task<TcpClient>[response.GoResponse.PeerAddressInfo.Count];
-                    for (int i = 0; i < tasks.Length; i++)
+                    if (response.GoResponse.PeerAddressInfo.Count > 0)
                     {
-                        var info = response.GoResponse.PeerAddressInfo[i];
-                        tasks[i] = Task.Run(() => EstablishOutboundTcp(info));
-                    }
-                    Task.WaitAll(tasks);
+                        var tasks = new Task<TcpClient>[response.GoResponse.PeerAddressInfo.Count];
+                        for (int i = 0; i < tasks.Length; i++)
+                        {
+                            var info = response.GoResponse.PeerAddressInfo[i];
+                            tasks[i] = Task.Run(() => EstablishOutboundTcp(info));
+                        }
+                        Task.WaitAll(tasks);
 
-                    for (int i = 0; i < tasks.Length; i++)
-                    {
-                        System.Console.WriteLine($"{i}: Connection established? {tasks[i].Result != null}");
+                        for (int i = 0; i < tasks.Length; i++)
+                        {
+                            System.Console.WriteLine($"{i}: Connection established? {tasks[i].Result != null}");
+                        }
                     }
+                    state = Tcp_State.Closing;
                     break;
 
                 default:
