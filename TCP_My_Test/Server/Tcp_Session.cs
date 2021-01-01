@@ -76,6 +76,10 @@ namespace Tcp_Test.Server
             }
 
             server.sessions.Remove(id);
+            if (joined_lobby != null)
+            {
+                LeaveLobby(server);
+            }
             if (client.Connected)
             {
                 client.Close();
@@ -290,15 +294,9 @@ namespace Tcp_Test.Server
             {
                 case PeerWithinLobbyRequest.MessageOneofCase.LeaveLobbyRequest:
                     {
+                        LeaveLobby(server);
+
                         var response = new LeaveLobbyResponse();
-
-                        joined_lobby.peers.Remove(id);
-                        if (joined_lobby.peers.Count == 0)
-                        {
-                            server.lobbies.Remove(id);
-                        }
-
-                        joined_lobby = null;
                         response.Success = true;
                         state = Tcp_State.WithoutLobby;
 
@@ -332,20 +330,12 @@ namespace Tcp_Test.Server
             {
                 case HostWithinLobbyRequest.MessageOneofCase.LeaveLobbyRequest:
                     {
-                        var response = new LeaveLobbyResponse();
-                        joined_lobby.peers.Remove(id);
-                        if (joined_lobby.peers.Count == 0)
-                        {
-                            server.lobbies.Remove(id);
-                        }
-                        else
-                        {
-                            Tcp_Session new_host = joined_lobby.peers.Values.First();
-                            new_host.BecomeHost();
-                        }
+                        LeaveLobby(server);
 
+                        var response = new LeaveLobbyResponse();
                         response.Success = true;
                         state = Tcp_State.WithoutLobby;
+
                         outerResponse.LeaveLobbyResponse = response;
                         outerResponse.WriteDelimitedTo(stream);
                         break;
@@ -355,12 +345,14 @@ namespace Tcp_Test.Server
                     {
                         var response = new MakeHostResponse();
                         int peer_id = request.MakeHostRequest.PeerId;
+
                         if (id != peer_id // since we are host
                             && joined_lobby.peers.ContainsKey(peer_id))
                         {
                             response.NewHostId = peer_id;
                             joined_lobby.peers[peer_id].BecomeHost();
                         }
+
                         outerResponse.MakeHostResponse = response;
                         outerResponse.WriteDelimitedTo(stream);
                         break;
@@ -400,6 +392,21 @@ namespace Tcp_Test.Server
                     Log($"Unexpected within lobby request message.");
                     break;
             }
+        }
+
+        private void LeaveLobby(Server server)
+        {
+            joined_lobby.peers.Remove(id);
+            if (joined_lobby.peers.Count == 0)
+            {
+                server.lobbies.Remove(id);
+            }
+            else if (joined_lobby.host_id == id)
+            {
+                Tcp_Session new_host = joined_lobby.peers.Values.First();
+                new_host.BecomeHost();
+            }
+            joined_lobby = null;
         }
 
         private void BecomeHost()
