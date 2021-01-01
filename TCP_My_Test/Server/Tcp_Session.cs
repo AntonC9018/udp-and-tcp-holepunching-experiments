@@ -374,7 +374,6 @@ namespace Tcp_Test.Server
 
                 case GoRequest:
                     {
-                        joined_lobby.started = true;
                         var host_response = new GoResponse();
                         var host_address_message = CreateAddressMessage();
 
@@ -389,6 +388,7 @@ namespace Tcp_Test.Server
                             var peer = joined_lobby.peers[peer_id];
                             try
                             {
+                                peer.joined_lobby = null;
                                 peer.TransitionState(Tcp_State.Closing);
                                 peer_notification.WriteDelimitedTo(peer.client.GetStream());
                                 host_response.PeerAddressInfo.Add(peer.CreateAddressMessage());
@@ -398,6 +398,8 @@ namespace Tcp_Test.Server
                                 peer.Log($"An error has been catched while trying to send PeerAddressInfo");
                             }
                         }
+                        joined_lobby = null;
+                        server.lobbies.Remove(joined_lobby.id);
                         state = Tcp_State.Closing;
                         return new HostWithinLobbyResponse
                         {
@@ -413,10 +415,6 @@ namespace Tcp_Test.Server
         private void LeaveLobby()
         {
             // cannot leave a started lobby
-            if (joined_lobby.started)
-            {
-                return;
-            }
             Log($"Leaving lobby {joined_lobby.id}");
             joined_lobby.peers.Remove(id);
             if (joined_lobby.peers.Count == 0)
@@ -433,7 +431,8 @@ namespace Tcp_Test.Server
 
         private void MakeHost(Tcp_Session session)
         {
-            TransitionState(Tcp_State.HostWithinLobby);
+            TransitionState(Tcp_State.PeerWithinLobby);
+            session.TransitionState(Tcp_State.HostWithinLobby);
             session.BecomeHost();
         }
 
