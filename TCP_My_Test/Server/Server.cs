@@ -40,12 +40,8 @@ namespace Tcp_Test.Server
                 while (true)
                 {
                     var client = listener.AcceptTcpClient();
-                    var session = new Tcp_Session(++currentId, client);
+                    var session = new Tcp_Session(client);
                     new Thread(() => session.Start(this)).Start();
-
-                    client.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.KeepAlive, true);
-                    client.Client.SetSocketOption(SocketOptionLevel.Tcp, SocketOptionName.TcpKeepAliveInterval, 1);
-                    client.Client.SetSocketOption(SocketOptionLevel.Tcp, SocketOptionName.TcpKeepAliveRetryCount, 3);
                 }
             }
             catch (System.Exception e)

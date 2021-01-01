@@ -28,9 +28,8 @@ namespace Tcp_Test.Server
         public bool IsInitalized => private_endpoint != null;
 
 
-        public Tcp_Session(int id, TcpClient client)
+        public Tcp_Session(TcpClient client)
         {
-            this.id = id;
             this.client = client;
             this.state = Tcp_State.Connecting;
         }
@@ -84,7 +83,6 @@ namespace Tcp_Test.Server
             {
                 client.Close();
             }
-
         }
 
         public void Initialize(Server server)
@@ -96,6 +94,7 @@ namespace Tcp_Test.Server
 
             var initializationRequest = InitializationRequest.Parser.ParseDelimitedFrom(stream);
             private_endpoint = initializationRequest.PrivateEndpoint;
+            id = initializationRequest.ClientId;
 
             var initializationResponse = new InitializationResponse();
             initializationResponse.SomeLobbyIds.AddRange(server.lobbies.Keys.Take(10));
