@@ -7,7 +7,7 @@ namespace Protobuf.Tcp
 {
     public static class Tcp_Extensions
     {
-        public static System.Net.IPAddress GetAddress(this IPEndpoint endpoint)
+        public static System.Net.IPAddress GetAddress(this Protobuf.Tcp.IPEndpoint endpoint)
         {
             switch (endpoint.Address.IpFamilyCase)
             {
@@ -28,26 +28,31 @@ namespace Protobuf.Tcp
             return System.BitConverter.ToUInt32(bytes);
         }
 
-        public static IPAddress Convert(this System.Net.IPAddress address)
+        public static Protobuf.Tcp.IPAddress Convert(this System.Net.IPAddress address)
         {
             switch (address.AddressFamily)
             {
                 case AddressFamily.InterNetwork:
-                    return new IPAddress { IpV4 = address.GetAddressBytes().ToUInt32() };
+                    return new Protobuf.Tcp.IPAddress { IpV4 = address.GetAddressBytes().ToUInt32() };
                 case AddressFamily.InterNetworkV6:
-                    return new IPAddress { IpV6 = ByteString.CopyFrom(address.GetAddressBytes()) };
+                    return new Protobuf.Tcp.IPAddress { IpV6 = ByteString.CopyFrom(address.GetAddressBytes()) };
                 default:
                     return null;
             }
         }
 
-        public static IPEndpoint Convert(this IPEndPoint ep)
+        public static Protobuf.Tcp.IPEndpoint Convert(this System.Net.IPEndPoint ep)
         {
-            return new IPEndpoint
+            return new Protobuf.Tcp.IPEndpoint
             {
                 Address = ep.Address.Convert(),
                 Port = ep.Port
             };
+        }
+
+        public static System.Net.IPEndPoint Convert(this Protobuf.Tcp.IPEndpoint ep)
+        {
+            return new System.Net.IPEndPoint(ep.GetAddress(), ep.Port);
         }
     }
 }

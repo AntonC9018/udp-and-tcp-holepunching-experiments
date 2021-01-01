@@ -140,7 +140,6 @@ namespace Tcp_Test.Server
                         try
                         {
                             T message = new T();
-                            Log($"...Message...");
                             message.MergeDelimitedFrom(stream);
                             return message;
                         }
@@ -186,19 +185,16 @@ namespace Tcp_Test.Server
         }
 
         /*
-            This listens for one of three tasks at the same time:
+            This listens for one of 2 tasks at the same time:
                 1. the listen task, which parses data received from the client.
                 2. the change state task, which is responsible for quitting listening for message
                    if the message type we're trying to parse to is not correct.
-                3. a timeout task, which deletes the session if the client gets disconnected. 
-                  (Although I suppose this is not necessary, since the end of stream condition should detect that.
-                   I'm just not sure if that does that tbh.)
 
         */
         public bool TryGetMessageOrStateChange<T>(out T result) where T : IMessage<T>, new()
         {
-            Task<T> listenTask = ReceiveMessage<T>();
-            Task[] tasks = new Task[] { listenTask, change_state_task_completion_source.Task };
+            Task<T> receiveTask = ReceiveMessage<T>();
+            Task[] tasks = new Task[] { receiveTask, change_state_task_completion_source.Task };
 
             while (true)
             {
@@ -228,15 +224,15 @@ namespace Tcp_Test.Server
                 // If this threw then the client has probably disconnected but this is already being detected above,
                 // or the stream data were invalid, so no result acquired in this case. If you think about this,
                 // this option is never reached, since if any of the above happers, then the client has been disconnected.
-                if (listenTask.IsFaulted)
+                if (receiveTask.IsFaulted)
                 {
                     result = default(T);
                     return false;
                 }
 
                 // Otherwise, we read the next packet successfully.
-                result = listenTask.Result;
-                listenTask.Dispose();
+                result = receiveTask.Result;
+                receiveTask.Dispose();
                 return true;
             }
         }

@@ -12,32 +12,38 @@ namespace Tcp_Test.Client
             Client client = new Client(server_endpoint);
             try
             {
-                client.ConnectToServer();
+                var response = client.ConnectToServer();
+                bool joined = false;
 
-                // if (client.TryJoinLobby(2, "1111", out Peer peer))
-                // {
-                //     System.Console.WriteLine("Managed to join the group 2. Shutting down...");
-                //     client.server_connection.Close();
-                //     return;
-                // }
-                // else
-                // {
-                //     System.Console.WriteLine("Couldn't join the group 2");
-                // }
+                foreach (var lobby_id in response.SomeLobbyIds)
+                {
+                    if (client.TryJoinLobby(lobby_id, "1111"))
+                    {
+                        joined = true;
+                        break;
+                    }
+                }
 
-                // if (client.TryCreateLobby("1111", out Host host))
-                // {
-                //     System.Console.WriteLine("Created room");
-                // }
-                // else
-                // {
-                //     System.Console.WriteLine("Could not create room");
-                // }
+                if (!joined)
+                {
+                    if (!client.TryCreateLobby("1111"))
+                    {
+                        System.Console.WriteLine("Couldn't create lobby. Probably some server error");
+                        return;
+                    }
+                    Thread.Sleep(10000);
+                    client.Go();
+                    client.StartReceiving();
+                }
+                else
+                {
+                    client.StartReceiving();
+                }
                 Thread.Sleep(10000);
             }
             finally
             {
-                // client.server_connection.Close();
+                client.client.Close();
             }
         }
     }
