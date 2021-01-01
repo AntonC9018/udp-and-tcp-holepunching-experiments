@@ -78,6 +78,8 @@ namespace Tcp_Test.Server
             if (joined_lobby != null)
             {
                 LeaveLobby(server);
+                foreach (var lobby in server.lobbies.Values)
+                    server.Log(lobby.GetInfo().ToString());
             }
             if (client.Connected)
             {

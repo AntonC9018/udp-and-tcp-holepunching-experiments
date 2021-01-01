@@ -3,6 +3,7 @@ using Protobuf.Tcp;
 using Google.Protobuf;
 using System;
 using System.Net;
+using static Protobuf.Tcp.WithoutLobbyRequest.Types;
 
 namespace Tcp_Test.Client
 {
@@ -59,68 +60,75 @@ namespace Tcp_Test.Client
             System.Console.WriteLine(response);
         }
 
-        //     public bool TryJoinRoom(int id, string password, out Peer peer)
-        //     {
-        //         var stream = server_connection.GetStream();
-        //         var request = new Tcp_WithoutRoomRequest();
-        //         var message = new JoinRoomRequest();
+        public bool TryJoinLobby(int id, string password, out Peer peer)
+        {
+            var stream = server_connection.GetStream();
+            var request = new WithoutLobbyRequest();
+            var message = new JoinLobbyRequest();
 
-        //         message.PeerId = this.id; // this is not required, actually, since the session is kept
-        //         // actually, the id should be provided by the user so that the server is able to
-        //         // identify them.
-        //         message.Password = password;
-        //         message.RoomId = id;
-        //         request.JoinRoomRequest = message;
+            message.Password = password;
+            message.LobbyId = id;
+            request.JoinLobbyRequest = message;
 
-        //         System.Console.WriteLine($"Joining lobby {id}");
+            System.Console.WriteLine($"Joining lobby {id}");
 
-        //         request.WriteDelimitedTo(stream);
+            request.WriteDelimitedTo(stream);
 
-        //         var response = Tcp_WithoutRoomResponse.Parser.ParseDelimitedFrom(stream);
+            var response = JoinLobbyResponse.Parser.ParseDelimitedFrom(stream);
 
-        //         if (response.Success)
-        //         {
-        //             System.Console.WriteLine($"Successfully joined lobby {id}");
-        //             peer = new Peer(this);
-        //             return true;
-        //         }
+            if (response.LobbyInfo != null)
+            {
+                System.Console.WriteLine($"Successfully joined lobby: {response.LobbyInfo}");
+                peer = new Peer(this);
+                return true;
+            }
 
-        //         peer = null;
-        //         return false;
-        //     }
+            peer = null;
+            return false;
+        }
 
-        //     public bool TryCreateRoom(string password, out Host host)
-        //     {
-        //         var stream = server_connection.GetStream();
-        //         var request = new Tcp_WithoutRoomRequest();
-        //         var message = new CreateRoomRequest();
+        public bool TryCreateLobby(string password, out Host host)
+        {
+            var stream = server_connection.GetStream();
+            var request = new WithoutLobbyRequest();
+            var message = new CreateLobbyRequest();
 
-        //         message.HostId = this.id;
-        //         message.Password = password;
-        //         request.CreateRoomRequest = message;
+            message.Password = password;
+            message.Capacity = 2;
+            request.CreateLobbyRequest = message;
 
-        //         System.Console.WriteLine($"Creating lobby {id}");
+            System.Console.WriteLine($"Creating lobby {id}");
 
-        //         request.WriteDelimitedTo(stream);
+            request.WriteDelimitedTo(stream);
 
-        //         var response = Tcp_WithoutRoomResponse.Parser.ParseDelimitedFrom(stream);
+            var response = CreateLobbyResponse.Parser.ParseDelimitedFrom(stream);
 
-        //         if (response.Success)
-        //         {
-        //             System.Console.WriteLine($"Successfully created lobby {id}");
-        //             host = new Host(this);
-        //             return true;
-        //         }
+            if (response.LobbyId != 0)
+            {
+                System.Console.WriteLine($"Successfully created lobby {response.LobbyId}");
+                host = new Host(this);
+                return true;
+            }
 
-        //         host = null;
-        //         return false;
-        //     }
+            host = null;
+            return false;
+        }
     }
 
     public class Peer
     {
         public Peer(Client client)
         {
+        }
+
+        public void StartListening()
+        {
+            
+        }
+
+        public Client LeaveLobby()
+        {
+            return null;
         }
     }
 

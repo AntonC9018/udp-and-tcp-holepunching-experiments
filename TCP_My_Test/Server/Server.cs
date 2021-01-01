@@ -13,7 +13,6 @@ namespace Tcp_Test.Server
         // As they do that, they would send the server their private ip address.
         // The server would find out their public address based on where the request came from. 
         public Dictionary<int, Tcp_Session> sessions;
-        public int currentId;
         public Dictionary<int, Lobby> lobbies;
 
         public TcpListener listener;
