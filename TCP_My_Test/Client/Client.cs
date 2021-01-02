@@ -246,6 +246,7 @@ namespace Tcp_Test.Client
                         Task.WaitAll(task);
                         System.Console.WriteLine($"Connection to host established? {task.Result != null}");
                         state = Tcp_State.Closing;
+                        ConnectedToPeerEvent?.Invoke();
                         break;
                     }
 
@@ -290,7 +291,9 @@ namespace Tcp_Test.Client
                         {
                             System.Console.WriteLine($"{i}: Connection established? {tasks[i].Result != null}");
                         }
+
                     }
+                    ConnectedToPeerEvent?.Invoke();
                     state = Tcp_State.Closing;
                     break;
 
@@ -307,6 +310,8 @@ namespace Tcp_Test.Client
             joined_lobby.PeerIds.Add(peer_joined_notification.PeerId);
             PeerJoinedEvent?.Invoke();
         }
+
+        public event Action ConnectedToPeerEvent;
 
         public Socket EstablishOutboundTcp(AddressInfoMessage info)
         {

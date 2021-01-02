@@ -59,5 +59,10 @@ namespace Protobuf.Tcp
         {
             return $"[{info.Id}] {info.PublicEndpoint.GetAddress()}:{info.PublicEndpoint.Port} | {info.PrivateEndpoint.GetAddress()}:{info.PrivateEndpoint.Port}";
         }
+
+        public static bool IsFull(this LobbyInfo info)
+        {
+            return info.PeerIds.Count + 1 >= info.Capacity;
+        }
     }
 }

@@ -1,5 +1,6 @@
 using System.Net;
 using System.Threading;
+using System.Threading.Tasks;
 using Protobuf.Tcp;
 
 namespace Tcp_Test.Client
@@ -14,7 +15,7 @@ namespace Tcp_Test.Client
 
         public static void Main(string[] args)
         {
-            NatConicityTest();
+            TwoPersonTest();
         }
 
         public static void NatConicityTest()
@@ -62,7 +63,7 @@ namespace Tcp_Test.Client
                     }
                 }
 
-                new Thread(() => client.StartReceiving()).Start();
+                var thread = new Thread(() => client.StartReceiving());
 
                 if (!joined)
                 {
@@ -71,10 +72,31 @@ namespace Tcp_Test.Client
                         System.Console.WriteLine("Couldn't create lobby. Probably some server error");
                         return;
                     }
-                    Thread.Sleep(10000);
+                    thread.Start();
+                    var source = new TaskCompletionSource<int>();
+                    client.PeerJoinedEvent += () =>
+                    {
+                        if (client.joined_lobby.IsFull())
+                        {
+                            source.SetResult(1);
+                        }
+                    };
+                    System.Console.WriteLine("Waiting for another client to join");
+                    Task.WaitAll(source.Task);
                     client.Go();
                 }
-                Thread.Sleep(60000);
+                else
+                {
+                    thread.Start();
+                    var source = new TaskCompletionSource<int>();
+                    client.ConnectedToPeerEvent += () =>
+                    {
+                        source.SetResult(1);
+                    };
+                    Task.WaitAll(source.Task);
+                }
+
+                thread.Join();
             }
             finally
             {
