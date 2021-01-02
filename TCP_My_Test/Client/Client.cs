@@ -51,7 +51,6 @@ namespace Tcp_Test.Client
         public Client(IPEndPoint server_endpoint)
         {
             this.server_endpoint = server_endpoint;
-            this.private_address = GetLocalIp();
             this.client = CreateSocket();
             this.id = new Random().Next();
             this.state = Tcp_State.Connecting;
@@ -61,25 +60,21 @@ namespace Tcp_Test.Client
         {
             client.Connect(server_endpoint);
 
-            private_address = ((IPEndPoint)client.LocalEndPoint).Address.MapToIPv4();
+            this.private_address = ((IPEndPoint)client.LocalEndPoint).Address.MapToIPv4();
+            this.private_endpoint = ((IPEndPoint)client.LocalEndPoint).Convert();
 
-            this.private_endpoint = new IPEndpoint
-            {
-                Address = private_address.Convert(),
-                Port = ((IPEndPoint)client.LocalEndPoint).Port
-            };
             System.Console.WriteLine($"{client.LocalEndPoint}");
-
             System.Console.WriteLine($"Local endpoint: {private_endpoint.GetAddress()}:{private_endpoint.Port}");
 
             this.state = Tcp_State.Initialization;
+            this.stream = new NetworkStream(client);
+
             InitializationRequest info = new InitializationRequest
             {
                 ClientId = id,
                 PrivateEndpoint = private_endpoint
             };
 
-            stream = new NetworkStream(client);
             info.WriteDelimitedTo(stream);
 
             var response = InitializationResponse.Parser.ParseDelimitedFrom(stream);
