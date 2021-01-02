@@ -55,7 +55,7 @@ namespace Tcp_Test.Client
 #endif
             client.Connect(server_endpoint);
 
-            private_address = ((IPEndPoint)client.Client.LocalEndPoint).Address;
+            private_address = ((IPEndPoint)client.Client.LocalEndPoint).Address.MapToIPv4();
 
             this.private_endpoint = new IPEndpoint
             {
