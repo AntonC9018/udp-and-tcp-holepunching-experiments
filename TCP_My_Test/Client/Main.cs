@@ -36,7 +36,7 @@ namespace Tcp_Test.Client
                     Thread.Sleep(10000);
                     client.Go();
                 }
-                Thread.Sleep(10000);
+                Thread.Sleep(60000);
             }
             finally
             {

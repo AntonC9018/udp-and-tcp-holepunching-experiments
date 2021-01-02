@@ -286,13 +286,13 @@ namespace Tcp_Test.Client
             {
                 () => Task.Run(() =>
                 {
-                    System.Console.WriteLine($"Sending connection request to {info.PrivateEndpoint.Convert()}");
+                    System.Console.WriteLine($"Sending connection request to {info.PrivateEndpoint.Convert()} from {private_client.Client.LocalEndPoint}");
                     private_client.Connect(info.PrivateEndpoint.Convert());
                     return private_client;
                 }),
                 () => Task.Run(() =>
                 {
-                    System.Console.WriteLine($"Sending connection request to {info.PublicEndpoint.Convert()}");
+                    System.Console.WriteLine($"Sending connection request to {info.PublicEndpoint.Convert()} from {public_client.Client.LocalEndPoint}");
                     public_client.Connect(info.PublicEndpoint.Convert());
                     return public_client;
                 }),
