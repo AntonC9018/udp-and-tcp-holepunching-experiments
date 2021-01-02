@@ -60,7 +60,7 @@ namespace Tcp_Test.Client
                 Address = private_address.Convert(),
                 Port = ((IPEndPoint)client.Client.LocalEndPoint).Port
             };
-            System.Console.WriteLine($"Local endpoint: {private_endpoint}");
+            System.Console.WriteLine($"Local endpoint: {private_endpoint.GetAddress()}:{private_endpoint.Port}");
 
             this.state = Tcp_State.Initialization;
             InitializationRequest info = new InitializationRequest
@@ -273,7 +273,8 @@ namespace Tcp_Test.Client
         {
             TcpClient private_client = new TcpClient();
             TcpClient public_client = new TcpClient();
-            TcpListener listener = new TcpListener(System.Net.IPAddress.Any, 0);
+            TcpListener listener = new TcpListener(
+                System.Net.IPAddress.Any, ((IPEndPoint)client.Client.LocalEndPoint).Port);
             listener.Start();
             System.Console.WriteLine($"Listener endpoint: {listener.Server.LocalEndPoint}");
 
