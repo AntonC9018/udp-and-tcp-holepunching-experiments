@@ -273,9 +273,9 @@ namespace Tcp_Test.Client
         {
             TcpClient private_client = new TcpClient();
             TcpClient public_client = new TcpClient();
-            TcpListener listener = new TcpListener(private_endpoint.GetAddress(), private_endpoint.Port);
-            System.Console.WriteLine($"Listener endpoint: {listener.Server.LocalEndPoint}");
+            TcpListener listener = new TcpListener(System.Net.IPAddress.Any, 0);
             listener.Start();
+            System.Console.WriteLine($"Listener endpoint: {listener.Server.LocalEndPoint}");
 
             Func<Task<TcpClient>>[] funcs = new Func<Task<TcpClient>>[]
             {
