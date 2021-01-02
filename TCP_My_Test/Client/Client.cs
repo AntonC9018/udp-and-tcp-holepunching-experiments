@@ -273,8 +273,7 @@ namespace Tcp_Test.Client
         {
             TcpClient private_client = new TcpClient();
             TcpClient public_client = new TcpClient();
-            TcpListener listener = new TcpListener(
-                System.Net.IPAddress.Any, ((IPEndPoint)client.Client.LocalEndPoint).Port);
+            TcpListener listener = new TcpListener(((IPEndPoint)client.Client.LocalEndPoint));
             listener.Start();
             System.Console.WriteLine($"Listener endpoint: {listener.Server.LocalEndPoint}");
 
@@ -282,11 +281,13 @@ namespace Tcp_Test.Client
             {
                 () => Task.Run(() =>
                 {
+                    System.Console.WriteLine($"Sending connection request to {info.PrivateEndpoint.Convert()}");
                     private_client.Connect(info.PrivateEndpoint.Convert());
                     return private_client;
                 }),
                 () => Task.Run(() =>
                 {
+                    System.Console.WriteLine($"Sending connection request to {info.PublicEndpoint.Convert()}");
                     public_client.Connect(info.PublicEndpoint.Convert());
                     return public_client;
                 }),
