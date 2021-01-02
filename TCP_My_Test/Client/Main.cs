@@ -33,7 +33,7 @@ namespace Tcp_Test.Client
                         System.Console.WriteLine("Couldn't create lobby. Probably some server error");
                         return;
                     }
-                    Thread.Sleep(10000);
+                    Thread.Sleep(15000);
                     client.Go();
                 }
                 Thread.Sleep(10000);

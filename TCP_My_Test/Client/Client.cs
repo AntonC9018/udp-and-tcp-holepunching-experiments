@@ -274,6 +274,7 @@ namespace Tcp_Test.Client
             TcpClient private_client = new TcpClient();
             TcpClient public_client = new TcpClient();
             TcpListener listener = new TcpListener(private_endpoint.GetAddress(), private_endpoint.Port);
+            System.Console.WriteLine($"Listener endpoint: {listener.Server.LocalEndPoint}");
             listener.Start();
 
             Func<Task<TcpClient>>[] funcs = new Func<Task<TcpClient>>[]
@@ -299,7 +300,7 @@ namespace Tcp_Test.Client
             };
 
             int num_errors = 0;
-            const int max_errors = 100;
+            const int max_errors = 10;
 
             while (true)
             {
@@ -313,11 +314,13 @@ namespace Tcp_Test.Client
                     }
                     else
                     {
+                        System.Console.WriteLine($"Task number {index} threw an error. Current number of errors: {num_errors}");
                         tasks[index] = funcs[index]();
                     }
                 }
                 else
                 {
+                    System.Console.WriteLine($"Task number {index} succeeded.");
                     return tasks[index].Result;
                 }
             }
