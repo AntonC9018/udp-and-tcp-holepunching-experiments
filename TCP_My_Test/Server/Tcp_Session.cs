@@ -21,8 +21,8 @@ namespace Tcp_Test.Server
         public int id;
         public Lobby joined_lobby;
         public TcpClient client;
-        public IPEndpoint private_endpoint;
-        public IPEndpoint public_endpoint;
+        public IPEndPointMessage private_endpoint;
+        public IPEndPointMessage public_endpoint;
         public Tcp_State state;
         public Server server;
 

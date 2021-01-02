@@ -24,69 +24,70 @@ namespace Protobuf.Tcp {
     static TcpReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "Cgl0Y3AucHJvdG8SDHByb3RvYnVmLnRjcCI6CglJUEFkZHJlc3MSDwoFaXBf",
-            "djQYASABKAdIABIPCgVpcF92NhgCIAEoDEgAQgsKCWlwX2ZhbWlseSJECgpJ",
-            "UEVuZHBvaW50EigKB2FkZHJlc3MYASABKAsyFy5wcm90b2J1Zi50Y3AuSVBB",
-            "ZGRyZXNzEgwKBHBvcnQYAiABKAUiXgoVSW5pdGlhbGl6YXRpb25SZXF1ZXN0",
-            "EhEKCWNsaWVudF9pZBgBIAEoBRIyChBwcml2YXRlX2VuZHBvaW50GAIgASgL",
-            "MhgucHJvdG9idWYudGNwLklQRW5kcG9pbnQiMAoWSW5pdGlhbGl6YXRpb25S",
-            "ZXNwb25zZRIWCg5zb21lX2xvYmJ5X2lkcxgBIAMoBSKtAwoTV2l0aG91dExv",
-            "YmJ5UmVxdWVzdBJQChJqb2luX2xvYmJ5X3JlcXVlc3QYASABKAsyMi5wcm90",
-            "b2J1Zi50Y3AuV2l0aG91dExvYmJ5UmVxdWVzdC5Kb2luTG9iYnlSZXF1ZXN0",
-            "SAASVAoUY3JlYXRlX2xvYmJ5X3JlcXVlc3QYAiABKAsyNC5wcm90b2J1Zi50",
-            "Y3AuV2l0aG91dExvYmJ5UmVxdWVzdC5DcmVhdGVMb2JieVJlcXVlc3RIABJZ",
-            "ChdteV9hZGRyZXNzX2luZm9fcmVxdWVzdBgDIAEoCzI2LnByb3RvYnVmLnRj",
-            "cC5XaXRob3V0TG9iYnlSZXF1ZXN0Lk15QWRkcmVzc0luZm9SZXF1ZXN0SAAa",
-            "NgoQSm9pbkxvYmJ5UmVxdWVzdBIQCghsb2JieV9pZBgBIAEoBRIQCghwYXNz",
-            "d29yZBgCIAEoCRo4ChJDcmVhdGVMb2JieVJlcXVlc3QSEAoIcGFzc3dvcmQY",
-            "ASABKAkSEAoIY2FwYWNpdHkYAiABKAUaFgoUTXlBZGRyZXNzSW5mb1JlcXVl",
-            "c3RCCQoHbWVzc2FnZSJSCglMb2JieUluZm8SEAoIbG9iYnlfaWQYASABKAUS",
-            "EAoIY2FwYWNpdHkYAiABKAUSDwoHaG9zdF9pZBgDIAEoBRIQCghwZWVyX2lk",
-            "cxgEIAMoBSJAChFKb2luTG9iYnlSZXNwb25zZRIrCgpsb2JieV9pbmZvGAEg",
-            "ASgLMhcucHJvdG9idWYudGNwLkxvYmJ5SW5mbyInChNDcmVhdGVMb2JieVJl",
-            "c3BvbnNlEhAKCGxvYmJ5X2lkGAEgASgFIhMKEUxlYXZlTG9iYnlSZXF1ZXN0",
-            "ImMKFlBlZXJXaXRoaW5Mb2JieVJlcXVlc3QSPgoTbGVhdmVfbG9iYnlfcmVx",
-            "dWVzdBgBIAEoCzIfLnByb3RvYnVmLnRjcC5MZWF2ZUxvYmJ5UmVxdWVzdEgA",
-            "QgkKB21lc3NhZ2UihwEKEkFkZHJlc3NJbmZvTWVzc2FnZRIKCgJpZBgBIAEo",
-            "BRIyChBwcml2YXRlX2VuZHBvaW50GAIgASgLMhgucHJvdG9idWYudGNwLklQ",
-            "RW5kcG9pbnQSMQoPcHVibGljX2VuZHBvaW50GAMgASgLMhgucHJvdG9idWYu",
-            "dGNwLklQRW5kcG9pbnQiJQoSTGVhdmVMb2JieVJlc3BvbnNlEg8KB3N1Y2Nl",
-            "c3MYASABKAgiqgQKF1BlZXJXaXRoaW5Mb2JieVJlc3BvbnNlEmAKGHBlZXJf",
-            "am9pbmVkX25vdGlmaWNhdGlvbhgBIAEoCzI8LnByb3RvYnVmLnRjcC5QZWVy",
-            "V2l0aGluTG9iYnlSZXNwb25zZS5QZWVySm9pbmVkTm90aWZpY2F0aW9uSAAS",
-            "YAoYbGVhdmVfbG9iYnlfbm90aWZpY2F0aW9uGAIgASgLMjwucHJvdG9idWYu",
-            "dGNwLlBlZXJXaXRoaW5Mb2JieVJlc3BvbnNlLkxlYXZlTG9iYnlOb3RpZmlj",
-            "YXRpb25IABJgChhiZWNvbWVfaG9zdF9ub3RpZmljYXRpb24YAyABKAsyPC5w",
-            "cm90b2J1Zi50Y3AuUGVlcldpdGhpbkxvYmJ5UmVzcG9uc2UuQmVjb21lSG9z",
-            "dE5vdGlmaWNhdGlvbkgAEkAKFGxlYXZlX2xvYmJ5X3Jlc3BvbnNlGAQgASgL",
-            "MiAucHJvdG9idWYudGNwLkxlYXZlTG9iYnlSZXNwb25zZUgAEj0KEWhvc3Rf",
-            "YWRkcmVzc19pbmZvGAUgASgLMiAucHJvdG9idWYudGNwLkFkZHJlc3NJbmZv",
-            "TWVzc2FnZUgAGikKFlBlZXJKb2luZWROb3RpZmljYXRpb24SDwoHcGVlcl9p",
-            "ZBgBIAEoBRoYChZMZWF2ZUxvYmJ5Tm90aWZpY2F0aW9uGhgKFkJlY29tZUhv",
-            "c3ROb3RpZmljYXRpb25CCQoHbWVzc2FnZSKtAgoWSG9zdFdpdGhpbkxvYmJ5",
-            "UmVxdWVzdBI+ChNsZWF2ZV9sb2JieV9yZXF1ZXN0GAEgASgLMh8ucHJvdG9i",
-            "dWYudGNwLkxlYXZlTG9iYnlSZXF1ZXN0SAASUQoRbWFrZV9ob3N0X3JlcXVl",
-            "c3QYAiABKAsyNC5wcm90b2J1Zi50Y3AuSG9zdFdpdGhpbkxvYmJ5UmVxdWVz",
-            "dC5NYWtlSG9zdFJlcXVlc3RIABJECgpnb19yZXF1ZXN0GAMgASgLMi4ucHJv",
-            "dG9idWYudGNwLkhvc3RXaXRoaW5Mb2JieVJlcXVlc3QuR29SZXF1ZXN0SAAa",
-            "IgoPTWFrZUhvc3RSZXF1ZXN0Eg8KB3BlZXJfaWQYASABKAUaCwoJR29SZXF1",
-            "ZXN0QgkKB21lc3NhZ2Ui+QIKF0hvc3RXaXRoaW5Mb2JieVJlc3BvbnNlEkAK",
-            "FGxlYXZlX2xvYmJ5X3Jlc3BvbnNlGAEgASgLMiAucHJvdG9idWYudGNwLkxl",
-            "YXZlTG9iYnlSZXNwb25zZUgAElQKEm1ha2VfaG9zdF9yZXNwb25zZRgCIAEo",
-            "CzI2LnByb3RvYnVmLnRjcC5Ib3N0V2l0aGluTG9iYnlSZXNwb25zZS5NYWtl",
-            "SG9zdFJlc3BvbnNlSAASRwoLZ29fcmVzcG9uc2UYAyABKAsyMC5wcm90b2J1",
-            "Zi50Y3AuSG9zdFdpdGhpbkxvYmJ5UmVzcG9uc2UuR29SZXNwb25zZUgAGicK",
-            "EE1ha2VIb3N0UmVzcG9uc2USEwoLbmV3X2hvc3RfaWQYASABKAUaSQoKR29S",
-            "ZXNwb25zZRI7ChFwZWVyX2FkZHJlc3NfaW5mbxgBIAMoCzIgLnByb3RvYnVm",
-            "LnRjcC5BZGRyZXNzSW5mb01lc3NhZ2VCCQoHbWVzc2FnZSqEAQoJVGNwX1N0",
-            "YXRlEg4KCkNvbm5lY3RpbmcQABISCg5Jbml0aWFsaXphdGlvbhABEhAKDFdp",
-            "dGhvdXRMb2JieRACEhMKD1BlZXJXaXRoaW5Mb2JieRADEhMKD0hvc3RXaXRo",
-            "aW5Mb2JieRAEEgsKB0Nsb3NpbmcQBRIKCgZDbG9zZWQQBmIGcHJvdG8z"));
+            "Cgl0Y3AucHJvdG8SDHByb3RvYnVmLnRjcCJBChBJUEFkZHJlc3NNZXNzYWdl",
+            "Eg8KBWlwX3Y0GAEgASgHSAASDwoFaXBfdjYYAiABKAxIAEILCglpcF9mYW1p",
+            "bHkiUgoRSVBFbmRQb2ludE1lc3NhZ2USLwoHYWRkcmVzcxgBIAEoCzIeLnBy",
+            "b3RvYnVmLnRjcC5JUEFkZHJlc3NNZXNzYWdlEgwKBHBvcnQYAiABKAUiZQoV",
+            "SW5pdGlhbGl6YXRpb25SZXF1ZXN0EhEKCWNsaWVudF9pZBgBIAEoBRI5ChBw",
+            "cml2YXRlX2VuZHBvaW50GAIgASgLMh8ucHJvdG9idWYudGNwLklQRW5kUG9p",
+            "bnRNZXNzYWdlIjAKFkluaXRpYWxpemF0aW9uUmVzcG9uc2USFgoOc29tZV9s",
+            "b2JieV9pZHMYASADKAUirQMKE1dpdGhvdXRMb2JieVJlcXVlc3QSUAoSam9p",
+            "bl9sb2JieV9yZXF1ZXN0GAEgASgLMjIucHJvdG9idWYudGNwLldpdGhvdXRM",
+            "b2JieVJlcXVlc3QuSm9pbkxvYmJ5UmVxdWVzdEgAElQKFGNyZWF0ZV9sb2Ji",
+            "eV9yZXF1ZXN0GAIgASgLMjQucHJvdG9idWYudGNwLldpdGhvdXRMb2JieVJl",
+            "cXVlc3QuQ3JlYXRlTG9iYnlSZXF1ZXN0SAASWQoXbXlfYWRkcmVzc19pbmZv",
+            "X3JlcXVlc3QYAyABKAsyNi5wcm90b2J1Zi50Y3AuV2l0aG91dExvYmJ5UmVx",
+            "dWVzdC5NeUFkZHJlc3NJbmZvUmVxdWVzdEgAGjYKEEpvaW5Mb2JieVJlcXVl",
+            "c3QSEAoIbG9iYnlfaWQYASABKAUSEAoIcGFzc3dvcmQYAiABKAkaOAoSQ3Jl",
+            "YXRlTG9iYnlSZXF1ZXN0EhAKCHBhc3N3b3JkGAEgASgJEhAKCGNhcGFjaXR5",
+            "GAIgASgFGhYKFE15QWRkcmVzc0luZm9SZXF1ZXN0QgkKB21lc3NhZ2UiUgoJ",
+            "TG9iYnlJbmZvEhAKCGxvYmJ5X2lkGAEgASgFEhAKCGNhcGFjaXR5GAIgASgF",
+            "Eg8KB2hvc3RfaWQYAyABKAUSEAoIcGVlcl9pZHMYBCADKAUiQAoRSm9pbkxv",
+            "YmJ5UmVzcG9uc2USKwoKbG9iYnlfaW5mbxgBIAEoCzIXLnByb3RvYnVmLnRj",
+            "cC5Mb2JieUluZm8iJwoTQ3JlYXRlTG9iYnlSZXNwb25zZRIQCghsb2JieV9p",
+            "ZBgBIAEoBSITChFMZWF2ZUxvYmJ5UmVxdWVzdCJjChZQZWVyV2l0aGluTG9i",
+            "YnlSZXF1ZXN0Ej4KE2xlYXZlX2xvYmJ5X3JlcXVlc3QYASABKAsyHy5wcm90",
+            "b2J1Zi50Y3AuTGVhdmVMb2JieVJlcXVlc3RIAEIJCgdtZXNzYWdlIpUBChJB",
+            "ZGRyZXNzSW5mb01lc3NhZ2USCgoCaWQYASABKAUSOQoQcHJpdmF0ZV9lbmRw",
+            "b2ludBgCIAEoCzIfLnByb3RvYnVmLnRjcC5JUEVuZFBvaW50TWVzc2FnZRI4",
+            "Cg9wdWJsaWNfZW5kcG9pbnQYAyABKAsyHy5wcm90b2J1Zi50Y3AuSVBFbmRQ",
+            "b2ludE1lc3NhZ2UiJQoSTGVhdmVMb2JieVJlc3BvbnNlEg8KB3N1Y2Nlc3MY",
+            "ASABKAgiqgQKF1BlZXJXaXRoaW5Mb2JieVJlc3BvbnNlEmAKGHBlZXJfam9p",
+            "bmVkX25vdGlmaWNhdGlvbhgBIAEoCzI8LnByb3RvYnVmLnRjcC5QZWVyV2l0",
+            "aGluTG9iYnlSZXNwb25zZS5QZWVySm9pbmVkTm90aWZpY2F0aW9uSAASYAoY",
+            "bGVhdmVfbG9iYnlfbm90aWZpY2F0aW9uGAIgASgLMjwucHJvdG9idWYudGNw",
+            "LlBlZXJXaXRoaW5Mb2JieVJlc3BvbnNlLkxlYXZlTG9iYnlOb3RpZmljYXRp",
+            "b25IABJgChhiZWNvbWVfaG9zdF9ub3RpZmljYXRpb24YAyABKAsyPC5wcm90",
+            "b2J1Zi50Y3AuUGVlcldpdGhpbkxvYmJ5UmVzcG9uc2UuQmVjb21lSG9zdE5v",
+            "dGlmaWNhdGlvbkgAEkAKFGxlYXZlX2xvYmJ5X3Jlc3BvbnNlGAQgASgLMiAu",
+            "cHJvdG9idWYudGNwLkxlYXZlTG9iYnlSZXNwb25zZUgAEj0KEWhvc3RfYWRk",
+            "cmVzc19pbmZvGAUgASgLMiAucHJvdG9idWYudGNwLkFkZHJlc3NJbmZvTWVz",
+            "c2FnZUgAGikKFlBlZXJKb2luZWROb3RpZmljYXRpb24SDwoHcGVlcl9pZBgB",
+            "IAEoBRoYChZMZWF2ZUxvYmJ5Tm90aWZpY2F0aW9uGhgKFkJlY29tZUhvc3RO",
+            "b3RpZmljYXRpb25CCQoHbWVzc2FnZSKtAgoWSG9zdFdpdGhpbkxvYmJ5UmVx",
+            "dWVzdBI+ChNsZWF2ZV9sb2JieV9yZXF1ZXN0GAEgASgLMh8ucHJvdG9idWYu",
+            "dGNwLkxlYXZlTG9iYnlSZXF1ZXN0SAASUQoRbWFrZV9ob3N0X3JlcXVlc3QY",
+            "AiABKAsyNC5wcm90b2J1Zi50Y3AuSG9zdFdpdGhpbkxvYmJ5UmVxdWVzdC5N",
+            "YWtlSG9zdFJlcXVlc3RIABJECgpnb19yZXF1ZXN0GAMgASgLMi4ucHJvdG9i",
+            "dWYudGNwLkhvc3RXaXRoaW5Mb2JieVJlcXVlc3QuR29SZXF1ZXN0SAAaIgoP",
+            "TWFrZUhvc3RSZXF1ZXN0Eg8KB3BlZXJfaWQYASABKAUaCwoJR29SZXF1ZXN0",
+            "QgkKB21lc3NhZ2Ui+QIKF0hvc3RXaXRoaW5Mb2JieVJlc3BvbnNlEkAKFGxl",
+            "YXZlX2xvYmJ5X3Jlc3BvbnNlGAEgASgLMiAucHJvdG9idWYudGNwLkxlYXZl",
+            "TG9iYnlSZXNwb25zZUgAElQKEm1ha2VfaG9zdF9yZXNwb25zZRgCIAEoCzI2",
+            "LnByb3RvYnVmLnRjcC5Ib3N0V2l0aGluTG9iYnlSZXNwb25zZS5NYWtlSG9z",
+            "dFJlc3BvbnNlSAASRwoLZ29fcmVzcG9uc2UYAyABKAsyMC5wcm90b2J1Zi50",
+            "Y3AuSG9zdFdpdGhpbkxvYmJ5UmVzcG9uc2UuR29SZXNwb25zZUgAGicKEE1h",
+            "a2VIb3N0UmVzcG9uc2USEwoLbmV3X2hvc3RfaWQYASABKAUaSQoKR29SZXNw",
+            "b25zZRI7ChFwZWVyX2FkZHJlc3NfaW5mbxgBIAMoCzIgLnByb3RvYnVmLnRj",
+            "cC5BZGRyZXNzSW5mb01lc3NhZ2VCCQoHbWVzc2FnZSqEAQoJVGNwX1N0YXRl",
+            "Eg4KCkNvbm5lY3RpbmcQABISCg5Jbml0aWFsaXphdGlvbhABEhAKDFdpdGhv",
+            "dXRMb2JieRACEhMKD1BlZXJXaXRoaW5Mb2JieRADEhMKD0hvc3RXaXRoaW5M",
+            "b2JieRAEEgsKB0Nsb3NpbmcQBRIKCgZDbG9zZWQQBmIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Protobuf.Tcp.Tcp_State), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Protobuf.Tcp.IPAddress), global::Protobuf.Tcp.IPAddress.Parser, new[]{ "IpV4", "IpV6" }, new[]{ "IpFamily" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Protobuf.Tcp.IPEndpoint), global::Protobuf.Tcp.IPEndpoint.Parser, new[]{ "Address", "Port" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Protobuf.Tcp.IPAddressMessage), global::Protobuf.Tcp.IPAddressMessage.Parser, new[]{ "IpV4", "IpV6" }, new[]{ "IpFamily" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Protobuf.Tcp.IPEndPointMessage), global::Protobuf.Tcp.IPEndPointMessage.Parser, new[]{ "Address", "Port" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protobuf.Tcp.InitializationRequest), global::Protobuf.Tcp.InitializationRequest.Parser, new[]{ "ClientId", "PrivateEndpoint" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protobuf.Tcp.InitializationResponse), global::Protobuf.Tcp.InitializationResponse.Parser, new[]{ "SomeLobbyIds" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protobuf.Tcp.WithoutLobbyRequest), global::Protobuf.Tcp.WithoutLobbyRequest.Parser, new[]{ "JoinLobbyRequest", "CreateLobbyRequest", "MyAddressInfoRequest" }, new[]{ "Message" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Protobuf.Tcp.WithoutLobbyRequest.Types.JoinLobbyRequest), global::Protobuf.Tcp.WithoutLobbyRequest.Types.JoinLobbyRequest.Parser, new[]{ "LobbyId", "Password" }, null, null, null, null),
@@ -146,15 +147,15 @@ namespace Protobuf.Tcp {
   #endregion
 
   #region Messages
-  public sealed partial class IPAddress : pb::IMessage<IPAddress>
+  public sealed partial class IPAddressMessage : pb::IMessage<IPAddressMessage>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<IPAddress> _parser = new pb::MessageParser<IPAddress>(() => new IPAddress());
+    private static readonly pb::MessageParser<IPAddressMessage> _parser = new pb::MessageParser<IPAddressMessage>(() => new IPAddressMessage());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<IPAddress> Parser { get { return _parser; } }
+    public static pb::MessageParser<IPAddressMessage> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
@@ -167,14 +168,14 @@ namespace Protobuf.Tcp {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public IPAddress() {
+    public IPAddressMessage() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public IPAddress(IPAddress other) : this() {
+    public IPAddressMessage(IPAddressMessage other) : this() {
       switch (other.IpFamilyCase) {
         case IpFamilyOneofCase.IpV4:
           IpV4 = other.IpV4;
@@ -188,8 +189,8 @@ namespace Protobuf.Tcp {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public IPAddress Clone() {
-      return new IPAddress(this);
+    public IPAddressMessage Clone() {
+      return new IPAddressMessage(this);
     }
 
     /// <summary>Field number for the "ip_v4" field.</summary>
@@ -235,11 +236,11 @@ namespace Protobuf.Tcp {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as IPAddress);
+      return Equals(other as IPAddressMessage);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(IPAddress other) {
+    public bool Equals(IPAddressMessage other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -321,7 +322,7 @@ namespace Protobuf.Tcp {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(IPAddress other) {
+    public void MergeFrom(IPAddressMessage other) {
       if (other == null) {
         return;
       }
@@ -385,15 +386,15 @@ namespace Protobuf.Tcp {
 
   }
 
-  public sealed partial class IPEndpoint : pb::IMessage<IPEndpoint>
+  public sealed partial class IPEndPointMessage : pb::IMessage<IPEndPointMessage>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<IPEndpoint> _parser = new pb::MessageParser<IPEndpoint>(() => new IPEndpoint());
+    private static readonly pb::MessageParser<IPEndPointMessage> _parser = new pb::MessageParser<IPEndPointMessage>(() => new IPEndPointMessage());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<IPEndpoint> Parser { get { return _parser; } }
+    public static pb::MessageParser<IPEndPointMessage> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
@@ -406,29 +407,29 @@ namespace Protobuf.Tcp {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public IPEndpoint() {
+    public IPEndPointMessage() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public IPEndpoint(IPEndpoint other) : this() {
+    public IPEndPointMessage(IPEndPointMessage other) : this() {
       address_ = other.address_ != null ? other.address_.Clone() : null;
       port_ = other.port_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public IPEndpoint Clone() {
-      return new IPEndpoint(this);
+    public IPEndPointMessage Clone() {
+      return new IPEndPointMessage(this);
     }
 
     /// <summary>Field number for the "address" field.</summary>
     public const int AddressFieldNumber = 1;
-    private global::Protobuf.Tcp.IPAddress address_;
+    private global::Protobuf.Tcp.IPAddressMessage address_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Protobuf.Tcp.IPAddress Address {
+    public global::Protobuf.Tcp.IPAddressMessage Address {
       get { return address_; }
       set {
         address_ = value;
@@ -448,11 +449,11 @@ namespace Protobuf.Tcp {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as IPEndpoint);
+      return Equals(other as IPEndPointMessage);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(IPEndpoint other) {
+    public bool Equals(IPEndPointMessage other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -532,13 +533,13 @@ namespace Protobuf.Tcp {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(IPEndpoint other) {
+    public void MergeFrom(IPEndPointMessage other) {
       if (other == null) {
         return;
       }
       if (other.address_ != null) {
         if (address_ == null) {
-          Address = new global::Protobuf.Tcp.IPAddress();
+          Address = new global::Protobuf.Tcp.IPAddressMessage();
         }
         Address.MergeFrom(other.Address);
       }
@@ -561,7 +562,7 @@ namespace Protobuf.Tcp {
             break;
           case 10: {
             if (address_ == null) {
-              Address = new global::Protobuf.Tcp.IPAddress();
+              Address = new global::Protobuf.Tcp.IPAddressMessage();
             }
             input.ReadMessage(Address);
             break;
@@ -586,7 +587,7 @@ namespace Protobuf.Tcp {
             break;
           case 10: {
             if (address_ == null) {
-              Address = new global::Protobuf.Tcp.IPAddress();
+              Address = new global::Protobuf.Tcp.IPAddressMessage();
             }
             input.ReadMessage(Address);
             break;
@@ -657,12 +658,12 @@ namespace Protobuf.Tcp {
 
     /// <summary>Field number for the "private_endpoint" field.</summary>
     public const int PrivateEndpointFieldNumber = 2;
-    private global::Protobuf.Tcp.IPEndpoint privateEndpoint_;
+    private global::Protobuf.Tcp.IPEndPointMessage privateEndpoint_;
     /// <summary>
     /// private ip + port of socket
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Protobuf.Tcp.IPEndpoint PrivateEndpoint {
+    public global::Protobuf.Tcp.IPEndPointMessage PrivateEndpoint {
       get { return privateEndpoint_; }
       set {
         privateEndpoint_ = value;
@@ -764,7 +765,7 @@ namespace Protobuf.Tcp {
       }
       if (other.privateEndpoint_ != null) {
         if (privateEndpoint_ == null) {
-          PrivateEndpoint = new global::Protobuf.Tcp.IPEndpoint();
+          PrivateEndpoint = new global::Protobuf.Tcp.IPEndPointMessage();
         }
         PrivateEndpoint.MergeFrom(other.PrivateEndpoint);
       }
@@ -788,7 +789,7 @@ namespace Protobuf.Tcp {
           }
           case 18: {
             if (privateEndpoint_ == null) {
-              PrivateEndpoint = new global::Protobuf.Tcp.IPEndpoint();
+              PrivateEndpoint = new global::Protobuf.Tcp.IPEndPointMessage();
             }
             input.ReadMessage(PrivateEndpoint);
             break;
@@ -813,7 +814,7 @@ namespace Protobuf.Tcp {
           }
           case 18: {
             if (privateEndpoint_ == null) {
-              PrivateEndpoint = new global::Protobuf.Tcp.IPEndpoint();
+              PrivateEndpoint = new global::Protobuf.Tcp.IPEndPointMessage();
             }
             input.ReadMessage(PrivateEndpoint);
             break;
@@ -2901,9 +2902,9 @@ namespace Protobuf.Tcp {
 
     /// <summary>Field number for the "private_endpoint" field.</summary>
     public const int PrivateEndpointFieldNumber = 2;
-    private global::Protobuf.Tcp.IPEndpoint privateEndpoint_;
+    private global::Protobuf.Tcp.IPEndPointMessage privateEndpoint_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Protobuf.Tcp.IPEndpoint PrivateEndpoint {
+    public global::Protobuf.Tcp.IPEndPointMessage PrivateEndpoint {
       get { return privateEndpoint_; }
       set {
         privateEndpoint_ = value;
@@ -2912,9 +2913,9 @@ namespace Protobuf.Tcp {
 
     /// <summary>Field number for the "public_endpoint" field.</summary>
     public const int PublicEndpointFieldNumber = 3;
-    private global::Protobuf.Tcp.IPEndpoint publicEndpoint_;
+    private global::Protobuf.Tcp.IPEndPointMessage publicEndpoint_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Protobuf.Tcp.IPEndpoint PublicEndpoint {
+    public global::Protobuf.Tcp.IPEndPointMessage PublicEndpoint {
       get { return publicEndpoint_; }
       set {
         publicEndpoint_ = value;
@@ -3029,13 +3030,13 @@ namespace Protobuf.Tcp {
       }
       if (other.privateEndpoint_ != null) {
         if (privateEndpoint_ == null) {
-          PrivateEndpoint = new global::Protobuf.Tcp.IPEndpoint();
+          PrivateEndpoint = new global::Protobuf.Tcp.IPEndPointMessage();
         }
         PrivateEndpoint.MergeFrom(other.PrivateEndpoint);
       }
       if (other.publicEndpoint_ != null) {
         if (publicEndpoint_ == null) {
-          PublicEndpoint = new global::Protobuf.Tcp.IPEndpoint();
+          PublicEndpoint = new global::Protobuf.Tcp.IPEndPointMessage();
         }
         PublicEndpoint.MergeFrom(other.PublicEndpoint);
       }
@@ -3059,14 +3060,14 @@ namespace Protobuf.Tcp {
           }
           case 18: {
             if (privateEndpoint_ == null) {
-              PrivateEndpoint = new global::Protobuf.Tcp.IPEndpoint();
+              PrivateEndpoint = new global::Protobuf.Tcp.IPEndPointMessage();
             }
             input.ReadMessage(PrivateEndpoint);
             break;
           }
           case 26: {
             if (publicEndpoint_ == null) {
-              PublicEndpoint = new global::Protobuf.Tcp.IPEndpoint();
+              PublicEndpoint = new global::Protobuf.Tcp.IPEndPointMessage();
             }
             input.ReadMessage(PublicEndpoint);
             break;
@@ -3091,14 +3092,14 @@ namespace Protobuf.Tcp {
           }
           case 18: {
             if (privateEndpoint_ == null) {
-              PrivateEndpoint = new global::Protobuf.Tcp.IPEndpoint();
+              PrivateEndpoint = new global::Protobuf.Tcp.IPEndPointMessage();
             }
             input.ReadMessage(PrivateEndpoint);
             break;
           }
           case 26: {
             if (publicEndpoint_ == null) {
-              PublicEndpoint = new global::Protobuf.Tcp.IPEndpoint();
+              PublicEndpoint = new global::Protobuf.Tcp.IPEndPointMessage();
             }
             input.ReadMessage(PublicEndpoint);
             break;

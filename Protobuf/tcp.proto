@@ -1,15 +1,15 @@
 syntax = "proto3";
 package protobuf.tcp;
 
-message IPAddress {
+message IPAddressMessage {
   oneof ip_family {
     fixed32 ip_v4 = 1;
     bytes ip_v6 = 2;
   }
 }
 
-message IPEndpoint {
-  IPAddress address = 1;
+message IPEndPointMessage {
+  IPAddressMessage address = 1;
   int32 port = 2;
 }
 
@@ -28,7 +28,7 @@ enum Tcp_State {
 
 message InitializationRequest {
   int32 client_id = 1; // this should in future be replaced with authorization
-  IPEndpoint private_endpoint = 2; // private ip + port of socket
+  IPEndPointMessage private_endpoint = 2; // private ip + port of socket
 }
 
 message InitializationResponse { repeated int32 some_lobby_ids = 1; }
@@ -78,8 +78,8 @@ message PeerWithinLobbyRequest {
 
 message AddressInfoMessage {
   int32 id = 1;
-  IPEndpoint private_endpoint = 2;
-  IPEndpoint public_endpoint = 3;
+  IPEndPointMessage private_endpoint = 2;
+  IPEndPointMessage public_endpoint = 3;
 }
 
 message LeaveLobbyResponse { bool success = 1; }

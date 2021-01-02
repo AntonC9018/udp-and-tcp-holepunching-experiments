@@ -22,7 +22,7 @@ namespace Tcp_Test.Client
         public NetworkStream stream;
 
         public System.Net.IPAddress private_address;
-        public Protobuf.Tcp.IPEndpoint private_endpoint;
+        public Protobuf.Tcp.IPEndPointMessage private_endpoint;
         public Tcp_State state;
 
         private static System.Net.IPAddress GetLocalIp()
@@ -140,6 +140,20 @@ namespace Tcp_Test.Client
             return false;
         }
 
+        public AddressInfoMessage GetMyAddressInfo()
+        {
+            if (state != Tcp_State.WithoutLobby)
+            {
+                throw new System.Exception("Must be without lobby to request my address");
+            }
+            var request = new WithoutLobbyRequest();
+            var message = new MyAddressInfoRequest();
+            request.MyAddressInfoRequest = message;
+            request.WriteDelimitedTo(stream);
+            var response = AddressInfoMessage.Parser.ParseDelimitedFrom(stream);
+            return response;
+        }
+
         public void Go()
         {
             if (state != Tcp_State.HostWithinLobby)
@@ -221,7 +235,7 @@ namespace Tcp_Test.Client
                 case HostAddressInfo:
                     {
                         var info = response.HostAddressInfo;
-                        System.Console.WriteLine($"[{info.Id}] {info.PublicEndpoint.GetAddress()}:{info.PublicEndpoint.Port} | {info.PrivateEndpoint.GetAddress()}:{info.PrivateEndpoint.Port}");
+                        System.Console.WriteLine(info.ToPrettyString());
                         var task = Task.Run(() => EstablishOutboundTcp(response.HostAddressInfo));
                         Task.WaitAll(task);
                         System.Console.WriteLine($"Connection to host established? {task.Result != null}");
@@ -257,7 +271,7 @@ namespace Tcp_Test.Client
                         {
                             var info = response.GoResponse.PeerAddressInfo[i];
                             tasks[i] = Task.Run(() => EstablishOutboundTcp(info));
-                            System.Console.WriteLine($"[{info.Id}] {info.PublicEndpoint.GetAddress()}:{info.PublicEndpoint.Port} | {info.PrivateEndpoint.GetAddress()}:{info.PrivateEndpoint.Port}");
+                            System.Console.WriteLine(info.ToPrettyString());
                         }
                         Task.WaitAll(tasks);
 
