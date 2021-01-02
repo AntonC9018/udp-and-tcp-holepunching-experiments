@@ -55,11 +55,15 @@ namespace Tcp_Test.Client
 #endif
             client.Connect(server_endpoint);
 
+            private_address = ((IPEndPoint)client.Client.LocalEndPoint).Address;
+
             this.private_endpoint = new IPEndpoint
             {
                 Address = private_address.Convert(),
                 Port = ((IPEndPoint)client.Client.LocalEndPoint).Port
             };
+            System.Console.WriteLine($"{client.Client.LocalEndPoint}");
+
             System.Console.WriteLine($"Local endpoint: {private_endpoint.GetAddress()}:{private_endpoint.Port}");
 
             this.state = Tcp_State.Initialization;
@@ -274,7 +278,7 @@ namespace Tcp_Test.Client
             TcpClient private_client = new TcpClient();
             TcpClient public_client = new TcpClient();
             System.Console.WriteLine(((IPEndPoint)client.Client.LocalEndPoint));
-            TcpListener listener = new TcpListener(((IPEndPoint)client.Client.LocalEndPoint));
+            TcpListener listener = new TcpListener(private_endpoint.Convert());
             listener.Start();
             System.Console.WriteLine($"Listener endpoint: {listener.Server.LocalEndPoint}");
 
