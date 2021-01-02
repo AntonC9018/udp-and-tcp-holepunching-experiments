@@ -17,12 +17,11 @@ namespace Tcp_Test.Client
     public class Client
     {
         public int id;
-        public System.Net.IPEndPoint server_endpoint;
         public Socket client;
         public NetworkStream stream;
-
-        public System.Net.IPAddress private_address;
-        public Protobuf.Tcp.IPEndPointMessage private_endpoint;
+        public LobbyInfo joined_lobby;
+        public System.Net.IPEndPoint server_endpoint;
+        public IPEndPointMessage private_endpoint;
         public Tcp_State state;
 
         private static System.Net.IPAddress GetLocalIp()
@@ -65,7 +64,6 @@ namespace Tcp_Test.Client
         {
             client.Connect(server_endpoint);
 
-            this.private_address = ((IPEndPoint)client.LocalEndPoint).Address.MapToIPv4();
             this.private_endpoint = ((IPEndPoint)client.LocalEndPoint).Convert();
 
             System.Console.WriteLine($"{client.LocalEndPoint}");
@@ -107,6 +105,7 @@ namespace Tcp_Test.Client
             {
                 System.Console.WriteLine($"Successfully joined lobby: {response.LobbyInfo}");
                 this.state = Tcp_State.PeerWithinLobby;
+                this.joined_lobby = response.LobbyInfo;
                 return true;
             }
 
@@ -133,6 +132,12 @@ namespace Tcp_Test.Client
             {
                 System.Console.WriteLine($"Successfully created lobby {response.LobbyId}");
                 this.state = Tcp_State.HostWithinLobby;
+                this.joined_lobby = new LobbyInfo
+                {
+                    HostId = id,
+                    LobbyId = response.LobbyId,
+                    Capacity = message.Capacity
+                };
                 return true;
             }
 
@@ -216,7 +221,8 @@ namespace Tcp_Test.Client
 
             switch (response.MessageCase)
             {
-                case PeerJoinedNotification:
+                case PeerWithinLobbyResponse.MessageOneofCase.PeerJoinedNotification:
+                    AddPeerToLobby(response.PeerJoinedNotification);
                     System.Console.WriteLine("Peer joined");
                     break;
 
@@ -255,8 +261,13 @@ namespace Tcp_Test.Client
 
             switch (response.MessageCase)
             {
-                case MakeHostResponse:
+                case HostWithinLobbyResponse.MessageOneofCase.PeerJoinedNotification:
                     System.Console.WriteLine("Peer joined");
+                    AddPeerToLobby(response.PeerJoinedNotification);
+                    break;
+
+                case MakeHostResponse:
+                    System.Console.WriteLine("Made smb host");
                     break;
 
                 case HostWithinLobbyResponse.MessageOneofCase.LeaveLobbyResponse:
@@ -287,6 +298,14 @@ namespace Tcp_Test.Client
                     System.Console.WriteLine("Unexpected response/notification");
                     break;
             }
+        }
+
+        public event Action PeerJoinedEvent;
+
+        private void AddPeerToLobby(PeerJoinedNotification peer_joined_notification)
+        {
+            joined_lobby.PeerIds.Add(peer_joined_notification.PeerId);
+            PeerJoinedEvent?.Invoke();
         }
 
         public Socket EstablishOutboundTcp(AddressInfoMessage info)

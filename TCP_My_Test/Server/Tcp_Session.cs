@@ -20,16 +20,17 @@ namespace Tcp_Test.Server
     {
         public int id;
         public Lobby joined_lobby;
-        public TcpClient client;
+        public Socket client;
+        public NetworkStream stream;
         public IPEndPointMessage private_endpoint;
         public IPEndPointMessage public_endpoint;
         public Tcp_State state;
         public Server server;
 
         public bool IsInitalized => private_endpoint != null;
+        public bool IsHost => joined_lobby.host_id == id;
 
-
-        public Tcp_Session(TcpClient client, Server server)
+        public Tcp_Session(Socket client, Server server)
         {
             this.client = client;
             this.state = Tcp_State.Connecting;
@@ -91,8 +92,8 @@ namespace Tcp_Test.Server
 
         public void Initialize()
         {
-            NetworkStream stream = client.GetStream();
-            public_endpoint = ((IPEndPoint)client.Client.RemoteEndPoint).Convert();
+            stream = new NetworkStream(client);
+            public_endpoint = ((IPEndPoint)client.RemoteEndPoint).Convert();
 
             Log($"Session initialization started.");
 
@@ -134,7 +135,6 @@ namespace Tcp_Test.Server
 
             return Task.Run<T>(() =>
                 {
-                    NetworkStream stream = client.GetStream();
                     while (true)
                     {
                         try
@@ -243,7 +243,6 @@ namespace Tcp_Test.Server
             var response = receiveFunc();
             if (response != null)
             {
-                NetworkStream stream = client.GetStream();
                 response.WriteDelimitedTo(stream);
             }
         }
@@ -291,6 +290,18 @@ namespace Tcp_Test.Server
                             joined_lobby = lobby;
                             response.LobbyInfo = lobby.GetInfo();
                             state = Tcp_State.PeerWithinLobby;
+
+                            // notify other peers
+                            var peer_joined_notification = new PeerJoinedNotification();
+                            peer_joined_notification.PeerId = id;
+
+                            foreach (var peer_id in lobby.peers.Keys)
+                            {
+                                if (peer_id != id)
+                                {
+                                    lobby.peers[peer_id].SendPeerJoinedNotification(peer_joined_notification);
+                                }
+                            }
                         }
                         return response;
                     }
@@ -307,6 +318,23 @@ namespace Tcp_Test.Server
             }
         }
 
+        private void SendPeerJoinedNotification(PeerJoinedNotification notification)
+        {
+            IMessage response;
+            if (IsHost)
+            {
+                var resp = new HostWithinLobbyResponse();
+                resp.PeerJoinedNotification = notification;
+                response = resp;
+            }
+            else
+            {
+                var resp = new PeerWithinLobbyResponse();
+                resp.PeerJoinedNotification = notification;
+                response = resp;
+            }
+            response.WriteDelimitedTo(stream);
+        }
 
         public PeerWithinLobbyResponse ReceiveWithinLobbyPeerRequest()
         {
@@ -398,7 +426,7 @@ namespace Tcp_Test.Server
                             {
                                 peer.joined_lobby = null;
                                 peer.TransitionState(Tcp_State.Closing);
-                                peer_notification.WriteDelimitedTo(peer.client.GetStream());
+                                peer_notification.WriteDelimitedTo(peer.stream);
                                 host_response.PeerAddressInfo.Add(peer.CreateAddressMessage());
                             }
                             catch
@@ -452,7 +480,7 @@ namespace Tcp_Test.Server
             {
                 BecomeHostNotification = host_notification
             };
-            response.WriteDelimitedTo(client.GetStream());
+            response.WriteDelimitedTo(stream);
 
             // Maybe notify of new host
             // var peer_notification = new Pee

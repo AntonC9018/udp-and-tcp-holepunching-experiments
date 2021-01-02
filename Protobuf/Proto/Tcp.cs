@@ -52,37 +52,38 @@ namespace Protobuf.Tcp {
             "b2ludBgCIAEoCzIfLnByb3RvYnVmLnRjcC5JUEVuZFBvaW50TWVzc2FnZRI4",
             "Cg9wdWJsaWNfZW5kcG9pbnQYAyABKAsyHy5wcm90b2J1Zi50Y3AuSVBFbmRQ",
             "b2ludE1lc3NhZ2UiJQoSTGVhdmVMb2JieVJlc3BvbnNlEg8KB3N1Y2Nlc3MY",
-            "ASABKAgiqgQKF1BlZXJXaXRoaW5Mb2JieVJlc3BvbnNlEmAKGHBlZXJfam9p",
-            "bmVkX25vdGlmaWNhdGlvbhgBIAEoCzI8LnByb3RvYnVmLnRjcC5QZWVyV2l0",
-            "aGluTG9iYnlSZXNwb25zZS5QZWVySm9pbmVkTm90aWZpY2F0aW9uSAASYAoY",
-            "bGVhdmVfbG9iYnlfbm90aWZpY2F0aW9uGAIgASgLMjwucHJvdG9idWYudGNw",
-            "LlBlZXJXaXRoaW5Mb2JieVJlc3BvbnNlLkxlYXZlTG9iYnlOb3RpZmljYXRp",
-            "b25IABJgChhiZWNvbWVfaG9zdF9ub3RpZmljYXRpb24YAyABKAsyPC5wcm90",
-            "b2J1Zi50Y3AuUGVlcldpdGhpbkxvYmJ5UmVzcG9uc2UuQmVjb21lSG9zdE5v",
-            "dGlmaWNhdGlvbkgAEkAKFGxlYXZlX2xvYmJ5X3Jlc3BvbnNlGAQgASgLMiAu",
-            "cHJvdG9idWYudGNwLkxlYXZlTG9iYnlSZXNwb25zZUgAEj0KEWhvc3RfYWRk",
-            "cmVzc19pbmZvGAUgASgLMiAucHJvdG9idWYudGNwLkFkZHJlc3NJbmZvTWVz",
-            "c2FnZUgAGikKFlBlZXJKb2luZWROb3RpZmljYXRpb24SDwoHcGVlcl9pZBgB",
-            "IAEoBRoYChZMZWF2ZUxvYmJ5Tm90aWZpY2F0aW9uGhgKFkJlY29tZUhvc3RO",
-            "b3RpZmljYXRpb25CCQoHbWVzc2FnZSKtAgoWSG9zdFdpdGhpbkxvYmJ5UmVx",
-            "dWVzdBI+ChNsZWF2ZV9sb2JieV9yZXF1ZXN0GAEgASgLMh8ucHJvdG9idWYu",
-            "dGNwLkxlYXZlTG9iYnlSZXF1ZXN0SAASUQoRbWFrZV9ob3N0X3JlcXVlc3QY",
-            "AiABKAsyNC5wcm90b2J1Zi50Y3AuSG9zdFdpdGhpbkxvYmJ5UmVxdWVzdC5N",
-            "YWtlSG9zdFJlcXVlc3RIABJECgpnb19yZXF1ZXN0GAMgASgLMi4ucHJvdG9i",
-            "dWYudGNwLkhvc3RXaXRoaW5Mb2JieVJlcXVlc3QuR29SZXF1ZXN0SAAaIgoP",
-            "TWFrZUhvc3RSZXF1ZXN0Eg8KB3BlZXJfaWQYASABKAUaCwoJR29SZXF1ZXN0",
-            "QgkKB21lc3NhZ2Ui+QIKF0hvc3RXaXRoaW5Mb2JieVJlc3BvbnNlEkAKFGxl",
-            "YXZlX2xvYmJ5X3Jlc3BvbnNlGAEgASgLMiAucHJvdG9idWYudGNwLkxlYXZl",
-            "TG9iYnlSZXNwb25zZUgAElQKEm1ha2VfaG9zdF9yZXNwb25zZRgCIAEoCzI2",
-            "LnByb3RvYnVmLnRjcC5Ib3N0V2l0aGluTG9iYnlSZXNwb25zZS5NYWtlSG9z",
-            "dFJlc3BvbnNlSAASRwoLZ29fcmVzcG9uc2UYAyABKAsyMC5wcm90b2J1Zi50",
-            "Y3AuSG9zdFdpdGhpbkxvYmJ5UmVzcG9uc2UuR29SZXNwb25zZUgAGicKEE1h",
-            "a2VIb3N0UmVzcG9uc2USEwoLbmV3X2hvc3RfaWQYASABKAUaSQoKR29SZXNw",
-            "b25zZRI7ChFwZWVyX2FkZHJlc3NfaW5mbxgBIAMoCzIgLnByb3RvYnVmLnRj",
-            "cC5BZGRyZXNzSW5mb01lc3NhZ2VCCQoHbWVzc2FnZSqEAQoJVGNwX1N0YXRl",
-            "Eg4KCkNvbm5lY3RpbmcQABISCg5Jbml0aWFsaXphdGlvbhABEhAKDFdpdGhv",
-            "dXRMb2JieRACEhMKD1BlZXJXaXRoaW5Mb2JieRADEhMKD0hvc3RXaXRoaW5M",
-            "b2JieRAEEgsKB0Nsb3NpbmcQBRIKCgZDbG9zZWQQBmIGcHJvdG8z"));
+            "ASABKAgiKQoWUGVlckpvaW5lZE5vdGlmaWNhdGlvbhIPCgdwZWVyX2lkGAEg",
+            "ASgFIucDChdQZWVyV2l0aGluTG9iYnlSZXNwb25zZRJIChhwZWVyX2pvaW5l",
+            "ZF9ub3RpZmljYXRpb24YASABKAsyJC5wcm90b2J1Zi50Y3AuUGVlckpvaW5l",
+            "ZE5vdGlmaWNhdGlvbkgAEmAKGGxlYXZlX2xvYmJ5X25vdGlmaWNhdGlvbhgC",
+            "IAEoCzI8LnByb3RvYnVmLnRjcC5QZWVyV2l0aGluTG9iYnlSZXNwb25zZS5M",
+            "ZWF2ZUxvYmJ5Tm90aWZpY2F0aW9uSAASYAoYYmVjb21lX2hvc3Rfbm90aWZp",
+            "Y2F0aW9uGAMgASgLMjwucHJvdG9idWYudGNwLlBlZXJXaXRoaW5Mb2JieVJl",
+            "c3BvbnNlLkJlY29tZUhvc3ROb3RpZmljYXRpb25IABJAChRsZWF2ZV9sb2Ji",
+            "eV9yZXNwb25zZRgEIAEoCzIgLnByb3RvYnVmLnRjcC5MZWF2ZUxvYmJ5UmVz",
+            "cG9uc2VIABI9ChFob3N0X2FkZHJlc3NfaW5mbxgFIAEoCzIgLnByb3RvYnVm",
+            "LnRjcC5BZGRyZXNzSW5mb01lc3NhZ2VIABoYChZMZWF2ZUxvYmJ5Tm90aWZp",
+            "Y2F0aW9uGhgKFkJlY29tZUhvc3ROb3RpZmljYXRpb25CCQoHbWVzc2FnZSKt",
+            "AgoWSG9zdFdpdGhpbkxvYmJ5UmVxdWVzdBI+ChNsZWF2ZV9sb2JieV9yZXF1",
+            "ZXN0GAEgASgLMh8ucHJvdG9idWYudGNwLkxlYXZlTG9iYnlSZXF1ZXN0SAAS",
+            "UQoRbWFrZV9ob3N0X3JlcXVlc3QYAiABKAsyNC5wcm90b2J1Zi50Y3AuSG9z",
+            "dFdpdGhpbkxvYmJ5UmVxdWVzdC5NYWtlSG9zdFJlcXVlc3RIABJECgpnb19y",
+            "ZXF1ZXN0GAMgASgLMi4ucHJvdG9idWYudGNwLkhvc3RXaXRoaW5Mb2JieVJl",
+            "cXVlc3QuR29SZXF1ZXN0SAAaIgoPTWFrZUhvc3RSZXF1ZXN0Eg8KB3BlZXJf",
+            "aWQYASABKAUaCwoJR29SZXF1ZXN0QgkKB21lc3NhZ2UiwwMKF0hvc3RXaXRo",
+            "aW5Mb2JieVJlc3BvbnNlEkAKFGxlYXZlX2xvYmJ5X3Jlc3BvbnNlGAEgASgL",
+            "MiAucHJvdG9idWYudGNwLkxlYXZlTG9iYnlSZXNwb25zZUgAElQKEm1ha2Vf",
+            "aG9zdF9yZXNwb25zZRgCIAEoCzI2LnByb3RvYnVmLnRjcC5Ib3N0V2l0aGlu",
+            "TG9iYnlSZXNwb25zZS5NYWtlSG9zdFJlc3BvbnNlSAASRwoLZ29fcmVzcG9u",
+            "c2UYAyABKAsyMC5wcm90b2J1Zi50Y3AuSG9zdFdpdGhpbkxvYmJ5UmVzcG9u",
+            "c2UuR29SZXNwb25zZUgAEkgKGHBlZXJfam9pbmVkX25vdGlmaWNhdGlvbhgE",
+            "IAEoCzIkLnByb3RvYnVmLnRjcC5QZWVySm9pbmVkTm90aWZpY2F0aW9uSAAa",
+            "JwoQTWFrZUhvc3RSZXNwb25zZRITCgtuZXdfaG9zdF9pZBgBIAEoBRpJCgpH",
+            "b1Jlc3BvbnNlEjsKEXBlZXJfYWRkcmVzc19pbmZvGAEgAygLMiAucHJvdG9i",
+            "dWYudGNwLkFkZHJlc3NJbmZvTWVzc2FnZUIJCgdtZXNzYWdlKoQBCglUY3Bf",
+            "U3RhdGUSDgoKQ29ubmVjdGluZxAAEhIKDkluaXRpYWxpemF0aW9uEAESEAoM",
+            "V2l0aG91dExvYmJ5EAISEwoPUGVlcldpdGhpbkxvYmJ5EAMSEwoPSG9zdFdp",
+            "dGhpbkxvYmJ5EAQSCwoHQ2xvc2luZxAFEgoKBkNsb3NlZBAGYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Protobuf.Tcp.Tcp_State), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -100,12 +101,12 @@ namespace Protobuf.Tcp {
             new pbr::GeneratedClrTypeInfo(typeof(global::Protobuf.Tcp.PeerWithinLobbyRequest), global::Protobuf.Tcp.PeerWithinLobbyRequest.Parser, new[]{ "LeaveLobbyRequest" }, new[]{ "Message" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protobuf.Tcp.AddressInfoMessage), global::Protobuf.Tcp.AddressInfoMessage.Parser, new[]{ "Id", "PrivateEndpoint", "PublicEndpoint" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protobuf.Tcp.LeaveLobbyResponse), global::Protobuf.Tcp.LeaveLobbyResponse.Parser, new[]{ "Success" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Protobuf.Tcp.PeerWithinLobbyResponse), global::Protobuf.Tcp.PeerWithinLobbyResponse.Parser, new[]{ "PeerJoinedNotification", "LeaveLobbyNotification", "BecomeHostNotification", "LeaveLobbyResponse", "HostAddressInfo" }, new[]{ "Message" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Protobuf.Tcp.PeerWithinLobbyResponse.Types.PeerJoinedNotification), global::Protobuf.Tcp.PeerWithinLobbyResponse.Types.PeerJoinedNotification.Parser, new[]{ "PeerId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Protobuf.Tcp.PeerWithinLobbyResponse.Types.LeaveLobbyNotification), global::Protobuf.Tcp.PeerWithinLobbyResponse.Types.LeaveLobbyNotification.Parser, null, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Protobuf.Tcp.PeerJoinedNotification), global::Protobuf.Tcp.PeerJoinedNotification.Parser, new[]{ "PeerId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Protobuf.Tcp.PeerWithinLobbyResponse), global::Protobuf.Tcp.PeerWithinLobbyResponse.Parser, new[]{ "PeerJoinedNotification", "LeaveLobbyNotification", "BecomeHostNotification", "LeaveLobbyResponse", "HostAddressInfo" }, new[]{ "Message" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Protobuf.Tcp.PeerWithinLobbyResponse.Types.LeaveLobbyNotification), global::Protobuf.Tcp.PeerWithinLobbyResponse.Types.LeaveLobbyNotification.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protobuf.Tcp.PeerWithinLobbyResponse.Types.BecomeHostNotification), global::Protobuf.Tcp.PeerWithinLobbyResponse.Types.BecomeHostNotification.Parser, null, null, null, null, null)}),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protobuf.Tcp.HostWithinLobbyRequest), global::Protobuf.Tcp.HostWithinLobbyRequest.Parser, new[]{ "LeaveLobbyRequest", "MakeHostRequest", "GoRequest" }, new[]{ "Message" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Protobuf.Tcp.HostWithinLobbyRequest.Types.MakeHostRequest), global::Protobuf.Tcp.HostWithinLobbyRequest.Types.MakeHostRequest.Parser, new[]{ "PeerId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protobuf.Tcp.HostWithinLobbyRequest.Types.GoRequest), global::Protobuf.Tcp.HostWithinLobbyRequest.Types.GoRequest.Parser, null, null, null, null, null)}),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Protobuf.Tcp.HostWithinLobbyResponse), global::Protobuf.Tcp.HostWithinLobbyResponse.Parser, new[]{ "LeaveLobbyResponse", "MakeHostResponse", "GoResponse" }, new[]{ "Message" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Protobuf.Tcp.HostWithinLobbyResponse.Types.MakeHostResponse), global::Protobuf.Tcp.HostWithinLobbyResponse.Types.MakeHostResponse.Parser, new[]{ "NewHostId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Protobuf.Tcp.HostWithinLobbyResponse), global::Protobuf.Tcp.HostWithinLobbyResponse.Parser, new[]{ "LeaveLobbyResponse", "MakeHostResponse", "GoResponse", "PeerJoinedNotification" }, new[]{ "Message" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Protobuf.Tcp.HostWithinLobbyResponse.Types.MakeHostResponse), global::Protobuf.Tcp.HostWithinLobbyResponse.Types.MakeHostResponse.Parser, new[]{ "NewHostId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protobuf.Tcp.HostWithinLobbyResponse.Types.GoResponse), global::Protobuf.Tcp.HostWithinLobbyResponse.Types.GoResponse.Parser, new[]{ "PeerAddressInfo" }, null, null, null, null)})
           }));
     }
@@ -3283,6 +3284,178 @@ namespace Protobuf.Tcp {
 
   }
 
+  public sealed partial class PeerJoinedNotification : pb::IMessage<PeerJoinedNotification>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<PeerJoinedNotification> _parser = new pb::MessageParser<PeerJoinedNotification>(() => new PeerJoinedNotification());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<PeerJoinedNotification> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Protobuf.Tcp.TcpReflection.Descriptor.MessageTypes[12]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public PeerJoinedNotification() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public PeerJoinedNotification(PeerJoinedNotification other) : this() {
+      peerId_ = other.peerId_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public PeerJoinedNotification Clone() {
+      return new PeerJoinedNotification(this);
+    }
+
+    /// <summary>Field number for the "peer_id" field.</summary>
+    public const int PeerIdFieldNumber = 1;
+    private int peerId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int PeerId {
+      get { return peerId_; }
+      set {
+        peerId_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as PeerJoinedNotification);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(PeerJoinedNotification other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (PeerId != other.PeerId) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (PeerId != 0) hash ^= PeerId.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (PeerId != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(PeerId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (PeerId != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(PeerId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (PeerId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(PeerId);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(PeerJoinedNotification other) {
+      if (other == null) {
+        return;
+      }
+      if (other.PeerId != 0) {
+        PeerId = other.PeerId;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            PeerId = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            PeerId = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
   /// <summary>
   /// we assume the client is always up to notifications
   /// </summary>
@@ -3298,7 +3471,7 @@ namespace Protobuf.Tcp {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Protobuf.Tcp.TcpReflection.Descriptor.MessageTypes[12]; }
+      get { return global::Protobuf.Tcp.TcpReflection.Descriptor.MessageTypes[13]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3344,8 +3517,8 @@ namespace Protobuf.Tcp {
     /// <summary>Field number for the "peer_joined_notification" field.</summary>
     public const int PeerJoinedNotificationFieldNumber = 1;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Protobuf.Tcp.PeerWithinLobbyResponse.Types.PeerJoinedNotification PeerJoinedNotification {
-      get { return messageCase_ == MessageOneofCase.PeerJoinedNotification ? (global::Protobuf.Tcp.PeerWithinLobbyResponse.Types.PeerJoinedNotification) message_ : null; }
+    public global::Protobuf.Tcp.PeerJoinedNotification PeerJoinedNotification {
+      get { return messageCase_ == MessageOneofCase.PeerJoinedNotification ? (global::Protobuf.Tcp.PeerJoinedNotification) message_ : null; }
       set {
         message_ = value;
         messageCase_ = value == null ? MessageOneofCase.None : MessageOneofCase.PeerJoinedNotification;
@@ -3552,7 +3725,7 @@ namespace Protobuf.Tcp {
       switch (other.MessageCase) {
         case MessageOneofCase.PeerJoinedNotification:
           if (PeerJoinedNotification == null) {
-            PeerJoinedNotification = new global::Protobuf.Tcp.PeerWithinLobbyResponse.Types.PeerJoinedNotification();
+            PeerJoinedNotification = new global::Protobuf.Tcp.PeerJoinedNotification();
           }
           PeerJoinedNotification.MergeFrom(other.PeerJoinedNotification);
           break;
@@ -3597,7 +3770,7 @@ namespace Protobuf.Tcp {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 10: {
-            global::Protobuf.Tcp.PeerWithinLobbyResponse.Types.PeerJoinedNotification subBuilder = new global::Protobuf.Tcp.PeerWithinLobbyResponse.Types.PeerJoinedNotification();
+            global::Protobuf.Tcp.PeerJoinedNotification subBuilder = new global::Protobuf.Tcp.PeerJoinedNotification();
             if (messageCase_ == MessageOneofCase.PeerJoinedNotification) {
               subBuilder.MergeFrom(PeerJoinedNotification);
             }
@@ -3656,7 +3829,7 @@ namespace Protobuf.Tcp {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 10: {
-            global::Protobuf.Tcp.PeerWithinLobbyResponse.Types.PeerJoinedNotification subBuilder = new global::Protobuf.Tcp.PeerWithinLobbyResponse.Types.PeerJoinedNotification();
+            global::Protobuf.Tcp.PeerJoinedNotification subBuilder = new global::Protobuf.Tcp.PeerJoinedNotification();
             if (messageCase_ == MessageOneofCase.PeerJoinedNotification) {
               subBuilder.MergeFrom(PeerJoinedNotification);
             }
@@ -3709,178 +3882,6 @@ namespace Protobuf.Tcp {
     /// <summary>Container for nested types declared in the PeerWithinLobbyResponse message type.</summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static partial class Types {
-      public sealed partial class PeerJoinedNotification : pb::IMessage<PeerJoinedNotification>
-      #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-          , pb::IBufferMessage
-      #endif
-      {
-        private static readonly pb::MessageParser<PeerJoinedNotification> _parser = new pb::MessageParser<PeerJoinedNotification>(() => new PeerJoinedNotification());
-        private pb::UnknownFieldSet _unknownFields;
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public static pb::MessageParser<PeerJoinedNotification> Parser { get { return _parser; } }
-
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public static pbr::MessageDescriptor Descriptor {
-          get { return global::Protobuf.Tcp.PeerWithinLobbyResponse.Descriptor.NestedTypes[0]; }
-        }
-
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        pbr::MessageDescriptor pb::IMessage.Descriptor {
-          get { return Descriptor; }
-        }
-
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public PeerJoinedNotification() {
-          OnConstruction();
-        }
-
-        partial void OnConstruction();
-
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public PeerJoinedNotification(PeerJoinedNotification other) : this() {
-          peerId_ = other.peerId_;
-          _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-        }
-
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public PeerJoinedNotification Clone() {
-          return new PeerJoinedNotification(this);
-        }
-
-        /// <summary>Field number for the "peer_id" field.</summary>
-        public const int PeerIdFieldNumber = 1;
-        private int peerId_;
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public int PeerId {
-          get { return peerId_; }
-          set {
-            peerId_ = value;
-          }
-        }
-
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public override bool Equals(object other) {
-          return Equals(other as PeerJoinedNotification);
-        }
-
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public bool Equals(PeerJoinedNotification other) {
-          if (ReferenceEquals(other, null)) {
-            return false;
-          }
-          if (ReferenceEquals(other, this)) {
-            return true;
-          }
-          if (PeerId != other.PeerId) return false;
-          return Equals(_unknownFields, other._unknownFields);
-        }
-
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public override int GetHashCode() {
-          int hash = 1;
-          if (PeerId != 0) hash ^= PeerId.GetHashCode();
-          if (_unknownFields != null) {
-            hash ^= _unknownFields.GetHashCode();
-          }
-          return hash;
-        }
-
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public override string ToString() {
-          return pb::JsonFormatter.ToDiagnosticString(this);
-        }
-
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public void WriteTo(pb::CodedOutputStream output) {
-        #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-          output.WriteRawMessage(this);
-        #else
-          if (PeerId != 0) {
-            output.WriteRawTag(8);
-            output.WriteInt32(PeerId);
-          }
-          if (_unknownFields != null) {
-            _unknownFields.WriteTo(output);
-          }
-        #endif
-        }
-
-        #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-          if (PeerId != 0) {
-            output.WriteRawTag(8);
-            output.WriteInt32(PeerId);
-          }
-          if (_unknownFields != null) {
-            _unknownFields.WriteTo(ref output);
-          }
-        }
-        #endif
-
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public int CalculateSize() {
-          int size = 0;
-          if (PeerId != 0) {
-            size += 1 + pb::CodedOutputStream.ComputeInt32Size(PeerId);
-          }
-          if (_unknownFields != null) {
-            size += _unknownFields.CalculateSize();
-          }
-          return size;
-        }
-
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public void MergeFrom(PeerJoinedNotification other) {
-          if (other == null) {
-            return;
-          }
-          if (other.PeerId != 0) {
-            PeerId = other.PeerId;
-          }
-          _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-        }
-
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public void MergeFrom(pb::CodedInputStream input) {
-        #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-          input.ReadRawMessage(this);
-        #else
-          uint tag;
-          while ((tag = input.ReadTag()) != 0) {
-            switch(tag) {
-              default:
-                _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-                break;
-              case 8: {
-                PeerId = input.ReadInt32();
-                break;
-              }
-            }
-          }
-        #endif
-        }
-
-        #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
-          uint tag;
-          while ((tag = input.ReadTag()) != 0) {
-            switch(tag) {
-              default:
-                _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
-                break;
-              case 8: {
-                PeerId = input.ReadInt32();
-                break;
-              }
-            }
-          }
-        }
-        #endif
-
-      }
-
       public sealed partial class LeaveLobbyNotification : pb::IMessage<LeaveLobbyNotification>
       #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
           , pb::IBufferMessage
@@ -3893,7 +3894,7 @@ namespace Protobuf.Tcp {
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public static pbr::MessageDescriptor Descriptor {
-          get { return global::Protobuf.Tcp.PeerWithinLobbyResponse.Descriptor.NestedTypes[1]; }
+          get { return global::Protobuf.Tcp.PeerWithinLobbyResponse.Descriptor.NestedTypes[0]; }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4029,7 +4030,7 @@ namespace Protobuf.Tcp {
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public static pbr::MessageDescriptor Descriptor {
-          get { return global::Protobuf.Tcp.PeerWithinLobbyResponse.Descriptor.NestedTypes[2]; }
+          get { return global::Protobuf.Tcp.PeerWithinLobbyResponse.Descriptor.NestedTypes[1]; }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4170,7 +4171,7 @@ namespace Protobuf.Tcp {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Protobuf.Tcp.TcpReflection.Descriptor.MessageTypes[13]; }
+      get { return global::Protobuf.Tcp.TcpReflection.Descriptor.MessageTypes[14]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4802,7 +4803,7 @@ namespace Protobuf.Tcp {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Protobuf.Tcp.TcpReflection.Descriptor.MessageTypes[14]; }
+      get { return global::Protobuf.Tcp.TcpReflection.Descriptor.MessageTypes[15]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4828,6 +4829,9 @@ namespace Protobuf.Tcp {
           break;
         case MessageOneofCase.GoResponse:
           GoResponse = other.GoResponse.Clone();
+          break;
+        case MessageOneofCase.PeerJoinedNotification:
+          PeerJoinedNotification = other.PeerJoinedNotification.Clone();
           break;
       }
 
@@ -4872,6 +4876,17 @@ namespace Protobuf.Tcp {
       }
     }
 
+    /// <summary>Field number for the "peer_joined_notification" field.</summary>
+    public const int PeerJoinedNotificationFieldNumber = 4;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Protobuf.Tcp.PeerJoinedNotification PeerJoinedNotification {
+      get { return messageCase_ == MessageOneofCase.PeerJoinedNotification ? (global::Protobuf.Tcp.PeerJoinedNotification) message_ : null; }
+      set {
+        message_ = value;
+        messageCase_ = value == null ? MessageOneofCase.None : MessageOneofCase.PeerJoinedNotification;
+      }
+    }
+
     private object message_;
     /// <summary>Enum of possible cases for the "message" oneof.</summary>
     public enum MessageOneofCase {
@@ -4879,6 +4894,7 @@ namespace Protobuf.Tcp {
       LeaveLobbyResponse = 1,
       MakeHostResponse = 2,
       GoResponse = 3,
+      PeerJoinedNotification = 4,
     }
     private MessageOneofCase messageCase_ = MessageOneofCase.None;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4908,6 +4924,7 @@ namespace Protobuf.Tcp {
       if (!object.Equals(LeaveLobbyResponse, other.LeaveLobbyResponse)) return false;
       if (!object.Equals(MakeHostResponse, other.MakeHostResponse)) return false;
       if (!object.Equals(GoResponse, other.GoResponse)) return false;
+      if (!object.Equals(PeerJoinedNotification, other.PeerJoinedNotification)) return false;
       if (MessageCase != other.MessageCase) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -4918,6 +4935,7 @@ namespace Protobuf.Tcp {
       if (messageCase_ == MessageOneofCase.LeaveLobbyResponse) hash ^= LeaveLobbyResponse.GetHashCode();
       if (messageCase_ == MessageOneofCase.MakeHostResponse) hash ^= MakeHostResponse.GetHashCode();
       if (messageCase_ == MessageOneofCase.GoResponse) hash ^= GoResponse.GetHashCode();
+      if (messageCase_ == MessageOneofCase.PeerJoinedNotification) hash ^= PeerJoinedNotification.GetHashCode();
       hash ^= (int) messageCase_;
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -4947,6 +4965,10 @@ namespace Protobuf.Tcp {
         output.WriteRawTag(26);
         output.WriteMessage(GoResponse);
       }
+      if (messageCase_ == MessageOneofCase.PeerJoinedNotification) {
+        output.WriteRawTag(34);
+        output.WriteMessage(PeerJoinedNotification);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -4968,6 +4990,10 @@ namespace Protobuf.Tcp {
         output.WriteRawTag(26);
         output.WriteMessage(GoResponse);
       }
+      if (messageCase_ == MessageOneofCase.PeerJoinedNotification) {
+        output.WriteRawTag(34);
+        output.WriteMessage(PeerJoinedNotification);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -4985,6 +5011,9 @@ namespace Protobuf.Tcp {
       }
       if (messageCase_ == MessageOneofCase.GoResponse) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(GoResponse);
+      }
+      if (messageCase_ == MessageOneofCase.PeerJoinedNotification) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(PeerJoinedNotification);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -5015,6 +5044,12 @@ namespace Protobuf.Tcp {
             GoResponse = new global::Protobuf.Tcp.HostWithinLobbyResponse.Types.GoResponse();
           }
           GoResponse.MergeFrom(other.GoResponse);
+          break;
+        case MessageOneofCase.PeerJoinedNotification:
+          if (PeerJoinedNotification == null) {
+            PeerJoinedNotification = new global::Protobuf.Tcp.PeerJoinedNotification();
+          }
+          PeerJoinedNotification.MergeFrom(other.PeerJoinedNotification);
           break;
       }
 
@@ -5059,6 +5094,15 @@ namespace Protobuf.Tcp {
             GoResponse = subBuilder;
             break;
           }
+          case 34: {
+            global::Protobuf.Tcp.PeerJoinedNotification subBuilder = new global::Protobuf.Tcp.PeerJoinedNotification();
+            if (messageCase_ == MessageOneofCase.PeerJoinedNotification) {
+              subBuilder.MergeFrom(PeerJoinedNotification);
+            }
+            input.ReadMessage(subBuilder);
+            PeerJoinedNotification = subBuilder;
+            break;
+          }
         }
       }
     #endif
@@ -5098,6 +5142,15 @@ namespace Protobuf.Tcp {
             }
             input.ReadMessage(subBuilder);
             GoResponse = subBuilder;
+            break;
+          }
+          case 34: {
+            global::Protobuf.Tcp.PeerJoinedNotification subBuilder = new global::Protobuf.Tcp.PeerJoinedNotification();
+            if (messageCase_ == MessageOneofCase.PeerJoinedNotification) {
+              subBuilder.MergeFrom(PeerJoinedNotification);
+            }
+            input.ReadMessage(subBuilder);
+            PeerJoinedNotification = subBuilder;
             break;
           }
         }

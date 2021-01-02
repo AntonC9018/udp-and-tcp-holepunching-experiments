@@ -83,10 +83,10 @@ message AddressInfoMessage {
 }
 
 message LeaveLobbyResponse { bool success = 1; }
+message PeerJoinedNotification { int32 peer_id = 1; }
 
 // we assume the client is always up to notifications
 message PeerWithinLobbyResponse {
-  message PeerJoinedNotification { int32 peer_id = 1; }
   message LeaveLobbyNotification {}
   message BecomeHostNotification {}
 
@@ -118,5 +118,6 @@ message HostWithinLobbyResponse {
     LeaveLobbyResponse leave_lobby_response = 1;
     MakeHostResponse make_host_response = 2;
     GoResponse go_response = 3;
+    PeerJoinedNotification peer_joined_notification = 4;
   }
 }
