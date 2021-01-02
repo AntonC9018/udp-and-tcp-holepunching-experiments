@@ -5,11 +5,31 @@ namespace Tcp_Test.Client
 {
     public class Program
     {
+        private static IPEndPoint[] server_endpoints = new IPEndPoint[]
+        {
+            new IPEndPoint(IPAddress.Parse("34.122.219.86"), 7777),
+            new IPEndPoint(IPAddress.Parse("35.204.93.215"), 7777)
+        };
+
         public static void Main(string[] args)
         {
+            NatConicityTest();
+        }
 
-            var server_endpoint = new IPEndPoint(IPAddress.Parse("34.122.219.86"), 7777);
-            Client client = new Client(server_endpoint);
+        public static void NatConicityTest()
+        {
+            Client client1 = new Client(server_endpoints[0]);
+            client1.ConnectToServer();
+            Client client2 = new Client(server_endpoints[1]);
+            client2.ReuseEndPoint(client1.client.LocalEndPoint);
+            client2.ConnectToServer();
+            Thread.Sleep(10000);
+        }
+
+        public static void TwoPersonTest()
+        {
+
+            Client client = new Client(server_endpoints[0]);
             try
             {
                 var response = client.ConnectToServer();

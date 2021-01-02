@@ -56,6 +56,11 @@ namespace Tcp_Test.Client
             this.state = Tcp_State.Connecting;
         }
 
+        public void ReuseEndPoint(EndPoint endPoint)
+        {
+            client.Bind(endPoint);
+        }
+
         public InitializationResponse ConnectToServer()
         {
             client.Connect(server_endpoint);
