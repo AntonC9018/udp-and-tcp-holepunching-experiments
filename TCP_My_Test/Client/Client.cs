@@ -273,6 +273,7 @@ namespace Tcp_Test.Client
         {
             TcpClient private_client = new TcpClient();
             TcpClient public_client = new TcpClient();
+            System.Console.WriteLine(((IPEndPoint)client.Client.LocalEndPoint));
             TcpListener listener = new TcpListener(((IPEndPoint)client.Client.LocalEndPoint));
             listener.Start();
             System.Console.WriteLine($"Listener endpoint: {listener.Server.LocalEndPoint}");
