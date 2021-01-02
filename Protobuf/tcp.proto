@@ -44,9 +44,12 @@ message WithoutLobbyRequest {
     int32 capacity = 2;
   }
 
+  message MyAddressInfoRequest {}
+
   oneof message {
     JoinLobbyRequest join_lobby_request = 1;
     CreateLobbyRequest create_lobby_request = 2;
+    MyAddressInfoRequest my_address_info_request = 3;
   }
 }
 

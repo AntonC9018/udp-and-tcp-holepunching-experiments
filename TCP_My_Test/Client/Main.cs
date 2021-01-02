@@ -13,7 +13,7 @@ namespace Tcp_Test.Client
 
         public static void Main(string[] args)
         {
-            TwoPersonTest();
+            NatConicityTest();
         }
 
         public static void NatConicityTest()

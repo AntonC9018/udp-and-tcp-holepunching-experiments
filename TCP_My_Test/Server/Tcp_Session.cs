@@ -272,6 +272,7 @@ namespace Tcp_Test.Server
                         CreateLobbyResponse response = new CreateLobbyResponse();
                         if (server.TryCreateLobby(id, out Lobby lobby) && lobby.TryJoin(this))
                         {
+                            Log($"Creating a new lobby {lobby.id}");
                             joined_lobby = lobby;
                             response.LobbyId = lobby.id;
                             state = Tcp_State.HostWithinLobby;
@@ -286,11 +287,18 @@ namespace Tcp_Test.Server
                         if (server.lobbies.TryGetValue(request.JoinLobbyRequest.LobbyId, out Lobby lobby)
                             && lobby.TryJoin(this))
                         {
+                            Log($"Joined lobby {request.JoinLobbyRequest.LobbyId}.");
                             joined_lobby = lobby;
                             response.LobbyInfo = lobby.GetInfo();
                             state = Tcp_State.PeerWithinLobby;
                         }
                         return response;
+                    }
+
+                case MyAddressInfoRequest:
+                    {
+                        Log($"Sending address info message.");
+                        return CreateAddressMessage();
                     }
 
                 default:

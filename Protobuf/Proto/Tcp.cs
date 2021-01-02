@@ -30,56 +30,58 @@ namespace Protobuf.Tcp {
             "ZGRyZXNzEgwKBHBvcnQYAiABKAUiXgoVSW5pdGlhbGl6YXRpb25SZXF1ZXN0",
             "EhEKCWNsaWVudF9pZBgBIAEoBRIyChBwcml2YXRlX2VuZHBvaW50GAIgASgL",
             "MhgucHJvdG9idWYudGNwLklQRW5kcG9pbnQiMAoWSW5pdGlhbGl6YXRpb25S",
-            "ZXNwb25zZRIWCg5zb21lX2xvYmJ5X2lkcxgBIAMoBSK6AgoTV2l0aG91dExv",
+            "ZXNwb25zZRIWCg5zb21lX2xvYmJ5X2lkcxgBIAMoBSKtAwoTV2l0aG91dExv",
             "YmJ5UmVxdWVzdBJQChJqb2luX2xvYmJ5X3JlcXVlc3QYASABKAsyMi5wcm90",
             "b2J1Zi50Y3AuV2l0aG91dExvYmJ5UmVxdWVzdC5Kb2luTG9iYnlSZXF1ZXN0",
             "SAASVAoUY3JlYXRlX2xvYmJ5X3JlcXVlc3QYAiABKAsyNC5wcm90b2J1Zi50",
-            "Y3AuV2l0aG91dExvYmJ5UmVxdWVzdC5DcmVhdGVMb2JieVJlcXVlc3RIABo2",
-            "ChBKb2luTG9iYnlSZXF1ZXN0EhAKCGxvYmJ5X2lkGAEgASgFEhAKCHBhc3N3",
-            "b3JkGAIgASgJGjgKEkNyZWF0ZUxvYmJ5UmVxdWVzdBIQCghwYXNzd29yZBgB",
-            "IAEoCRIQCghjYXBhY2l0eRgCIAEoBUIJCgdtZXNzYWdlIlIKCUxvYmJ5SW5m",
-            "bxIQCghsb2JieV9pZBgBIAEoBRIQCghjYXBhY2l0eRgCIAEoBRIPCgdob3N0",
-            "X2lkGAMgASgFEhAKCHBlZXJfaWRzGAQgAygFIkAKEUpvaW5Mb2JieVJlc3Bv",
-            "bnNlEisKCmxvYmJ5X2luZm8YASABKAsyFy5wcm90b2J1Zi50Y3AuTG9iYnlJ",
-            "bmZvIicKE0NyZWF0ZUxvYmJ5UmVzcG9uc2USEAoIbG9iYnlfaWQYASABKAUi",
-            "EwoRTGVhdmVMb2JieVJlcXVlc3QiYwoWUGVlcldpdGhpbkxvYmJ5UmVxdWVz",
-            "dBI+ChNsZWF2ZV9sb2JieV9yZXF1ZXN0GAEgASgLMh8ucHJvdG9idWYudGNw",
-            "LkxlYXZlTG9iYnlSZXF1ZXN0SABCCQoHbWVzc2FnZSKHAQoSQWRkcmVzc0lu",
-            "Zm9NZXNzYWdlEgoKAmlkGAEgASgFEjIKEHByaXZhdGVfZW5kcG9pbnQYAiAB",
-            "KAsyGC5wcm90b2J1Zi50Y3AuSVBFbmRwb2ludBIxCg9wdWJsaWNfZW5kcG9p",
-            "bnQYAyABKAsyGC5wcm90b2J1Zi50Y3AuSVBFbmRwb2ludCIlChJMZWF2ZUxv",
-            "YmJ5UmVzcG9uc2USDwoHc3VjY2VzcxgBIAEoCCKqBAoXUGVlcldpdGhpbkxv",
-            "YmJ5UmVzcG9uc2USYAoYcGVlcl9qb2luZWRfbm90aWZpY2F0aW9uGAEgASgL",
-            "MjwucHJvdG9idWYudGNwLlBlZXJXaXRoaW5Mb2JieVJlc3BvbnNlLlBlZXJK",
-            "b2luZWROb3RpZmljYXRpb25IABJgChhsZWF2ZV9sb2JieV9ub3RpZmljYXRp",
-            "b24YAiABKAsyPC5wcm90b2J1Zi50Y3AuUGVlcldpdGhpbkxvYmJ5UmVzcG9u",
-            "c2UuTGVhdmVMb2JieU5vdGlmaWNhdGlvbkgAEmAKGGJlY29tZV9ob3N0X25v",
-            "dGlmaWNhdGlvbhgDIAEoCzI8LnByb3RvYnVmLnRjcC5QZWVyV2l0aGluTG9i",
-            "YnlSZXNwb25zZS5CZWNvbWVIb3N0Tm90aWZpY2F0aW9uSAASQAoUbGVhdmVf",
-            "bG9iYnlfcmVzcG9uc2UYBCABKAsyIC5wcm90b2J1Zi50Y3AuTGVhdmVMb2Ji",
-            "eVJlc3BvbnNlSAASPQoRaG9zdF9hZGRyZXNzX2luZm8YBSABKAsyIC5wcm90",
-            "b2J1Zi50Y3AuQWRkcmVzc0luZm9NZXNzYWdlSAAaKQoWUGVlckpvaW5lZE5v",
-            "dGlmaWNhdGlvbhIPCgdwZWVyX2lkGAEgASgFGhgKFkxlYXZlTG9iYnlOb3Rp",
-            "ZmljYXRpb24aGAoWQmVjb21lSG9zdE5vdGlmaWNhdGlvbkIJCgdtZXNzYWdl",
-            "Iq0CChZIb3N0V2l0aGluTG9iYnlSZXF1ZXN0Ej4KE2xlYXZlX2xvYmJ5X3Jl",
-            "cXVlc3QYASABKAsyHy5wcm90b2J1Zi50Y3AuTGVhdmVMb2JieVJlcXVlc3RI",
-            "ABJRChFtYWtlX2hvc3RfcmVxdWVzdBgCIAEoCzI0LnByb3RvYnVmLnRjcC5I",
-            "b3N0V2l0aGluTG9iYnlSZXF1ZXN0Lk1ha2VIb3N0UmVxdWVzdEgAEkQKCmdv",
-            "X3JlcXVlc3QYAyABKAsyLi5wcm90b2J1Zi50Y3AuSG9zdFdpdGhpbkxvYmJ5",
-            "UmVxdWVzdC5Hb1JlcXVlc3RIABoiCg9NYWtlSG9zdFJlcXVlc3QSDwoHcGVl",
-            "cl9pZBgBIAEoBRoLCglHb1JlcXVlc3RCCQoHbWVzc2FnZSL5AgoXSG9zdFdp",
-            "dGhpbkxvYmJ5UmVzcG9uc2USQAoUbGVhdmVfbG9iYnlfcmVzcG9uc2UYASAB",
-            "KAsyIC5wcm90b2J1Zi50Y3AuTGVhdmVMb2JieVJlc3BvbnNlSAASVAoSbWFr",
-            "ZV9ob3N0X3Jlc3BvbnNlGAIgASgLMjYucHJvdG9idWYudGNwLkhvc3RXaXRo",
-            "aW5Mb2JieVJlc3BvbnNlLk1ha2VIb3N0UmVzcG9uc2VIABJHCgtnb19yZXNw",
-            "b25zZRgDIAEoCzIwLnByb3RvYnVmLnRjcC5Ib3N0V2l0aGluTG9iYnlSZXNw",
-            "b25zZS5Hb1Jlc3BvbnNlSAAaJwoQTWFrZUhvc3RSZXNwb25zZRITCgtuZXdf",
-            "aG9zdF9pZBgBIAEoBRpJCgpHb1Jlc3BvbnNlEjsKEXBlZXJfYWRkcmVzc19p",
-            "bmZvGAEgAygLMiAucHJvdG9idWYudGNwLkFkZHJlc3NJbmZvTWVzc2FnZUIJ",
-            "CgdtZXNzYWdlKoQBCglUY3BfU3RhdGUSDgoKQ29ubmVjdGluZxAAEhIKDklu",
-            "aXRpYWxpemF0aW9uEAESEAoMV2l0aG91dExvYmJ5EAISEwoPUGVlcldpdGhp",
-            "bkxvYmJ5EAMSEwoPSG9zdFdpdGhpbkxvYmJ5EAQSCwoHQ2xvc2luZxAFEgoK",
-            "BkNsb3NlZBAGYgZwcm90bzM="));
+            "Y3AuV2l0aG91dExvYmJ5UmVxdWVzdC5DcmVhdGVMb2JieVJlcXVlc3RIABJZ",
+            "ChdteV9hZGRyZXNzX2luZm9fcmVxdWVzdBgDIAEoCzI2LnByb3RvYnVmLnRj",
+            "cC5XaXRob3V0TG9iYnlSZXF1ZXN0Lk15QWRkcmVzc0luZm9SZXF1ZXN0SAAa",
+            "NgoQSm9pbkxvYmJ5UmVxdWVzdBIQCghsb2JieV9pZBgBIAEoBRIQCghwYXNz",
+            "d29yZBgCIAEoCRo4ChJDcmVhdGVMb2JieVJlcXVlc3QSEAoIcGFzc3dvcmQY",
+            "ASABKAkSEAoIY2FwYWNpdHkYAiABKAUaFgoUTXlBZGRyZXNzSW5mb1JlcXVl",
+            "c3RCCQoHbWVzc2FnZSJSCglMb2JieUluZm8SEAoIbG9iYnlfaWQYASABKAUS",
+            "EAoIY2FwYWNpdHkYAiABKAUSDwoHaG9zdF9pZBgDIAEoBRIQCghwZWVyX2lk",
+            "cxgEIAMoBSJAChFKb2luTG9iYnlSZXNwb25zZRIrCgpsb2JieV9pbmZvGAEg",
+            "ASgLMhcucHJvdG9idWYudGNwLkxvYmJ5SW5mbyInChNDcmVhdGVMb2JieVJl",
+            "c3BvbnNlEhAKCGxvYmJ5X2lkGAEgASgFIhMKEUxlYXZlTG9iYnlSZXF1ZXN0",
+            "ImMKFlBlZXJXaXRoaW5Mb2JieVJlcXVlc3QSPgoTbGVhdmVfbG9iYnlfcmVx",
+            "dWVzdBgBIAEoCzIfLnByb3RvYnVmLnRjcC5MZWF2ZUxvYmJ5UmVxdWVzdEgA",
+            "QgkKB21lc3NhZ2UihwEKEkFkZHJlc3NJbmZvTWVzc2FnZRIKCgJpZBgBIAEo",
+            "BRIyChBwcml2YXRlX2VuZHBvaW50GAIgASgLMhgucHJvdG9idWYudGNwLklQ",
+            "RW5kcG9pbnQSMQoPcHVibGljX2VuZHBvaW50GAMgASgLMhgucHJvdG9idWYu",
+            "dGNwLklQRW5kcG9pbnQiJQoSTGVhdmVMb2JieVJlc3BvbnNlEg8KB3N1Y2Nl",
+            "c3MYASABKAgiqgQKF1BlZXJXaXRoaW5Mb2JieVJlc3BvbnNlEmAKGHBlZXJf",
+            "am9pbmVkX25vdGlmaWNhdGlvbhgBIAEoCzI8LnByb3RvYnVmLnRjcC5QZWVy",
+            "V2l0aGluTG9iYnlSZXNwb25zZS5QZWVySm9pbmVkTm90aWZpY2F0aW9uSAAS",
+            "YAoYbGVhdmVfbG9iYnlfbm90aWZpY2F0aW9uGAIgASgLMjwucHJvdG9idWYu",
+            "dGNwLlBlZXJXaXRoaW5Mb2JieVJlc3BvbnNlLkxlYXZlTG9iYnlOb3RpZmlj",
+            "YXRpb25IABJgChhiZWNvbWVfaG9zdF9ub3RpZmljYXRpb24YAyABKAsyPC5w",
+            "cm90b2J1Zi50Y3AuUGVlcldpdGhpbkxvYmJ5UmVzcG9uc2UuQmVjb21lSG9z",
+            "dE5vdGlmaWNhdGlvbkgAEkAKFGxlYXZlX2xvYmJ5X3Jlc3BvbnNlGAQgASgL",
+            "MiAucHJvdG9idWYudGNwLkxlYXZlTG9iYnlSZXNwb25zZUgAEj0KEWhvc3Rf",
+            "YWRkcmVzc19pbmZvGAUgASgLMiAucHJvdG9idWYudGNwLkFkZHJlc3NJbmZv",
+            "TWVzc2FnZUgAGikKFlBlZXJKb2luZWROb3RpZmljYXRpb24SDwoHcGVlcl9p",
+            "ZBgBIAEoBRoYChZMZWF2ZUxvYmJ5Tm90aWZpY2F0aW9uGhgKFkJlY29tZUhv",
+            "c3ROb3RpZmljYXRpb25CCQoHbWVzc2FnZSKtAgoWSG9zdFdpdGhpbkxvYmJ5",
+            "UmVxdWVzdBI+ChNsZWF2ZV9sb2JieV9yZXF1ZXN0GAEgASgLMh8ucHJvdG9i",
+            "dWYudGNwLkxlYXZlTG9iYnlSZXF1ZXN0SAASUQoRbWFrZV9ob3N0X3JlcXVl",
+            "c3QYAiABKAsyNC5wcm90b2J1Zi50Y3AuSG9zdFdpdGhpbkxvYmJ5UmVxdWVz",
+            "dC5NYWtlSG9zdFJlcXVlc3RIABJECgpnb19yZXF1ZXN0GAMgASgLMi4ucHJv",
+            "dG9idWYudGNwLkhvc3RXaXRoaW5Mb2JieVJlcXVlc3QuR29SZXF1ZXN0SAAa",
+            "IgoPTWFrZUhvc3RSZXF1ZXN0Eg8KB3BlZXJfaWQYASABKAUaCwoJR29SZXF1",
+            "ZXN0QgkKB21lc3NhZ2Ui+QIKF0hvc3RXaXRoaW5Mb2JieVJlc3BvbnNlEkAK",
+            "FGxlYXZlX2xvYmJ5X3Jlc3BvbnNlGAEgASgLMiAucHJvdG9idWYudGNwLkxl",
+            "YXZlTG9iYnlSZXNwb25zZUgAElQKEm1ha2VfaG9zdF9yZXNwb25zZRgCIAEo",
+            "CzI2LnByb3RvYnVmLnRjcC5Ib3N0V2l0aGluTG9iYnlSZXNwb25zZS5NYWtl",
+            "SG9zdFJlc3BvbnNlSAASRwoLZ29fcmVzcG9uc2UYAyABKAsyMC5wcm90b2J1",
+            "Zi50Y3AuSG9zdFdpdGhpbkxvYmJ5UmVzcG9uc2UuR29SZXNwb25zZUgAGicK",
+            "EE1ha2VIb3N0UmVzcG9uc2USEwoLbmV3X2hvc3RfaWQYASABKAUaSQoKR29S",
+            "ZXNwb25zZRI7ChFwZWVyX2FkZHJlc3NfaW5mbxgBIAMoCzIgLnByb3RvYnVm",
+            "LnRjcC5BZGRyZXNzSW5mb01lc3NhZ2VCCQoHbWVzc2FnZSqEAQoJVGNwX1N0",
+            "YXRlEg4KCkNvbm5lY3RpbmcQABISCg5Jbml0aWFsaXphdGlvbhABEhAKDFdp",
+            "dGhvdXRMb2JieRACEhMKD1BlZXJXaXRoaW5Mb2JieRADEhMKD0hvc3RXaXRo",
+            "aW5Mb2JieRAEEgsKB0Nsb3NpbmcQBRIKCgZDbG9zZWQQBmIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Protobuf.Tcp.Tcp_State), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -87,8 +89,9 @@ namespace Protobuf.Tcp {
             new pbr::GeneratedClrTypeInfo(typeof(global::Protobuf.Tcp.IPEndpoint), global::Protobuf.Tcp.IPEndpoint.Parser, new[]{ "Address", "Port" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protobuf.Tcp.InitializationRequest), global::Protobuf.Tcp.InitializationRequest.Parser, new[]{ "ClientId", "PrivateEndpoint" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protobuf.Tcp.InitializationResponse), global::Protobuf.Tcp.InitializationResponse.Parser, new[]{ "SomeLobbyIds" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Protobuf.Tcp.WithoutLobbyRequest), global::Protobuf.Tcp.WithoutLobbyRequest.Parser, new[]{ "JoinLobbyRequest", "CreateLobbyRequest" }, new[]{ "Message" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Protobuf.Tcp.WithoutLobbyRequest.Types.JoinLobbyRequest), global::Protobuf.Tcp.WithoutLobbyRequest.Types.JoinLobbyRequest.Parser, new[]{ "LobbyId", "Password" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Protobuf.Tcp.WithoutLobbyRequest.Types.CreateLobbyRequest), global::Protobuf.Tcp.WithoutLobbyRequest.Types.CreateLobbyRequest.Parser, new[]{ "Password", "Capacity" }, null, null, null, null)}),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Protobuf.Tcp.WithoutLobbyRequest), global::Protobuf.Tcp.WithoutLobbyRequest.Parser, new[]{ "JoinLobbyRequest", "CreateLobbyRequest", "MyAddressInfoRequest" }, new[]{ "Message" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Protobuf.Tcp.WithoutLobbyRequest.Types.JoinLobbyRequest), global::Protobuf.Tcp.WithoutLobbyRequest.Types.JoinLobbyRequest.Parser, new[]{ "LobbyId", "Password" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Protobuf.Tcp.WithoutLobbyRequest.Types.CreateLobbyRequest), global::Protobuf.Tcp.WithoutLobbyRequest.Types.CreateLobbyRequest.Parser, new[]{ "Password", "Capacity" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Protobuf.Tcp.WithoutLobbyRequest.Types.MyAddressInfoRequest), global::Protobuf.Tcp.WithoutLobbyRequest.Types.MyAddressInfoRequest.Parser, null, null, null, null, null)}),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protobuf.Tcp.LobbyInfo), global::Protobuf.Tcp.LobbyInfo.Parser, new[]{ "LobbyId", "Capacity", "HostId", "PeerIds" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protobuf.Tcp.JoinLobbyResponse), global::Protobuf.Tcp.JoinLobbyResponse.Parser, new[]{ "LobbyInfo" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protobuf.Tcp.CreateLobbyResponse), global::Protobuf.Tcp.CreateLobbyResponse.Parser, new[]{ "LobbyId" }, null, null, null, null),
@@ -1021,6 +1024,9 @@ namespace Protobuf.Tcp {
         case MessageOneofCase.CreateLobbyRequest:
           CreateLobbyRequest = other.CreateLobbyRequest.Clone();
           break;
+        case MessageOneofCase.MyAddressInfoRequest:
+          MyAddressInfoRequest = other.MyAddressInfoRequest.Clone();
+          break;
       }
 
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -1053,12 +1059,24 @@ namespace Protobuf.Tcp {
       }
     }
 
+    /// <summary>Field number for the "my_address_info_request" field.</summary>
+    public const int MyAddressInfoRequestFieldNumber = 3;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Protobuf.Tcp.WithoutLobbyRequest.Types.MyAddressInfoRequest MyAddressInfoRequest {
+      get { return messageCase_ == MessageOneofCase.MyAddressInfoRequest ? (global::Protobuf.Tcp.WithoutLobbyRequest.Types.MyAddressInfoRequest) message_ : null; }
+      set {
+        message_ = value;
+        messageCase_ = value == null ? MessageOneofCase.None : MessageOneofCase.MyAddressInfoRequest;
+      }
+    }
+
     private object message_;
     /// <summary>Enum of possible cases for the "message" oneof.</summary>
     public enum MessageOneofCase {
       None = 0,
       JoinLobbyRequest = 1,
       CreateLobbyRequest = 2,
+      MyAddressInfoRequest = 3,
     }
     private MessageOneofCase messageCase_ = MessageOneofCase.None;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1087,6 +1105,7 @@ namespace Protobuf.Tcp {
       }
       if (!object.Equals(JoinLobbyRequest, other.JoinLobbyRequest)) return false;
       if (!object.Equals(CreateLobbyRequest, other.CreateLobbyRequest)) return false;
+      if (!object.Equals(MyAddressInfoRequest, other.MyAddressInfoRequest)) return false;
       if (MessageCase != other.MessageCase) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -1096,6 +1115,7 @@ namespace Protobuf.Tcp {
       int hash = 1;
       if (messageCase_ == MessageOneofCase.JoinLobbyRequest) hash ^= JoinLobbyRequest.GetHashCode();
       if (messageCase_ == MessageOneofCase.CreateLobbyRequest) hash ^= CreateLobbyRequest.GetHashCode();
+      if (messageCase_ == MessageOneofCase.MyAddressInfoRequest) hash ^= MyAddressInfoRequest.GetHashCode();
       hash ^= (int) messageCase_;
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -1121,6 +1141,10 @@ namespace Protobuf.Tcp {
         output.WriteRawTag(18);
         output.WriteMessage(CreateLobbyRequest);
       }
+      if (messageCase_ == MessageOneofCase.MyAddressInfoRequest) {
+        output.WriteRawTag(26);
+        output.WriteMessage(MyAddressInfoRequest);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1138,6 +1162,10 @@ namespace Protobuf.Tcp {
         output.WriteRawTag(18);
         output.WriteMessage(CreateLobbyRequest);
       }
+      if (messageCase_ == MessageOneofCase.MyAddressInfoRequest) {
+        output.WriteRawTag(26);
+        output.WriteMessage(MyAddressInfoRequest);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -1152,6 +1180,9 @@ namespace Protobuf.Tcp {
       }
       if (messageCase_ == MessageOneofCase.CreateLobbyRequest) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(CreateLobbyRequest);
+      }
+      if (messageCase_ == MessageOneofCase.MyAddressInfoRequest) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(MyAddressInfoRequest);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1176,6 +1207,12 @@ namespace Protobuf.Tcp {
             CreateLobbyRequest = new global::Protobuf.Tcp.WithoutLobbyRequest.Types.CreateLobbyRequest();
           }
           CreateLobbyRequest.MergeFrom(other.CreateLobbyRequest);
+          break;
+        case MessageOneofCase.MyAddressInfoRequest:
+          if (MyAddressInfoRequest == null) {
+            MyAddressInfoRequest = new global::Protobuf.Tcp.WithoutLobbyRequest.Types.MyAddressInfoRequest();
+          }
+          MyAddressInfoRequest.MergeFrom(other.MyAddressInfoRequest);
           break;
       }
 
@@ -1211,6 +1248,15 @@ namespace Protobuf.Tcp {
             CreateLobbyRequest = subBuilder;
             break;
           }
+          case 26: {
+            global::Protobuf.Tcp.WithoutLobbyRequest.Types.MyAddressInfoRequest subBuilder = new global::Protobuf.Tcp.WithoutLobbyRequest.Types.MyAddressInfoRequest();
+            if (messageCase_ == MessageOneofCase.MyAddressInfoRequest) {
+              subBuilder.MergeFrom(MyAddressInfoRequest);
+            }
+            input.ReadMessage(subBuilder);
+            MyAddressInfoRequest = subBuilder;
+            break;
+          }
         }
       }
     #endif
@@ -1241,6 +1287,15 @@ namespace Protobuf.Tcp {
             }
             input.ReadMessage(subBuilder);
             CreateLobbyRequest = subBuilder;
+            break;
+          }
+          case 26: {
+            global::Protobuf.Tcp.WithoutLobbyRequest.Types.MyAddressInfoRequest subBuilder = new global::Protobuf.Tcp.WithoutLobbyRequest.Types.MyAddressInfoRequest();
+            if (messageCase_ == MessageOneofCase.MyAddressInfoRequest) {
+              subBuilder.MergeFrom(MyAddressInfoRequest);
+            }
+            input.ReadMessage(subBuilder);
+            MyAddressInfoRequest = subBuilder;
             break;
           }
         }
@@ -1661,6 +1716,142 @@ namespace Protobuf.Tcp {
                 Capacity = input.ReadInt32();
                 break;
               }
+            }
+          }
+        }
+        #endif
+
+      }
+
+      public sealed partial class MyAddressInfoRequest : pb::IMessage<MyAddressInfoRequest>
+      #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+          , pb::IBufferMessage
+      #endif
+      {
+        private static readonly pb::MessageParser<MyAddressInfoRequest> _parser = new pb::MessageParser<MyAddressInfoRequest>(() => new MyAddressInfoRequest());
+        private pb::UnknownFieldSet _unknownFields;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pb::MessageParser<MyAddressInfoRequest> Parser { get { return _parser; } }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pbr::MessageDescriptor Descriptor {
+          get { return global::Protobuf.Tcp.WithoutLobbyRequest.Descriptor.NestedTypes[2]; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        pbr::MessageDescriptor pb::IMessage.Descriptor {
+          get { return Descriptor; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public MyAddressInfoRequest() {
+          OnConstruction();
+        }
+
+        partial void OnConstruction();
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public MyAddressInfoRequest(MyAddressInfoRequest other) : this() {
+          _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public MyAddressInfoRequest Clone() {
+          return new MyAddressInfoRequest(this);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override bool Equals(object other) {
+          return Equals(other as MyAddressInfoRequest);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public bool Equals(MyAddressInfoRequest other) {
+          if (ReferenceEquals(other, null)) {
+            return false;
+          }
+          if (ReferenceEquals(other, this)) {
+            return true;
+          }
+          return Equals(_unknownFields, other._unknownFields);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override int GetHashCode() {
+          int hash = 1;
+          if (_unknownFields != null) {
+            hash ^= _unknownFields.GetHashCode();
+          }
+          return hash;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override string ToString() {
+          return pb::JsonFormatter.ToDiagnosticString(this);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void WriteTo(pb::CodedOutputStream output) {
+        #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+          output.WriteRawMessage(this);
+        #else
+          if (_unknownFields != null) {
+            _unknownFields.WriteTo(output);
+          }
+        #endif
+        }
+
+        #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+          if (_unknownFields != null) {
+            _unknownFields.WriteTo(ref output);
+          }
+        }
+        #endif
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int CalculateSize() {
+          int size = 0;
+          if (_unknownFields != null) {
+            size += _unknownFields.CalculateSize();
+          }
+          return size;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(MyAddressInfoRequest other) {
+          if (other == null) {
+            return;
+          }
+          _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(pb::CodedInputStream input) {
+        #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+          input.ReadRawMessage(this);
+        #else
+          uint tag;
+          while ((tag = input.ReadTag()) != 0) {
+            switch(tag) {
+              default:
+                _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+                break;
+            }
+          }
+        #endif
+        }
+
+        #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+          uint tag;
+          while ((tag = input.ReadTag()) != 0) {
+            switch(tag) {
+              default:
+                _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+                break;
             }
           }
         }
