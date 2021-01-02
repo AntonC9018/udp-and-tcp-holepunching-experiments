@@ -18,7 +18,8 @@ namespace Tcp_Test.Client
     {
         public int id;
         public System.Net.IPEndPoint server_endpoint;
-        public TcpClient client;
+        public Socket client;
+        public NetworkStream stream;
 
         public System.Net.IPAddress private_address;
         public Protobuf.Tcp.IPEndpoint private_endpoint;
@@ -37,32 +38,37 @@ namespace Tcp_Test.Client
             throw new System.Exception("Failed to get local IP");
         }
 
+        public Socket CreateSocket()
+        {
+            var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
+#if (LINUX)
+            socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseUnicastPort, 1);
+#endif
+            return socket;
+        }
+
         public Client(IPEndPoint server_endpoint)
         {
             this.server_endpoint = server_endpoint;
             this.private_address = GetLocalIp();
-            this.client = new TcpClient();
+            this.client = CreateSocket();
             this.id = new Random().Next();
             this.state = Tcp_State.Connecting;
         }
 
         public InitializationResponse ConnectToServer()
         {
-            var socket = client.Client;
-            socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
-#if (LINUX)
-            socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseUnicastPort, 1);
-#endif
             client.Connect(server_endpoint);
 
-            private_address = ((IPEndPoint)client.Client.LocalEndPoint).Address.MapToIPv4();
+            private_address = ((IPEndPoint)client.LocalEndPoint).Address.MapToIPv4();
 
             this.private_endpoint = new IPEndpoint
             {
                 Address = private_address.Convert(),
-                Port = ((IPEndPoint)client.Client.LocalEndPoint).Port
+                Port = ((IPEndPoint)client.LocalEndPoint).Port
             };
-            System.Console.WriteLine($"{client.Client.LocalEndPoint}");
+            System.Console.WriteLine($"{client.LocalEndPoint}");
 
             System.Console.WriteLine($"Local endpoint: {private_endpoint.GetAddress()}:{private_endpoint.Port}");
 
@@ -73,7 +79,7 @@ namespace Tcp_Test.Client
                 PrivateEndpoint = private_endpoint
             };
 
-            NetworkStream stream = client.GetStream();
+            stream = new NetworkStream(client);
             info.WriteDelimitedTo(stream);
 
             var response = InitializationResponse.Parser.ParseDelimitedFrom(stream);
@@ -93,7 +99,6 @@ namespace Tcp_Test.Client
 
             System.Console.WriteLine($"Joining lobby {id}");
 
-            var stream = client.GetStream();
             request.WriteDelimitedTo(stream);
 
             var response = JoinLobbyResponse.Parser.ParseDelimitedFrom(stream);
@@ -111,7 +116,6 @@ namespace Tcp_Test.Client
 
         public bool TryCreateLobby(string password)
         {
-            var stream = client.GetStream();
             var request = new WithoutLobbyRequest();
             var message = new CreateLobbyRequest();
 
@@ -142,7 +146,6 @@ namespace Tcp_Test.Client
             {
                 throw new System.Exception("Must be host to start the lobby");
             }
-            var stream = client.GetStream();
             var request = new GoRequest();
             var outerRequest = new HostWithinLobbyRequest();
             outerRequest.GoRequest = request;
@@ -174,7 +177,6 @@ namespace Tcp_Test.Client
         // if there is unexpected data or end of stream, we just throw and get disconnected
         public T ReceiveMessage<T>() where T : IMessage<T>, new()
         {
-            var stream = client.GetStream();
             try
             {
 
@@ -250,7 +252,7 @@ namespace Tcp_Test.Client
                 case GoResponse:
                     if (response.GoResponse.PeerAddressInfo.Count > 0)
                     {
-                        var tasks = new Task<TcpClient>[response.GoResponse.PeerAddressInfo.Count];
+                        var tasks = new Task<Socket>[response.GoResponse.PeerAddressInfo.Count];
                         for (int i = 0; i < tasks.Length; i++)
                         {
                             var info = response.GoResponse.PeerAddressInfo[i];
@@ -273,33 +275,35 @@ namespace Tcp_Test.Client
             }
         }
 
-        public TcpClient EstablishOutboundTcp(AddressInfoMessage info)
+        public Socket EstablishOutboundTcp(AddressInfoMessage info)
         {
-            TcpClient private_client = new TcpClient();
-            TcpClient public_client = new TcpClient();
-            System.Console.WriteLine(((IPEndPoint)client.Client.LocalEndPoint));
-            TcpListener listener = new TcpListener(System.Net.IPAddress.Any, private_endpoint.Port);
-            listener.Start();
-            System.Console.WriteLine($"Listener endpoint: {listener.Server.LocalEndPoint}");
+            Socket private_client = CreateSocket();
+            Socket public_client = CreateSocket();
+            Socket listener = CreateSocket();
 
-            Func<Task<TcpClient>>[] funcs = new Func<Task<TcpClient>>[]
+            private_client.Bind(client.LocalEndPoint);
+            public_client.Bind(client.LocalEndPoint);
+            listener.Bind(client.LocalEndPoint);
+            listener.Listen(1);
+
+            Func<Task<Socket>>[] funcs = new Func<Task<Socket>>[]
             {
                 () => Task.Run(() =>
                 {
-                    System.Console.WriteLine($"Sending connection request to {info.PrivateEndpoint.Convert()} from {private_client.Client.LocalEndPoint}");
+                    System.Console.WriteLine($"Sending connection request to {info.PrivateEndpoint.Convert()} from {private_client.LocalEndPoint}");
                     private_client.Connect(info.PrivateEndpoint.Convert());
                     return private_client;
                 }),
                 () => Task.Run(() =>
                 {
-                    System.Console.WriteLine($"Sending connection request to {info.PublicEndpoint.Convert()} from {public_client.Client.LocalEndPoint}");
+                    System.Console.WriteLine($"Sending connection request to {info.PublicEndpoint.Convert()} from {public_client.LocalEndPoint}");
                     public_client.Connect(info.PublicEndpoint.Convert());
                     return public_client;
                 }),
-                () => Task.Run(() => listener.AcceptTcpClient())
+                () => Task.Run(() => listener.Accept())
             };
 
-            Task<TcpClient>[] tasks = new Task<TcpClient>[]
+            Task<Socket>[] tasks = new Task<Socket>[]
             {
                 funcs[0](),
                 funcs[1](),
